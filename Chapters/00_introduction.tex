@@ -1,0 +1,62 @@
+% ---------------------------------------------------------------------------
+% INTRODUCTION (unnumbered)
+% Aim: 3-5 pages. Why the problem matters, what is missing, what this thesis does.
+% ---------------------------------------------------------------------------
+
+\section*{Motivation}
+
+Over the last three decades, orbital and impact measurements have shown that the polar regions of the Moon contain water ice. Neutron spectrometers detected hydrogen enrichment at both poles~\cite{feldman1998,mitrofanov2010}. The LCROSS impact into the permanently shadowed crater Cabeus excavated regolith containing about 5.6\,wt\% of water ice~\cite{colaprete2010}, and near-infrared spectra revealed ice exposed at the surface of the coldest polar craters~\cite{li2018}. This ice is stored in permanently shadowed regions and in the shallow subsurface of the polar terrains, where temperatures stay between about 40 and 110\,K~\cite{paige2010,williams2019}.
+
+Water is the most valuable resource on the Moon. It can provide drinking water and oxygen for crews and, split into hydrogen and oxygen, rocket propellant. For this reason, the main lunar exploration programmes plan to land near the south pole and to extract ice in situ (in-situ resource utilisation, ISRU). Every step of this activity depends on how icy regolith deforms:
+\begin{itemize}
+    \item excavators and drills must break and remove it;
+    \item rovers and landing pads load its surface;
+    \item habitats, processing plants and antennas need foundations that will rest on it, or in it, for years.
+\end{itemize}
+In the low lunar gravity, the overburden stress, and therefore the confinement of the soil, is about one sixth of that at the same depth on Earth. Foundations and anchors will have to reach deeper to find adequate support, and are likely to meet ice-bearing layers.
+
+Ice creeps. At any temperature above absolute zero and under any sustained stress, it deforms with time, at a rate that increases steeply with stress and temperature~\cite{glen1955,goldsby2001}. A structure resting on icy regolith will therefore keep settling after construction. The heat released by a habitat or a processing plant will warm the ground and accelerate this creep. Designing for these conditions requires a description of how icy regolith compacts and creeps over time, as a function of stress, temperature and ice content. Strength alone is not enough.
+
+\section*{Problem statement}
+
+Most mechanical data on icy lunar simulants come from strength tests designed to assess excavation: unconfined compression, indentation and cone penetration tests~\cite{gertsch2006,pitcher2016,atkinson2020,liu2022,ricardo2026}. These tests share three features that limit their use for the problem above.
+\begin{enumerate}
+    \item \textbf{Ice morphology.} Most samples are ice-cemented: liquid water is mixed with the simulant and frozen. On the Moon liquid water is not stable, and ice was most likely deposited from vapour and then mixed with the regolith by impacts~\cite{cannon2020}. The morphology of the ice changes the strength by orders of magnitude at the same ice content~\cite{ricardo2026}, so data on ice-cemented samples cannot be transferred directly to lunar conditions.
+    \item \textbf{Time dependence.} Strength is measured at a single rate. The time-dependent behaviour, which controls the long-term settlement of structures, has been measured only in a few relaxation tests~\cite{atkinson2020}.
+    \item \textbf{Confinement.} Almost all tests are unconfined. Below the surface, the soil is laterally confined, and its behaviour under one-dimensional (oedometric) compression is the reference for settlement analyses.
+\end{enumerate}
+The large body of knowledge on terrestrial frozen soils does not fill this gap. It concerns mostly saturated, ice-cemented soils close to $0\,^\circ$C, where unfrozen water dominates the response~\cite{andersland2004,arenson2007}. The densification of granular ice under constant stress is well understood for polar snow and firn~\cite{herron1980,arnaud2000}, but it has not been studied in mixtures with lunar regolith. As a result, there are no oedometric creep or compaction data on granular ice--regolith mixtures at low temperature, and no calibrated law that describes their time-dependent compaction as a function of stress, temperature, porosity and ice content.
+
+\section*{Objectives}
+
+This thesis addresses the gap with laboratory compaction tests on granular mixtures of ice and the lunar highlands simulant LHS-1. The work was carried out at the Lamont--Doherty Earth Observatory of Columbia University, in a laboratory that had previously used the same compaction vessel to study the densification of synthetic firn~\cite{skarbek2025data}. The objectives are three.
+\begin{enumerate}
+    \item \textbf{Bring a low-temperature uniaxial compaction vessel into operation and characterise it.} The vessel applies a constant axial stress through a pressurised oil chamber and a piston, under rigid lateral confinement, at temperatures down to $-40\,^\circ$C. Before it can give reliable data on a new material, the losses between the oil pressure and the stress on the sample (seal friction), the compliance of the oil circuit, the range of the displacement transducer and the thermal drift must be measured, and a test procedure must be defined.
+    \item \textbf{Measure the compaction of ice--regolith mixtures} as a function of axial stress, temperature and ice content, from the initial loose state through the time-dependent densification under constant stress. The results are expressed in the soil-mechanics framework of void ratio, compression index and coefficient of secondary compression, so that they can be compared with both granular ice and frozen soils.
+    \item \textbf{Calibrate a temperature-dependent densification law} usable in numerical analyses. The law relates the compaction rate to stress through a power law and to temperature through an Arrhenius term, and lets it depend on porosity and ice content. It is formulated so that it can be implemented in a finite element code with temperature as an input field.
+\end{enumerate}
+
+\section*{Scope and limitations}
+
+The scope of the work is limited in the following ways.
+\begin{itemize}
+    \item \textbf{Oedometric conditions only.} The vessel imposes zero lateral strain and measures only the axial stress. The radial stress is not measured, so the results describe one-dimensional compression and not the full three-dimensional behaviour. Friction between the sample and the chamber wall reduces the stress towards the bottom of the sample. It is minimised but not eliminated, and its effect is discussed in Chapter~\ref{ch:characterisation}.
+    \item \textbf{Laboratory temperatures.} The tests are carried out between $-10$ and $-40\,^\circ$C, much warmer than the lunar polar subsurface ($-235$ to $-165\,^\circ$C). The results apply to lunar conditions only through the temperature dependence of the calibrated law. The extrapolation is physically motivated, because the creep of ice remains thermally activated down to cryogenic temperatures~\cite{durham1997}, but it carries an uncertainty that cannot be removed with the present apparatus.
+    \item \textbf{One simulant and one ice morphology.} Only LHS-1 is used, as representative of the highland terrains that surround the lunar poles. The ice is granular: crushed, sieved and mixed dry with the simulant. During compaction the mixture evolves towards a pressure-sintered state. Vapour-deposited and ice-cemented morphologies are not studied. Since granular mixtures are among the weakest, the results are expected to be conservative for design.
+    \item \textbf{Stresses and durations.} The axial stress is limited to 3.4\,MPa by the pressure controller, and each test lasts from one to a few days. These stresses cover the range of foundation and equipment loads near the surface, but the long-term behaviour over the lifetime of a structure is obtained by extrapolating the log-time compaction observed in the laboratory.
+    \item \textbf{Number of tests.} The experimental campaign was carried out within a limited period, and each test occupies the vessel for one to several days. The test programme was therefore designed to vary one parameter at a time, with few repetitions.
+\end{itemize}
+
+\section*{Outline of the thesis}
+
+Chapter~\ref{ch:background} reviews the state of the art: the evidence for lunar polar ice and its likely morphology, the properties of lunar regolith and of LHS-1, the rheology of ice with and without particles, the densification of granular ice, the creep of frozen soils with the constitutive models that describe it, and the existing mechanical tests on icy simulants. It closes by defining the research gap.
+
+Chapter~\ref{ch:materials_apparatus} describes the materials (LHS-1, granular ice and their mixtures) and the experimental apparatus: the uniaxial compaction vessel, its loading, displacement-measurement and temperature-control systems, and the data acquisition.
+
+Chapter~\ref{ch:characterisation} presents the characterisation of the apparatus (seal friction, compliance of the oil circuit, range of the displacement transducer, thermal drift and wall friction) and the resulting test procedure and data reduction, including the calculation of the void ratio from the oil volume when the transducer is out of range.
+
+Chapter~\ref{ch:results} reports the results of the compaction tests on pure ice, on dry LHS-1 and on the mixtures, including unloading--reloading stages and post-test measurements, and discusses the effects of stress, temperature and ice content.
+
+Chapter~\ref{ch:modelling} formulates the densification law, calibrates its parameters on the experimental data, compares it with the measurements and discusses its implementation in a finite element code and its implications for lunar engineering.
+
+Chapter~\ref{ch:conclusions} summarises the main findings and gives recommendations for future work. Appendix~\ref{app:protocol} contains the detailed test protocol and Appendix~\ref{app:tests} the log of all the tests carried out, with the calibration data of the apparatus.

@@ -1,0 +1,271 @@
+% A LaTeX template for MSc Thesis submissions to 
+% Politecnico di Milano (PoliMi) - School of Industrial and Information Engineering
+%
+% S. Bonetti, A. Gruttadauria, G. Mescolini, A. Zingaro
+% e-mail: template-tesi-ingind@polimi.it
+%
+% Last Revision: October 2021
+%
+% Copyright 2021 Politecnico di Milano, Italy. NC-BY
+
+\documentclass{Configuration_Files/PoliMi3i_thesis}
+
+%------------------------------------------------------------------------------
+%	REQUIRED PACKAGES AND  CONFIGURATIONS
+%------------------------------------------------------------------------------
+
+% CONFIGURATIONS
+\usepackage{parskip} % For paragraph layout
+\usepackage{setspace} % For using single or double spacing
+\usepackage{emptypage} % To insert empty pages
+\usepackage{multicol} % To write in multiple columns (executive summary)
+\setlength\columnsep{15pt} % Column separation in executive summary
+\setlength\parindent{0pt} % Indentation
+\raggedbottom  
+
+% PACKAGES FOR TITLES
+\usepackage{titlesec}
+% \titlespacing{\section}{left spacing}{before spacing}{after spacing}
+\titlespacing{\section}{0pt}{3.3ex}{2ex}
+\titlespacing{\subsection}{0pt}{3.3ex}{1.65ex}
+\titlespacing{\subsubsection}{0pt}{3.3ex}{1ex}
+\usepackage{color}
+
+% PACKAGES FOR LANGUAGE AND FONT
+\usepackage[english]{babel} % The document is in English  
+\usepackage[utf8]{inputenc} % UTF8 encoding
+\usepackage[T1]{fontenc} % Font encoding
+\usepackage[11pt]{moresize} % Big fonts
+
+% PACKAGES FOR IMAGES
+\usepackage{graphicx}
+\usepackage{transparent} % Enables transparent images
+\usepackage{eso-pic} % For the background picture on the title page
+\usepackage{subfig} % Numbered and caption subfigures using \subfloat.
+\usepackage{tikz} % A package for high-quality hand-made figures.
+\usetikzlibrary{}
+\graphicspath{{./Images/}} % Directory of the images
+\usepackage{caption} % Coloured captions
+\usepackage{xcolor} % Coloured captions
+\usepackage{amsthm,thmtools,xcolor} % Coloured "Theorem"
+\usepackage{float}
+
+% STANDARD MATH PACKAGES
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage[overload]{empheq} % For braced-style systems of equations.
+\usepackage{fix-cm} % To override original LaTeX restrictions on sizes
+
+% PACKAGES FOR TABLES
+\usepackage{tabularx}
+\usepackage{longtable} % Tables that can span several pages
+\usepackage{colortbl}
+
+% PACKAGES FOR ALGORITHMS (PSEUDO-CODE)
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% PACKAGES FOR REFERENCES & BIBLIOGRAPHY
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=black]{hyperref} % Adds clickable links at references
+\usepackage{cleveref}
+\usepackage[square, numbers, sort&compress]{natbib} % Square brackets, citing references with numbers, citations sorted by appearance in the text and compressed
+\bibliographystyle{abbrvnat} % You may use a different style adapted to your field
+
+% OTHER PACKAGES
+\usepackage{pdfpages} % To include a pdf file
+\usepackage{afterpage}
+\usepackage{lipsum} % DUMMY PACKAGE
+\usepackage{fancyhdr} % For the headers
+\fancyhf{}
+
+% Input of configuration file. Do not change config.tex file unless you really know what you are doing. 
+\input{Configuration_Files/config}
+
+%----------------------------------------------------------------------------
+%	NEW COMMANDS DEFINED
+%----------------------------------------------------------------------------
+
+% EXAMPLES OF NEW COMMANDS
+\newcommand{\bea}{\begin{eqnarray}} % Shortcut for equation arrays
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\e}[1]{\times 10^{#1}}  % Powers of 10 notation
+
+%----------------------------------------------------------------------------
+%	ADD YOUR PACKAGES (be careful of package interaction)
+%----------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------
+%	ADD YOUR DEFINITIONS AND COMMANDS (be careful of existing commands)
+%----------------------------------------------------------------------------
+
+% Placeholder marker for results still to be filled in (remove when the text is final)
+\providecommand{\tbd}[1]{\textcolor{red}{[#1]}}
+
+%----------------------------------------------------------------------------
+%	BEGIN OF YOUR DOCUMENT
+%----------------------------------------------------------------------------
+
+\begin{document}
+
+\fancypagestyle{plain}{%
+\fancyhf{} % Clear all header and footer fields
+\fancyhead[RO,RE]{\thepage} %RO=right odd, RE=right even
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+%----------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------
+
+\pagestyle{empty} % No page numbers
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the preamble pages
+
+\puttitle{
+	title=Geotechnical Behaviour of Icy-Lunar Regolith, % Title of the thesis
+	name=Leonardo Sacco, % Author Name and Surname
+	course=Geotechnical Engineering - Ingegneria Geotecnica, % Study Programme (in Italian)
+	ID  = 280654,  % Student ID number (numero di matricola)
+	advisor= Prof. Nicola Cefis, % Supervisor name
+	coadvisor={Christine McCarthy, Marco Caruso}, % Co-Supervisor name, remove this line if there is none
+	academicyear={2026-27},  % Academic Year
+} % These info will be put into your Title page 
+
+%----------------------------------------------------------------------------
+%	PREAMBLE PAGES: ABSTRACT (inglese e italiano), EXECUTIVE SUMMARY
+%----------------------------------------------------------------------------
+\startpreamble
+\setcounter{page}{1} % Set page counter to 1
+
+% ABSTRACT IN ENGLISH
+% Passages wrapped in \tbd{...} are placeholders: replace them with the actual results, then remove the macro.
+\chapter*{Abstract}
+Water ice mixed with regolith in the permanently shadowed regions of the Moon is a prime target for in-situ resource utilisation, yet the time-dependent mechanical behaviour of icy lunar regolith remains poorly constrained. Existing data consist mainly of strength measurements on ice-cemented simulants, and almost no creep data exist for confined, granular ice--regolith mixtures at low temperature. This thesis addresses that gap through laboratory experiments and constitutive modelling.
+
+Mixtures of granular water ice (250--500~$\mu$m) and the lunar highlands simulant LHS-1 were tested in a uniaxial (oedometric) compaction vessel adapted for sub-freezing operation, at temperatures between $-10$ and $-40~^{\circ}$C and axial stresses up to about 3~MPa. Ice content and temperature were varied systematically, and the results were compared with pure-ice data from the same apparatus. Piston seal friction, system compliance and the usable displacement range were quantified through calibration tests, and the applied stress was corrected accordingly. \tbd{Seal friction was found to be of the order of 0.2--0.4~MPa during sliding and up to about 1.3~MPa at breakaway.}
+
+\tbd{Sample height decreased approximately linearly with the logarithm of time under constant stress. Compaction rates decreased with decreasing temperature and with increasing regolith fraction, with an apparent activation energy of \ldots~kJ/mol and a stress exponent of \ldots.} \tbd{A transition from ice-dominated to skeleton-dominated behaviour was observed at an ice content of about \ldots~wt\%.}
+
+The results were used to calibrate a densification law in which the compaction rate follows a power law in stress and an Arrhenius dependence on temperature, and varies with porosity and ice fraction. The law is suitable for finite-element implementation with temperature as an input field. The limitations of the oedometric configuration (unmeasured radial stress, wall friction) and of the extrapolation to lunar cryogenic temperatures are discussed.
+\\
+\\
+\textbf{Keywords:} lunar regolith, water ice, creep, oedometric compaction, constitutive modelling, in-situ resource utilisation % Keywords
+
+% ABSTRACT IN ITALIAN
+\chapter*{Abstract in lingua italiana}
+Il ghiaccio d'acqua mescolato alla regolite nelle regioni lunari permanentemente in ombra è una risorsa promettente per l'utilizzo in situ, ma il comportamento meccanico nel tempo della regolite ghiacciata è ancora poco noto. I dati disponibili riguardano soprattutto la resistenza di simulanti cementati dal ghiaccio, e mancano quasi del tutto dati di creep su miscele granulari confinate a bassa temperatura. Questa tesi affronta tale lacuna con prove di laboratorio e modellazione costitutiva.
+
+Miscele di ghiaccio granulare (250--500~$\mu$m) e del simulante lunare LHS-1 sono state provate in una cella di compattazione uniassiale (edometrica) adattata alle basse temperature, tra $-10$ e $-40~^{\circ}$C e con sforzi assiali fino a circa 3~MPa. Contenuto di ghiaccio e temperatura sono stati variati in modo sistematico, e i risultati confrontati con dati sul solo ghiaccio ottenuti con lo stesso apparato. Attrito delle guarnizioni del pistone, cedevolezza del sistema e campo utile di misura dello spostamento sono stati quantificati con prove di taratura, e lo sforzo applicato è stato corretto di conseguenza. \tbd{L'attrito delle guarnizioni vale 0.2--0.4~MPa in scorrimento e fino a circa 1.3~MPa al primo distacco.}
+
+\tbd{Sotto sforzo costante l'altezza dei provini cala in modo circa lineare con il logaritmo del tempo. La velocità di compattazione cala con la temperatura e al crescere della frazione di regolite, con un'energia di attivazione apparente di \ldots~kJ/mol e un esponente dello sforzo pari a \ldots.} \tbd{La transizione da un comportamento dominato dal ghiaccio a uno dominato dallo scheletro solido avviene intorno al \ldots~\% in massa di ghiaccio.}
+
+I risultati sono serviti a calibrare una legge di densificazione in cui la velocità di compattazione segue una legge di potenza nello sforzo e una dipendenza di Arrhenius dalla temperatura, e varia con porosità e frazione di ghiaccio. La legge è implementabile agli elementi finiti con la temperatura come campo in ingresso. Si discutono i limiti della prova edometrica (sforzo radiale non misurato, attrito sulla parete) e dell'estrapolazione alle temperature lunari.
+\\
+\\
+\textbf{Parole chiave:} regolite lunare, ghiaccio d'acqua, creep, compattazione edometrica, modellazione costitutiva, utilizzo delle risorse in situ % Keywords (italian)
+
+%----------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES/SYMBOLS
+%----------------------------------------------------------------------------
+
+% TABLE OF CONTENTS
+\thispagestyle{empty}
+\tableofcontents % Table of contents 
+\thispagestyle{empty}
+\cleardoublepage
+
+%-------------------------------------------------------------------------
+%	THESIS MAIN TEXT
+%-------------------------------------------------------------------------
+% In the main text of your thesis you can write the chapters in two different ways:
+%
+%(1) As presented in this template you can write:
+%    \chapter{Title of the chapter}
+%    *body of the chapter*
+%
+%(2) You can write your chapter in a separated .tex file and then include it in the main file with the following command:
+%    \chapter{Title of the chapter}
+%    \input{chapter_file.tex}
+%
+% Especially for long thesis, we recommend you the second option.
+
+\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+% --------------------------------------------------------------------------
+% NUMBERED CHAPTERS % Regular chapters following
+% --------------------------------------------------------------------------
+\chapter*{Introduction}
+\label{ch:introduction}%
+\input{Chapters/00_introduction}
+
+\input{Chapters/01_background}
+
+\input{Chapters/02_materials_apparatus}
+
+\input{Chapters/03_characterisation_procedure}
+
+\input{Chapters/04_results}
+
+\input{Chapters/05_modelling}
+
+\input{Chapters/06_conclusions}
+
+%-------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%-------------------------------------------------------------------------
+
+\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+\bibliography{Thesis_bibliography} % The references information are stored in the file named "Thesis_bibliography.bib"
+
+%-------------------------------------------------------------------------
+%	APPENDICES
+%-------------------------------------------------------------------------
+
+\cleardoublepage
+\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+\appendix
+\input{Chapters/A_protocol}
+
+\input{Chapters/B_tests}
+
+
+% LIST OF FIGURES
+\listoffigures
+
+% LIST OF TABLES
+\listoftables
+
+% LIST OF SYMBOLS
+% Write out the List of Symbols in this page
+\chapter*{List of Symbols} % You have to include a chapter for your list of symbols (
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lll}
+        \textbf{Variable} & \textbf{Description} & \textbf{SI unit} \\\hline\\[-9px]
+        $\sigma_a$ & axial stress applied to the sample & Pa \\[2px]
+        $p$ & oil pressure & Pa \\[2px]
+        $\sigma_{seal}$ & piston seal friction, expressed as a pressure & Pa \\[2px]
+        $H$, $H_0$ & sample height, initial sample height & m \\[2px]
+        $\varepsilon$ & axial strain & -- \\[2px]
+        $\dot{\varepsilon}$ & axial strain rate & s$^{-1}$ \\[2px]
+        $\rho$ & bulk density of the sample & kg\,m$^{-3}$ \\[2px]
+        $\phi$ & porosity & -- \\[2px]
+        $T$ & temperature & K \\[2px]
+        $t$ & time & s \\[2px]
+        $A$ & pre-factor of the densification law & Pa$^{-n}$\,s$^{-1}$ \\[2px]
+        $n$ & stress exponent & -- \\[2px]
+        $Q$ & activation energy & J\,mol$^{-1}$ \\[2px]
+        $R$ & universal gas constant & J\,mol$^{-1}$\,K$^{-1}$ \\[2px]
+    \end{tabular}
+\end{table}
+
+% ACKNOWLEDGEMENTS
+\chapter*{Acknowledgements}
+Here you might want to acknowledge someone.
+
+\cleardoublepage
+
+\end{document}

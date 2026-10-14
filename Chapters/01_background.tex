@@ -1,0 +1,360 @@
+\chapter{Background and state of the art}
+\label{ch:background}%
+% Aim: 20-25 pages. Everything the reader needs to judge Chapters 3-5. End with the gap this thesis fills.
+
+This chapter collects the knowledge needed to design, run and interpret the experiments of this thesis. It moves from the lunar setting (where the ice is, how cold it is and in what form it is likely to occur) to the materials (the regolith, its simulant LHS-1 and ice), and then to the mechanics: the creep of ice, the densification of granular ice, the creep of frozen soils and the constitutive models that describe it. The chapter closes with the few mechanical data that exist on icy lunar simulants and with the gap that this work addresses. Only the lunar highlands simulant LHS-1 is used in this thesis, and the review of simulant properties is restricted to it.
+
+% ---------------------------------------------------------------------------
+\section{Water ice on the Moon}
+\label{sec:lunar_ice}
+% ---------------------------------------------------------------------------
+
+\subsection{Evidence for polar ice}
+
+The Moon's spin axis is tilted by only about $1.5^\circ$ to the ecliptic. As a result, the floors of many craters near the poles never receive direct sunlight. These permanently shadowed regions (PSRs) are among the coldest surfaces in the Solar System and act as cold traps: water molecules that reach them, whether delivered by comets and asteroids, produced by the solar wind or released from the interior, can stay there for geological times~\cite{vasavada1999,lucey2022}.
+
+Several independent measurements point to water ice in and around these cold traps:
+\begin{itemize}
+    \item \textbf{Neutron spectroscopy.} Lunar Prospector measured a deficit of epithermal neutrons of 4.6\% over the north pole and 3.0\% over the south pole, interpreted as hydrogen, most plausibly water ice buried under up to about 40\,cm of dry regolith~\cite{feldman1998,feldman2001}. The Lunar Exploration Neutron Detector (LEND) on the Lunar Reconnaissance Orbiter (LRO) refined these maps and gave 0.5--4.0\,wt\% of water ice at the site later hit by LCROSS, depending on the thickness of the dry cover. Several hydrogen-rich areas do not coincide with PSRs~\cite{mitrofanov2010}.
+    \item \textbf{Impact experiment.} In 2009 the LCROSS mission impacted a spent rocket stage into the PSR of Cabeus crater. The ejecta plume contained about $155\pm12$\,kg of water vapour and ice, corresponding to $5.6\pm2.9$\,wt\% of water ice in the regolith, together with other volatiles such as H$_2$S, CO$_2$ and light hydrocarbons~\cite{colaprete2010}.
+    \item \textbf{Surface spectroscopy.} Near-infrared spectra from the Moon Mineralogy Mapper (M$^3$) gave direct evidence of ice exposed at the surface within $20^\circ$ of both poles, only where the annual maximum temperature stays below about 110\,K. Exposed ice was found in only about 3.5\% of the cold traps, and some pixels may contain up to about 30\,wt\% ice~\cite{li2018}. Ultraviolet albedo and temperature data from LRO support patchy surface frost in the south polar region~\cite{hayne2015}.
+\end{itemize}
+
+\subsection{Thermal environment}
+
+The Diviner radiometer on LRO showed that cold-trapping conditions extend beyond the permanently shadowed areas and that, in some craters, temperatures stay below 40\,K throughout the year; the subsurface temperature at the LCROSS impact site was estimated at about 38\,K~\cite{paige2010}. In winter, the area that stays below 110\,K, the commonly used threshold for long-term ice stability, grows by factors of 2.8 in the south and 4.3 in the north~\cite{williams2019}.
+
+Below the surface, the daily and seasonal temperature waves are damped within a few tens of centimetres to about a metre, and the temperature tends to a nearly constant value set by the mean surface energy balance and the internal heat flux. This deep value depends strongly on latitude and local shadowing:
+\begin{itemize}
+    \item at the Apollo~15 and~17 sites (about $26^\circ$N and $20^\circ$N), the heat-flow probes measured $252\pm5$\,K ($-21\,^\circ$C) at 0.83\,m and $256\pm5$\,K ($-17\,^\circ$C) at 1.3\,m~\cite{langseth1976,hayne2017};
+    \item on flat terrain at the poles, models give a stable subsurface temperature of about 93\,K ($-180\,^\circ$C)~\cite{vasavada1999};
+    \item inside PSRs the subsurface stays between about 40 and 110\,K ($-235$ to $-165\,^\circ$C)~\cite{paige2010,williams2019}.
+\end{itemize}
+The value of about $-20\,^\circ$C, often quoted for the lunar subsurface, therefore applies to equatorial and mid-latitude sites. At the polar sites where ice is expected, the ground is more than 100\,K colder. This has two consequences for this thesis. First, the laboratory temperatures used here ($-10$ to $-40\,^\circ$C) are far warmer than the lunar polar subsurface, and the results must be extrapolated with a temperature-dependent law (Sections~\ref{sec:ice_rheology} and~\ref{sec:frozen_soils}). Second, the large temperature gradients near PSR boundaries, and the heat that structures and processing plants would introduce, mean that icy regolith around a lunar installation will not be at a single temperature. A constitutive law with temperature as an explicit input is required.
+
+\subsection{Why the time-dependent behaviour matters}
+
+Water ice is the main target of in-situ resource utilisation (ISRU) on the Moon: it can provide drinking water, oxygen and hydrogen propellant. Extracting it requires excavation, drilling, trafficking and the foundation of plants and habitats on or in ice-bearing ground. The low lunar gravity ($1.62$\,m/s$^2$, about one sixth of Earth's) gives low overburden stresses and therefore little confinement near the surface; to obtain adequate bearing capacity and anchorage, foundations and piles are likely to reach depths where buried ice may be present. Under a sustained load, ice creeps at any stress, and a mixture of ice and regolith will continue to settle over the lifetime of a structure. Strength alone, which is what most existing tests on icy simulants measure (Section~\ref{sec:icy_regolith_data}), does not describe this behaviour.
+
+\subsection{Expected ice contents}
+
+Estimates of the ice content of polar regolith span more than an order of magnitude: below 1\,wt\% from orbital neutron data averaged over large footprints, about 1--4\,wt\% from LEND, $5.6\pm2.9$\,wt\% from the single LCROSS sample, and up to about 30\,wt\% in exposed surface patches~\cite{feldman2001,mitrofanov2010,colaprete2010,li2018}. Models of ice delivery and impact gardening predict a strongly layered and laterally variable distribution~\cite{cannon2020,cannonbritt2020}. In this thesis, ice contents in the range of a few to a few tens of percent by mass are therefore considered realistic, and the definition of ice content must always be stated, as discussed in Section~\ref{subsec:ice_content_def}.
+
+\subsection{Ice morphology in regolith}
+\label{subsec:morphology}
+
+The way ice is arranged among the regolith grains, its morphology, is at least as important as its amount. Four idealised morphologies are used in the literature on icy simulants~\cite{johnson2024,ricardo2026}:
+\begin{itemize}
+    \item \textbf{ice-cemented}: liquid water is mixed with the soil and frozen, so that ice fills the pores and bonds the grains, as in terrestrial permafrost;
+    \item \textbf{granular} (or unsintered): ice particles are mixed with dry regolith grains, with little or no bonding between them;
+    \item \textbf{pressure-sintered}: a granular mixture is compacted so that ice grains bond to each other and to the regolith at their contacts;
+    \item \textbf{vapour-deposited}: water vapour condenses directly on cold regolith grains, forming coatings and necks between them.
+\end{itemize}
+
+On the Moon, liquid water is not stable at the surface: in the absence of an atmosphere, ice sublimates without melting. Ice is therefore thought to have been emplaced mainly by condensation of vapour in cold traps, and then mixed, buried and redistributed by impacts. Models of this process predict ice-rich layers buried under younger, ice-poor ejecta, and deposits that are reworked into mixtures of ice and regolith fragments~\cite{cannon2020,cannonbritt2020}. Pore-filling ice cemented by a liquid phase, the usual morphology in terrestrial permafrost and the easiest to make in the laboratory, is unlikely to be representative of lunar conditions.
+
+The mechanical consequences are large. In the only single-laboratory study of all four morphologies, carried out on LHS-1 at about $-180\,^\circ$C with cone penetration tests, ice-cemented samples were several orders of magnitude stronger than the others. A vapour-deposited sample with 6.88\,wt\% ice was 3.92 times stronger than a pressure-sintered sample with 8\,wt\% ice~\cite{ricardo2026}. The specific energy for excavation rose from 2.74 to 143\,J/g between 1 and 12\,wt\% ice for ice-cemented samples, whereas it stayed below 0.4\,J/g for pressure-sintered ones~\cite{ricardo2026}.
+
+This thesis studies \textbf{granular mixtures}: ice crushed and sieved to a grain size comparable to that of the coarser regolith fraction, mixed with dry LHS-1 and compacted in the test itself. During the test the mixture evolves from an unbonded granular state towards a pressure-sintered one. Among the four morphologies, this is the weakest and closest to the reworked, gardened deposits expected in the upper metres of polar regolith. Results obtained on granular mixtures are therefore expected to be conservative, that is, to give more deformation and less strength than vapour-deposited or ice-cemented material with the same ice content.
+
+\subsection{Defining the ice content}
+\label{subsec:ice_content_def}
+
+Studies on icy soils use different definitions of ice content, and much of the apparent disagreement between them comes from this. With $m_i$ and $m_s$ the masses of ice and dry soil, $\rho_i = 0.917$\,g/cm$^3$ the density of ice and $\rho_s$ the grain density of the soil, the following quantities are used in this thesis:
+\begin{align}
+    w_i &= \frac{m_i}{m_s} && \text{(gravimetric ice content, geotechnical convention, ``wt\% dry'')},\label{eq:wi}\\
+    x_i &= \frac{m_i}{m_i+m_s} && \text{(mass fraction of ice in the solids)},\label{eq:xi}\\
+    \phi_s &= \frac{m_s/\rho_s}{m_s/\rho_s + m_i/\rho_i} && \text{(volume fraction of soil in the solid phases)},\label{eq:phis}\\
+    S_i &= \frac{V_i}{V_v} = \frac{w_i\,\rho_s}{e_s\,\rho_i} && \text{(ice saturation of the soil pores)},\label{eq:Si}
+\end{align}
+where $V_i$ is the volume of ice, $V_v$ the volume of pores between the soil grains and $e_s$ the void ratio of the soil skeleton alone. Remote-sensing results are usually expressed as $x_i$, geotechnical studies as $w_i$; the two differ by about 10\% of their value at $w_i = 10$\,wt\% and by 30\% at $w_i = 40$\,wt\%.
+
+Equation~\eqref{eq:Si} shows when ice stops being a pore filler. For LHS-1 at a dry density of 1.5\,g/cm$^3$ ($e_s\approx0.83$ with $\rho_s = 2.75$\,g/cm$^3$), the pores are completely filled at $w_i\approx28$\,wt\%. Above this value the mixture is \emph{ice-rich}: the soil grains are no longer in contact, they are suspended in the ice, and the mechanical behaviour is controlled by the ice matrix rather than by the soil skeleton~\cite{ting1983,arenson2007}. The local ice contents of up to 30\,wt\% inferred from M$^3$ data~\cite{li2018} fall at this transition.
+
+% ---------------------------------------------------------------------------
+\section{Lunar regolith and its simulants}
+\label{sec:regolith}
+% ---------------------------------------------------------------------------
+
+\subsection{Lunar regolith}
+
+The lunar regolith is the layer of fragmented, unconsolidated material that covers the bedrock. It is several metres thick, and thicker on the older highlands than on the maria. It has been produced by billions of years of meteorite impacts, which break, melt and weld the rock. Without an atmosphere or liquid water there is no chemical weathering, transport or sorting by wind or water, so the grains are not rounded: lunar soil particles are irregular, angular to subangular and often elongated, with re-entrant surfaces. A large fraction consists of agglutinates, aggregates of mineral and glass fragments bonded by impact-melt glass~\cite{carrier1991}.
+
+The geotechnical properties of the returned Apollo and Luna samples, and of the in-situ measurements, are summarised by Carrier et al.~\cite{carrier1991}:
+\begin{itemize}
+    \item median grain size between 40 and 130\,$\mu$m, on average about 70\,$\mu$m: the soil is a well-graded silty sand;
+    \item specific gravity of the grains of about 3.1, with a range from 2.3 to above 3.2 depending on mineralogy and on the porosity of agglutinates;
+    \item bulk density of $1.50\pm0.05$\,g/cm$^3$ in the top 15\,cm and $1.66\pm0.05$\,g/cm$^3$ in the top 60\,cm, increasing towards about 1.9\,g/cm$^3$ at depth;
+    \item porosity of about 49\% in the top 30\,cm and relative density of about 65\% in the top 15\,cm, rising above 90\% below 30\,cm. Below a few tens of centimetres, the regolith is very dense.
+\end{itemize}
+
+The two main terrains, mare and highlands, differ in composition. The maria are basaltic lava plains rich in pyroxene, olivine and ilmenite. The highlands, which cover most of the lunar surface including the polar regions, are dominated by anorthosite, a rock made mostly of calcium-rich plagioclase feldspar. A highlands simulant is therefore the appropriate choice for the polar regions where ice is expected.
+
+\subsection{The LHS-1 simulant}
+
+Returned lunar samples are too scarce and valuable for destructive geotechnical testing, and research relies on simulants that reproduce some of their properties. LHS-1 (Lunar Highlands Simulant) is produced by Exolith Lab, a spin-off of the University of Central Florida, from terrestrial anorthosite and glass-rich basalt, crushed and blended to approximate the mineralogy and grain size distribution of lunar highland soils~\cite{isachenkov2022,exolithLHS1}. Its main properties are listed in Table~\ref{tab:lhs1}.
+
+\begin{table}[H]
+    \centering
+    \caption{Properties of the LHS-1 lunar highlands simulant. Values from the manufacturer's specification sheet (batch of December 2022)~\cite{exolithLHS1} unless otherwise stated. Properties vary between production batches; the batch used in this work is described in Chapter~\ref{ch:materials_apparatus}.}
+    \label{tab:lhs1}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{5.2cm}|>{\raggedright\arraybackslash}X|}
+        \hline
+        \textbf{Property} & \textbf{Value} \\
+        \hline
+        Mineralogy (wt\%) & anorthosite 74.4, glass-rich basalt 24.7, ilmenite 0.4, pyroxene 0.3, olivine 0.2 \\
+        Main oxides (wt\%) & SiO$_2$ 51.2, Al$_2$O$_3$ 26.6, CaO 12.8, FeO 2.7 \\
+        Grain size range & $<0.04$ to 1000\,$\mu$m \\
+        Mean / median grain size & 90\,$\mu$m / 60\,$\mu$m \\
+        Grain density $\rho_s$ & 2.75\,g/cm$^3$; 2.81 measured by Agarwal et al.~\cite{agarwal2023} \\
+        Uncompacted bulk density & 1.30\,g/cm$^3$ (void ratio 1.1) \\
+        Minimum / maximum dry density & 1.47 / 2.02\,g/cm$^3$~\cite{agarwal2023} \\
+        $e_{\max}$ / $e_{\min}$ & 0.93 / 0.40~\cite{agarwal2023} \\
+        Grain shape & irregular, angular (crushed rock) \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+Compared with real highland soil, LHS-1 has a lower grain density (2.75 against about 3.1) because it contains no metallic iron and fewer dense minerals, and, like most simulants, it lacks agglutinates and the nanophase iron coatings produced by space weathering. Its grains are angular because they are crushed, which reproduces the interlocking that controls the strength of lunar soil, although the detailed shapes differ. The simulant is delivered dry; since it contains glass and fines, it adsorbs atmospheric moisture, and in this thesis it is oven-dried before use (Chapter~\ref{ch:materials_apparatus}).
+
+\subsection{Mechanical behaviour of dry regolith}
+\label{subsec:dry_regolith}
+
+The dry regolith is the end-member with no ice, and its properties set the stiffness and strength of the soil skeleton in the mixtures.
+
+\paragraph{Shear strength.} Lunar soil is frictional, with a small apparent cohesion due to interlocking of the angular grains rather than to bonding. Carrier et al.\ give, as representative fits, a friction angle of $42^\circ$ and a cohesion of 0.5\,kPa at a relative density of about 65\%, and an average of $40^\circ$ and 0.40\,kPa from the Lunokhod rovers~\cite{carrier1991}. For LHS-1, direct shear tests gave friction angles and cohesions similar to those of lunar soil~\cite{longfox2023}. The manufacturer quotes $\varphi = 31.5^\circ$ and $c = 0.31$\,kPa for the loose material~\cite{exolithLHS1}, whereas Agarwal et al.\ measured $\varphi = 38.6^\circ$ and $c = 5.8$\,kPa on compacted specimens~\cite{agarwal2023}. As for any granular soil, the strength depends strongly on density, and the values must be compared at the same density.
+
+\paragraph{Compressibility.} The one-dimensional compressibility of lunar soil depends mainly on its relative density. Carrier et al.\ report compression indices $C_c$ of 0.01--0.11 for Apollo~12 soil and a much wider range, 0.02--0.9, for the Luna samples, with $C_c$ decreasing as relative density increases. The recompression index $C_r$ is between 0 and 0.013, typically 0.003~\cite{carrier1991}. For LHS-1, oedometer tests gave $C_c = 0.134$, with a two-stage response: a sharp drop of void ratio between about 20 and 80\,kPa, attributed to the rearrangement of the loose fabric, followed by a stiffer response~\cite{agarwal2023}.
+
+These values set the reference for the mixtures: a stress of 1--3\,MPa, the range used in this thesis, produces only a limited compaction of dense dry LHS-1. Any additional, time-dependent compaction of the mixtures under the same stress must come from the ice.
+
+% ---------------------------------------------------------------------------
+\section{Rheology of ice}
+\label{sec:ice_rheology}
+% ---------------------------------------------------------------------------
+
+\subsection{Ice as a creeping material}
+
+Natural ice on Earth and on the icy bodies of the Solar System is hexagonal ice I$_h$. At the temperatures of interest here, it is at a high homologous temperature: $T/T_m$ is 0.85 at $-40\,^\circ$C and 0.96 at $-10\,^\circ$C, where $T_m = 273.15$\,K is the melting point. Even the polar lunar subsurface at about 90\,K is at $T/T_m\approx0.33$, where creep is slow but still active over geological times. In this range, ice deforms by thermally activated creep at any stress: there is no yield threshold below which deformation stops. Its creep behaviour is described in detail in the books by Schulson and Duval~\cite{schulson2009} and Cuffey and Paterson~\cite{cuffey2010}.
+
+When a constant stress is applied to polycrystalline ice, it shows the three classical stages: an instantaneous elastic strain, a primary (transient) creep stage in which the strain rate decreases, a secondary stage at a minimum strain rate and, at large strains or high stresses, a tertiary stage in which the rate increases because of recrystallisation or cracking~\cite{schulson2009}.
+
+\subsection{Glen's flow law}
+
+The minimum (secondary) creep rate of polycrystalline ice is usually written as a power law of stress with an Arrhenius dependence on temperature:
+\begin{equation}
+    \dot\varepsilon = A(T)\,\sigma^n, \qquad A(T) = A_0 \exp\left(-\frac{Q}{RT}\right),
+    \label{eq:glen}
+\end{equation}
+where $\sigma$ is the deviatoric (or, in uniaxial tests, the axial) stress, $n$ the stress exponent, $Q$ the apparent activation energy and $R = 8.314$\,J/(mol\,K) the gas constant. Glen derived this law from unconfined compression tests on polycrystalline ice between $-0.02$ and $-12.8\,^\circ$C, finding $n\approx3.2$~\cite{glen1955}. A stress exponent $n = 3$ has since become the standard in glaciology~\cite{cuffey2010}.
+
+The activation energy is not constant over the whole temperature range. Below about $-10\,^\circ$C, most experimental data give $Q\approx60$\,kJ/mol; closer to the melting point the apparent activation energy rises above 100\,kJ/mol. This is attributed to premelting and liquid films at grain boundaries rather than to a change in the fundamental mechanism~\cite{cuffey2010,goldsby2001}. For the laboratory range of this thesis ($-10$ to $-40\,^\circ$C), $Q\approx60$\,kJ/mol is the reference value; it implies that the creep rate changes by a factor of about 3 for every $10\,^\circ$C in this range.
+
+\subsection{Deformation mechanisms}
+
+Glen's law with $n = 3$ is an average over several mechanisms. Goldsby and Kohlstedt~\cite{goldsby2001} identified, on fine-grained ice, a composite flow law in which the total strain rate is the sum of independent contributions:
+\begin{equation}
+    \dot\varepsilon = \dot\varepsilon_{\mathrm{diff}} + \dot\varepsilon_{\mathrm{disl}} + \left(\frac{1}{\dot\varepsilon_{\mathrm{bs}}} + \frac{1}{\dot\varepsilon_{\mathrm{gbs}}}\right)^{-1},
+    \qquad
+    \dot\varepsilon_j = A_j\,\frac{\sigma^{n_j}}{d^{p_j}}\exp\left(-\frac{Q_j}{RT}\right),
+    \label{eq:gk}
+\end{equation}
+where $d$ is the grain size. The mechanisms are:
+\begin{itemize}
+    \item \textbf{dislocation creep}, with $n\approx4$, independent of grain size, dominant at high stresses;
+    \item \textbf{grain boundary sliding (GBS)} accommodated by basal slip, with $n\approx1.8$ and a grain-size exponent $p\approx1.4$, dominant at low stresses (below about 0.1\,MPa for grain sizes of the order of millimetres) and in fine-grained ice;
+    \item \textbf{basal-slip-limited creep}, with $n\approx2.4$, which acts in series with GBS;
+    \item \textbf{diffusion creep} ($n = 1$), too slow to be observed even in ice with grains of a few micrometres.
+\end{itemize}
+The activation energies are about 49\,kJ/mol for GBS and about 60\,kJ/mol for dislocation creep below about $-15\,^\circ$C, with much larger values above about $-15\,^\circ$C~\cite{goldsby2001}. In this view, the classical $n\approx3$ is the result of a transition between the $n = 1.8$ and $n = 4$ regimes in the stress range of most glaciological tests~\cite{goldsby2001,duval2002comment,goldsby2002reply}. Deformation-mechanism maps place the creep of ice with grains of about 1\,mm, at stresses of 0.1--1\,MPa and temperatures above $-40\,^\circ$C, in the dislocation-creep field with $n\approx3$; above about 1\,MPa or at strain rates above about $10^{-3}$\,s$^{-1}$, cracking and fracture take over~\cite{shoji1978,schulson2009}.
+
+For the tests of this thesis, with ice grains of 250--500\,$\mu$m and axial stresses of 0.5--3.4\,MPa, the creep of the bulk ice is expected to be dominated by dislocation creep, with possible contributions from GBS at the lower stresses. The local stresses at the grain contacts are much higher than the nominal stress, as discussed in Section~\ref{sec:firn}.
+
+A compilation of creep laws for ice at planetary conditions, including the high-pressure phases and ice with particles, is given by Durham et al.~\cite{durham1997}. Their data extend down to about 77\,K and show that ice keeps creeping by thermally activated mechanisms at temperatures similar to those of the lunar polar subsurface, at rates many orders of magnitude lower than in the laboratory range.
+
+\subsection{Ice with particles}
+\label{subsec:ice_particles}
+
+Ice containing dispersed rock particles is relevant to glaciers, to the polar layered deposits of Mars, to the surfaces of icy moons and to the icy regolith of the Moon. The effect of the particles depends on their volume fraction $\phi$, their size and the dominant creep mechanism of the ice.
+
+\paragraph{Low particle fractions.} Hooke et al.\ tested ice with 0--35\% by volume of fine sand in unconfined creep at $-7.4$ to $-9.4\,^\circ$C. The creep rate decreased exponentially with sand content at high fractions and was erratic at low ones; the increase of yield strength, about 0.1--0.2\,MPa, was interpreted as dispersion hardening~\cite{hooke1972}. Durham et al.\ tested ice with $\phi = 0.001$--0.56 of quartz, calcite and silicon carbide particles (1--150\,$\mu$m) at 77--223\,K and 50--100\,MPa of confining pressure~\cite{durham1992}. Below $\phi\approx0.1$ the particles slightly weakened the ice; above $\phi\approx0.1$ the mixture became significantly stronger.
+
+\paragraph{High particle fractions.} At $\phi = 0.4$--0.5 the mixtures of Durham et al.\ were about 100 times more viscous than pure ice, and at $\phi = 0.56$ their strength approached that of dry sand under the same confinement~\cite{durham1992}. The strengthening was far larger than predicted by dislocation pinning (Orowan) mechanisms and was attributed to the viscous drag of ice flowing around the rigid particles. Mangold et al.\ measured the creep of ice--rock mixtures in triaxial tests and used the results to estimate the ice content of Martian permafrost~\cite{mangold2002}.
+
+\paragraph{Effect on mechanisms and elastic modulus.} Qi et al.\ showed that, in fine-grained ice, intergranular particles inhibit grain boundary sliding above a critical fraction of about 6\%. Below this fraction the samples behave like pure ice; above it, GBS is blocked and the stress exponent rises to 4.4--4.8~\cite{qi2018}. Yasui et al.\ measured on ice--silica mixtures at $-10\,^\circ$C a Young's modulus increasing linearly with the silica fraction $f$,
+\begin{equation}
+    E = 9.3 + 25.1\,f \quad [\mathrm{GPa}], \qquad 0\le f\le0.34,
+    \label{eq:yasui}
+\end{equation}
+a Poisson's ratio of about 0.33 and a stress exponent increasing from about 3.3 for pure ice to about 6 for $f = 0.06$--0.18~\cite{yasui2017}. A review of the deformation of debris-rich ice confirms the general picture: stress exponents increase from about 3 for clean ice to more than 6 at high debris concentrations, and the effect of debris depends on its size, its concentration and the presence of liquid water~\cite{moore2014}.
+
+\paragraph{Compaction of porous ice--rock mixtures.} Most of the above data refer to dense ice. For porous mixtures, the closest analogue to this thesis is the work of Leliwa-Kopysty\'nski and Maeno, who compacted mixtures of water, CO$_2$ and NH$_3$ ice with three types of rock powder at 2.2--17.7\,MPa and 140--261\,K~\cite{leliwa1993}. They found that rock fragments strongly inhibit compaction: about 25\% of rock by volume reduced the compaction rate of water ice by about two orders of magnitude between 228 and 262\,K. This is the opposite of the weakening found at low particle fractions in dense ice, and shows that in porous mixtures the rock fraction acts mainly through the geometry of the granular packing.
+
+% ---------------------------------------------------------------------------
+\section{Densification of granular ice}
+\label{sec:firn}
+% ---------------------------------------------------------------------------
+
+A granular aggregate of ice under a sustained load densifies by sintering and creep at the contacts between grains. This process is well known from polar glaciology, where snow turns into firn and then into glacial ice under the weight of the overlying layers, and from powder metallurgy, where metal and ceramic powders are densified by hot isostatic pressing. The tests of this thesis are a laboratory version of the same process, with the addition of regolith grains.
+
+\subsection{Stages of densification}
+
+Densification of snow and firn proceeds in three stages~\cite{herron1980,arnaud2000}:
+\begin{enumerate}
+    \item \textbf{Rearrangement (snow).} From the initial deposition density up to about 550\,kg/m$^3$ (relative density $D = \rho/\rho_i\approx0.6$), grains slide and rotate relative to each other and the packing approaches the random dense packing of equal spheres ($D\approx0.64$). This stage is fast and is controlled by grain boundary sliding at the contacts.
+    \item \textbf{Power-law creep (firn).} Between $D\approx0.6$ and the pore close-off density, about 820--840\,kg/m$^3$ ($D\approx0.9$), the grains can no longer rearrange, and densification proceeds by creep of the ice at the grain contacts, whose area grows as the material densifies. The pores are still interconnected.
+    \item \textbf{Bubbly ice.} Above close-off, the pores are isolated bubbles, and the remaining porosity is removed by creep of the ice around them, driven by the difference between the applied stress and the gas pressure in the bubbles.
+\end{enumerate}
+Herron and Langway~\cite{herron1980} described the first two stages with an empirical model in which the densification rate is proportional to $(\rho_i - \rho)$, with different dependences on the accumulation rate in each stage, and an apparent activation energy of about 43\,kJ/mol in the second stage.
+
+\subsection{Pressure sintering models}
+
+The physically based models for the second stage come from the theory of hot isostatic pressing. Wilkinson and Ashby~\cite{wilkinson1975} derived densification rates for a powder compact deforming by power-law creep of the material at the particle contacts. Arzt~\cite{arzt1982} related the number and area of contacts to the relative density for a random packing of spheres, and Swinkels et al.~\cite{swinkels1983} combined the mechanisms into pressure-sintering maps. In these models the local stress at the contacts is much larger than the applied stress $\sigma$ at low relative density and approaches it as $D\to1$, and the densification rate takes the general form
+\begin{equation}
+    \frac{\dot D}{D} = f(D)\,A_0\exp\left(-\frac{Q}{RT}\right)\left(\frac{\sigma}{g(D)}\right)^n,
+    \label{eq:hip}
+\end{equation}
+where $f(D)$ and $g(D)$ are geometric functions of the relative density and $n$ and $Q$ are those of the creep law of the material (Equation~\eqref{eq:glen}). Maeno and Ebinuma~\cite{maeno1983} applied this framework to pressure sintering experiments on ice and to the densification of polar snow, and Wilkinson~\cite{wilkinson1988} showed that power-law creep controls the densification of polar firn between 50 and 98\% of the theoretical density, with lattice diffusion taking over only above 98\%. Arnaud et al.~\cite{arnaud2000} used Arzt's geometry with $n = 3$ in the firn stage and a linear ($n = 1$) law for pore closure below about 0.3\,MPa of effective pressure in the bubbly ice stage.
+
+Equation~\eqref{eq:hip} is the main link between this thesis and the rheology of ice: if the densification of the mixtures is controlled by creep of the ice at the contacts, the same stress exponent and activation energy should appear in the compaction data, modified by the geometric effect of the regolith grains.
+
+\subsection{Laboratory compaction of granular ice}
+
+Laboratory data on the uniaxial compaction of granular ice at constant stress are scarce. The most directly relevant data set was produced in the same laboratory and with the same compaction vessel used in this thesis: Skarbek, Houdyshell and McCarthy compacted synthetic firn made of ice crushed and sieved to 210--500\,$\mu$m, in samples of 25.4\,mm diameter and about 45\,mm height, at $-2$, $-10$, $-20$, $-30$ and $-40\,^\circ$C and target stresses of 0.5, 1, 2 and 3.4\,MPa, for about one week per test~\cite{skarbek2025data}. Two features of these experiments are important here:
+\begin{itemize}
+    \item most of the compaction took place while the load was being applied, in the first 10--100\,s;
+    \item after the target stress was reached, the sample height decreased linearly with the logarithm of time.
+\end{itemize}
+The same group showed, with a firn densification model, that grain-size evolution controls how firn thickness depends on the accumulation rate~\cite{kingslake2022}.
+
+Log-linear compaction is the same phenomenology as the secondary compression of soils (Section~\ref{subsec:soil_creep}). Its slope can therefore be described with the coefficient of secondary compression $C_\alpha$, and the experiments on ice can be compared with those on soils within a common framework. Other recent laboratory work includes creep tests on natural polar firn from Summit (Greenland) at $-5$, $-18$ and $-30\,^\circ$C and 0.21--0.43\,MPa, which gave apparent activation energies of 61--103\,kJ/mol increasing with depth~\cite{li2026}, and high-pressure sintering experiments on snow~\cite{hong2022}.
+
+% ---------------------------------------------------------------------------
+\section{Creep of frozen soils}
+\label{sec:frozen_soils}
+% ---------------------------------------------------------------------------
+
+\subsection{Phenomenology}
+
+A frozen soil is a four-phase material made of soil grains, ice, unfrozen water and gas. Its mechanical behaviour combines the frictional, dilatant response of the soil skeleton with the viscous, temperature-dependent response of the ice. Ting et al.~\cite{ting1983} identified three contributions to the strength of frozen sand:
+\begin{enumerate}
+    \item the strength of the ice matrix, which depends on temperature and strain rate;
+    \item the frictional strength of the soil skeleton, mobilised at larger strains;
+    \item the interaction between ice and skeleton: the ice restrains the dilatancy of the skeleton, and the grains hinder the flow of the ice.
+\end{enumerate}
+The relative weight of these contributions depends on the ice content. In ice-poor soils the skeleton carries the load and the ice acts as a viscous cement. In ice-rich soils, where the grains are not in contact (Section~\ref{subsec:ice_content_def}), the behaviour approaches that of ice with particles (Section~\ref{subsec:ice_particles})~\cite{arenson2007}.
+
+Under constant stress, frozen soils show the three creep stages described for ice: primary, secondary and tertiary~\cite{andersland2004}. Ladanyi~\cite{ladanyi1972} proposed an engineering theory in which the creep strain is a power function of stress and time, with temperature-dependent parameters, and which can predict long-term strength from short tests. This approach is still the basis of the design methods for foundations in permafrost~\cite{andersland2004}. Early data sets from the US Army Cold Regions Research and Engineering Laboratory (CRREL) remain among the most complete:
+\begin{itemize}
+    \item unconfined creep of frozen Ottawa and Manchester sands~\cite{sayles1968};
+    \item triaxial creep tests on frozen Ottawa sand lasting up to 3000\,h under confining pressures of 0--5.5\,MPa~\cite{sayles1974};
+    \item more than 200 uniaxial tests on frozen silt, which showed transitions in behaviour near strain rates of $10^{-6}$ and $10^{-3}$\,s$^{-1}$~\cite{zhu1987}.
+\end{itemize}
+
+\subsection{Role of temperature and unfrozen water}
+
+The strength and creep resistance of frozen soils increase as temperature decreases, for two reasons: the ice itself becomes stiffer and more viscous (Equation~\eqref{eq:glen}), and the amount of unfrozen water decreases. In fine-grained soils a film of liquid water remains adsorbed on the mineral surfaces well below $0\,^\circ$C. Its amount depends mainly on the specific surface of the soil and decreases as a power of the temperature below freezing~\cite{anderson1972}. Close to $0\,^\circ$C, unfrozen water dominates the response: Arenson and Springman showed that the minimum creep rate of ice-rich frozen soils increases sharply as the temperature approaches the melting point~\cite{arenson2005}.
+
+At lunar polar temperatures, unfrozen water is negligible. In the laboratory range of this thesis, $-10$ to $-40\,^\circ$C, a small amount may remain on the fine fraction of LHS-1, which contains glass and particles of a few micrometres; it decreases at the lower temperatures. The ice used here is made from deionised water and the simulant is not expected to contain significant amounts of soluble salts, so the effect of solutes on freezing should be minor.
+
+\subsection{Oedometric creep and the soil-mechanics framework}
+\label{subsec:soil_creep}
+
+Almost all creep tests on frozen soils are unconfined, triaxial or isotropic. Systematic one-dimensional (oedometric, $K_0$) creep tests on frozen soils are very rare, and to the author's knowledge none has been reported on icy lunar simulants. The oedometric configuration is nevertheless the one used for decades to study the time-dependent compression of unfrozen soils, and its framework applies directly to the tests of this thesis.
+
+Bjerrum~\cite{bjerrum1967} separated the compression of clays into an ``instant'' part, occurring with the increase of effective stress, and a ``delayed'' part, occurring at constant effective stress. He represented the void ratio as a function of effective stress and time by a family of parallel lines (isotaches), each corresponding to a given time or strain rate:
+\begin{equation}
+    e = e_{\mathrm{ref}} - C_c \log_{10}\frac{\sigma'}{\sigma'_{\mathrm{ref}}} - C_\alpha \log_{10}\frac{t}{t_{\mathrm{ref}}},
+    \label{eq:isotache}
+\end{equation}
+where $C_c$ is the compression index and $C_\alpha = -\Delta e/\Delta\log_{10}t$ the coefficient of secondary compression. A soil that has crept for a long time under a given stress lies on an isotache below the reference line; on reloading it behaves as if overconsolidated and shows little compression until the stress exceeds a new, apparent preconsolidation stress. Mesri and Godlewski~\cite{mesri1977} found that, for a given soil, $C_\alpha$ and $C_c$ are related, with $C_\alpha/C_c$ between 0.025 and 0.10 for natural soils.
+
+The isotache framework has been formalised in one-dimensional elastic-viscoplastic models such as that of Yin and Graham~\cite{yin1989,yin1994}, which uses equivalent times and three parameters, and generalised to three dimensions, for example in the soft-soil creep model~\cite{vermeer1999}. Both are based on the overstress viscoplasticity of Perzyna~\cite{perzyna1966}. In the Perzyna formulation, the viscoplastic strain rate is a function of the distance of the current stress state from a static yield surface $F$:
+\begin{equation}
+    \dot{\boldsymbol\varepsilon}^{vp} = \gamma\,\langle\Phi(F)\rangle\,\frac{\partial g}{\partial\boldsymbol\sigma},
+    \label{eq:perzyna}
+\end{equation}
+where $\gamma$ is a fluidity parameter, $\Phi$ an overstress function, $g$ the viscoplastic potential and $\langle\cdot\rangle$ the Macaulay brackets. Making $\gamma$ an Arrhenius function of temperature, as in Equation~\eqref{eq:glen}, is the simplest way to introduce temperature into such a model.
+
+\subsection{Constitutive models for frozen soils}
+\label{subsec:frozen_models}
+
+Constitutive models for frozen soils have followed two main lines.
+
+\paragraph{Coupled thermo-hydro-mechanical models.} These treat the frozen soil as a multiphase porous medium. Nishimura et al.~\cite{nishimura2009} formulated a fully coupled thermo-hydro-mechanical finite element model in which the ice pressure, the liquid pressure and the total stress are the state variables. The elastoplastic response is described in the framework of unsaturated soil mechanics, with the cryogenic suction playing the role of matric suction. These models are designed for freezing and thawing processes, frost heave and the mechanical effects of phase change, which are not relevant to the cold, dry and stable conditions of lunar icy regolith.
+
+\paragraph{Elastic-viscoplastic models at constant phase composition.} The EVPFROZEN model of Cudmani et al.~\cite{cudmani2022} describes the temperature-, stress- and rate-dependent behaviour of frozen granular soils. It distinguishes the response in compression and in extension, and its viscous component follows a power law in stress with an Arrhenius dependence on temperature. Schindler et al.\ extended it to multi-stage creep, with load increased and decreased in steps, on frozen sand~\cite{schindler2024,schindler2025}. They showed that the minimum creep rate under a given stress is nearly independent of the previous loading history, whereas the time to failure is not, and that the extended model reproduces both. This family of models is the closest to the aim of this thesis: a thermo-elasto-viscoplastic law, with temperature as an input field, that can be implemented in a finite element code such as Abaqus.
+
+Two differences must be kept in mind when transferring these models to icy regolith. First, they are calibrated on saturated, ice-cemented terrestrial sands near $0\,^\circ$C, whereas the material of this thesis is a granular, initially porous mixture at much lower temperature, whose main time-dependent process is densification rather than deviatoric creep. Second, they do not include the evolution of porosity as a state variable controlling the creep rate, which is central to Equation~\eqref{eq:hip}. A model for icy regolith should therefore combine the structure of EVPFROZEN with a densification law of the pressure-sintering type.
+
+% ---------------------------------------------------------------------------
+\section{Mechanical tests on icy regolith simulants}
+\label{sec:icy_regolith_data}
+% ---------------------------------------------------------------------------
+
+The mechanical tests published on icy lunar simulants were mainly designed to assess excavation and drilling. Table~\ref{tab:icy_tests} summarises the main studies.
+
+\begin{table}[H]
+    \centering
+    \caption{Mechanical tests on icy lunar regolith simulants.}
+    \label{tab:icy_tests}
+    \footnotesize
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{1.9cm}|>{\raggedright\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{1.9cm}|>{\raggedright\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{1.9cm}|>{\raggedright\arraybackslash}X|}
+        \hline
+        \textbf{Study} & \textbf{Simulant} & \textbf{Ice morphology} & \textbf{Ice content} & \textbf{Test, $T$} & \textbf{Main result} \\
+        \hline
+        Gertsch et al.~\cite{gertsch2006} & JSC-1 & ice-cemented, compacted at 48\,MPa & 0--11\,wt\% & indentation, cooled in LN$_2$ & from weak coal ($\le$0.3\,wt\%) to strong limestone/sandstone ($\approx$10.6\,wt\%) \\
+        \hline
+        Pitcher et al.~\cite{pitcher2016} & highland simulant & ice-cemented & 3--12\,wt\% & UCS, penetration, $-20\,^\circ$C & strength rising quickly with ice content; large scatter \\
+        \hline
+        Atkinson et al.~\cite{atkinson2020} & JSC-1A & ice-cemented & 0--12\,wt\%, 100\% & penetration and relaxation, $\approx$110\,K & critical ice content 1--3\,wt\% for cementation; stress relaxation measured \\
+        \hline
+        Liu J.\ et al.~\cite{liu2022} & basalt--anorthosite blends & ice-cemented & 5--25\,wt\% & UCS, $-240$ to $-10\,^\circ$C & UCS increases with density and ice content; temperature effect weaker at the coldest temperatures \\
+        \hline
+        Liu W.\ et al.~\cite{liu2024} & basaltic simulant & ice-cemented & $\approx$6--9\,wt\% & UCS, tensile, punch; cryogenic & behaviour of soft to medium rock \\
+        \hline
+        Johnson et al.~\cite{johnson2024} & regolith simulant & pressure-sintered & $\approx$10\,wt\% & isostatic sintering, cryogenic & new preparation method; properties adjustable at fixed ice content \\
+        \hline
+        Ricardo et al.~\cite{ricardo2026} & LHS-1 & all four & 0.1--30\,wt\% & cone penetration, $\approx-180\,^\circ$C & strength and excavation energy differ by orders of magnitude between morphologies \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+Three observations emerge.
+
+\paragraph{Results differ widely between studies.} For ice-cemented simulants close to saturation, reported strengths range from a few megapascals to the strength of rock, depending on the study. The differences come from several factors that are rarely controlled at the same time:
+\begin{itemize}
+    \item the simulant and its grain size distribution;
+    \item the dry density, which changes the number of grain contacts and the pore volume to be filled;
+    \item the definition of ice content (Section~\ref{subsec:ice_content_def}) and the ice morphology;
+    \item the test temperature;
+    \item the loading rate and the specimen geometry.
+\end{itemize}
+Ice-cemented samples are prepared with liquid water, which also changes the fabric of the soil as it freezes. Most studies use one morphology, often ice-cemented, and a few temperatures. Comparisons between studies are therefore qualitative at best.
+
+\paragraph{Morphology dominates.} As discussed in Section~\ref{subsec:morphology}, the single study that compared all morphologies on the same simulant found differences of orders of magnitude at similar ice contents~\cite{ricardo2026}. The ice content alone is not a sufficient state variable: any constitutive description must specify, or include as a variable, how the ice is arranged.
+
+\paragraph{Time-dependent behaviour is almost unexplored.} All the studies in Table~\ref{tab:icy_tests} measure strength or penetration resistance at a given rate. The only time-dependent measurements are the relaxation tests of Atkinson et al.~\cite{atkinson2020} and the short isostatic sintering stage used to prepare the pressure-sintered samples~\cite{johnson2024,ricardo2026}. To the author's knowledge, no creep or oedometric compaction test on icy lunar simulants has been published.
+
+% ---------------------------------------------------------------------------
+\section{Summary and research gap}
+\label{sec:gap}
+% ---------------------------------------------------------------------------
+
+The review leads to the following points.
+\begin{enumerate}
+    \item Water ice is present at the lunar poles in amounts that vary from below 1 to possibly about 30\,wt\%, at subsurface temperatures of about 40--110\,K. It was most likely emplaced by vapour condensation and reworked by impacts, so that granular, sintered and vapour-deposited morphologies are more representative than ice-cemented ones.
+    \item The creep of ice is well described by power-law, thermally activated flow laws with $n\approx3$--4 and $Q\approx60$\,kJ/mol below about $-10\,^\circ$C. Rock particles modify it in a way that depends on their fraction: they weaken dense ice slightly at low fractions, strengthen it strongly above about 10\% by volume and inhibit the compaction of porous ice.
+    \item The densification of granular ice under constant stress is well understood for snow and firn, in terms of rearrangement, power-law creep at the contacts and pore closure. Laboratory data show log-linear compaction in time, the same phenomenology as the secondary compression of soils.
+    \item The creep of frozen soils has been studied extensively for terrestrial permafrost, mostly near $0\,^\circ$C, on saturated ice-cemented soils and in unconfined or triaxial conditions. Elastic-viscoplastic models of the EVPFROZEN family provide a suitable structure for a temperature-dependent constitutive law.
+    \item The mechanical data on icy lunar simulants are strength and penetration data, highly scattered and mostly on ice-cemented samples.
+\end{enumerate}
+
+The gap addressed by this thesis is at the intersection of these fields:
+\begin{itemize}
+    \item there are no oedometric creep or compaction data on icy LHS-1 or any other icy lunar simulant;
+    \item there are few data on frozen granular materials under controlled confinement below $-20\,^\circ$C;
+    \item no calibrated, time-dependent law exists for granular ice--regolith mixtures that includes stress, temperature, porosity and ice content.
+\end{itemize}
+The following chapters describe how this gap was approached: a low-temperature uniaxial compaction vessel was brought into operation (Chapter~\ref{ch:materials_apparatus}), a test procedure was developed (Chapter~\ref{ch:characterisation}), and compaction tests on granular mixtures of ice and LHS-1 were used to calibrate a densification law with temperature as an input (Chapters~\ref{ch:results} and~\ref{ch:modelling}).
