@@ -229,6 +229,25 @@ The same group showed, with a firn densification model, that grain-size evolutio
 
 Log-linear compaction is the same phenomenology as the secondary compression of soils (Section~\ref{subsec:soil_creep}). Its slope can therefore be described with the coefficient of secondary compression $C_\alpha$, and the experiments on ice can be compared with those on soils within a common framework. Other recent laboratory work includes creep tests on natural polar firn from Summit (Greenland) at $-5$, $-18$ and $-30\,^\circ$C and 0.21--0.43\,MPa, which gave apparent activation energies of 61--103\,kJ/mol increasing with depth~\cite{li2026}, and high-pressure sintering experiments on snow~\cite{hong2022}.
 
+\subsection{Isochoric flow laws and confined compaction}
+\label{subsec:compressible}
+
+Glen's law (Equation~\eqref{eq:glen}) and the composite law of Goldsby and Kohlstedt (Equation~\eqref{eq:gk}) describe the creep of dense ice. In their three-dimensional form they relate the strain rate to the deviatoric stress only,
+\begin{equation}
+    \dot\varepsilon_{ij} = \frac{3}{2}\,A(T)\,\sigma_e^{\,n-1}\,s_{ij}, \qquad \sigma_e = \sqrt{\tfrac{3}{2}\,s_{kl}s_{kl}},
+    \label{eq:glen3d}
+\end{equation}
+where $s_{ij}$ is the deviatoric stress and $\sigma_e$ the von Mises equivalent stress. The trace of $\dot\varepsilon_{ij}$ is zero: the flow is isochoric, and a hydrostatic pressure produces no viscous deformation. Unconfined compression tests on dense ice measure a change of shape at constant volume.
+
+In an oedometric test the lateral strain is zero, so the axial strain is equal to the volumetric strain. A sample of dense ice in a rigid cell would therefore show only an elastic strain under a constant axial stress. All the time-dependent compaction measured in this thesis is a loss of pore volume: the tests measure densification, not the isochoric creep described by Equations~\eqref{eq:glen}--\eqref{eq:glen3d}. A law for these tests must be compressible.
+
+The firn literature provides such laws. In the formulation of Gagliardini and Meyssonnier~\cite{gagliardini1997}, later used in full-Stokes models of firn and ice~\cite{zwinger2007}, the porous material is treated as an isotropic compressible continuum whose matrix is ice. The strain rate depends on both the deviatoric stress and the mean stress $p$, through two functions $a(D)$ and $b(D)$ of the relative density; schematically,
+\begin{equation}
+    \dot\varepsilon_{ij} = B(T)\,\tau_e^{\,n-1}\left[a(D)\,s_{ij} + \tfrac{1}{3}\,b(D)\,p\,\delta_{ij}\right], \qquad \tau_e^{2} = a(D)\,\tfrac{1}{2}s_{kl}s_{kl} + b(D)\,p^{2},
+    \label{eq:porous}
+\end{equation}
+where the exact numerical coefficients are those of the original paper. As the pores close, $b(D)\to0$ and $a(D)\to1$, and Equation~\eqref{eq:porous} reduces to the isochoric law of the ice. The pressure-sintering models of Section~\ref{sec:firn} (Equation~\eqref{eq:hip}) are the isotropic special case of the same idea: the volumetric strain rate is driven by the mean stress and amplified at low relative density by the geometry of the contacts. Under oedometric conditions Equation~\eqref{eq:porous}, with the lateral strain set to zero, also determines the lateral stress, that is, the coefficient of earth pressure at rest $K_0$, which cannot be measured in the vessel used here.
+
 % ---------------------------------------------------------------------------
 \section{Creep of frozen soils}
 \label{sec:frozen_soils}
