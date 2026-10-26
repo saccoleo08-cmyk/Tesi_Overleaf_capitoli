@@ -7,6 +7,25 @@
 % Table of all tests: ID, ice content, temperature, target pressure, corrected stress,
 % initial height and density, duration, remarks. State which tests are excluded and why.
 
+Table~\ref{tab:tests_lhs1} lists the tests on LHS-1 completed so far. All were run at $-20\,^\circ$C and a target oil pressure of 2\,MPa; $w$ is the ratio of ice to dry regolith mass and $\phi_i$ the volume fraction of ice in the solids.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccccccl@{}}
+\toprule
+Test & $w$ & $\phi_i$ & $m_s$ / $m_i$ (g) & $H_0$ (mm) & $e_0$ & Hold (h) & Remarks \\
+\midrule
+F207 & 0.33 & 0.50 & 17.9 / 6.0$^{a}$ & -- & -- & 65 & Loading not recorded \\
+F208 & 0 & 0 & 32 / 0 & 47.55 & 1.07 & 41 & \\
+F209 & 1.0 & 0.75 & 9.9 / 9.9 & 51.64 & 0.82 & 42 & LVDT stopped at 75\,min \\
+F210 & 0.10 & 0.23 & 26 / 2.6 & 47.0 & 0.94 & 65 & Valve closed briefly during loading \\
+\bottomrule
+\end{tabular}
+\caption{Tests on LHS-1 at $-20\,^\circ$C and 2\,MPa. $^{a}$Estimated from the final mass of 23.9\,g with the planned ratio, since part of the material was lost while filling the vessel.}
+\label{tab:tests_lhs1}
+\end{table}
+
 \section{Pure ice}
 \label{sec:results_ice}
 % Validation of procedure and data reduction against the published pure-ice compaction data from the same vessel.
@@ -18,11 +37,31 @@
 \label{sec:results_mixtures}
 \subsection{Effect of temperature}
 \subsection{Effect of ice content}
+\label{subsec:ice_content}
+
+Figure~\ref{fig:ice_content} shows the void ratio during the hold at 2\,MPa for the four tests. The ice content decides whether, and how fast, the sample keeps compacting after loading.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Images/fig_ice_content_series.pdf}
+    \caption{Void ratio against time under 2\,MPa at $-20\,^\circ$C for LHS-1 with different ice contents. Curves anchored to the measured initial and final heights; F209 after 75\,min from the oil volume; small noise reversals removed.}
+    \label{fig:ice_content}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{The threshold is low.} Without ice $C_\alpha\approx0.0016$; with $w = 0.10$ it is already 0.04--0.05, with $w = 0.33$ about 0.05--0.07 and with $w = 1.0$ about 0.10.
+    \item \textbf{The shape of the curve changes.} F210 is linear in $\log t$, like the secondary compression of a soil. F207 and F209 bend downwards, like densifying firn, and F209 ends at $e = 0.17$ (porosity about 15\%), close to pore close-off.
+    \item \textbf{The rates are those of ice.} The axial strain rates at 100\,min are $1.4$, $2.2$ and $3.1\times10^{-6}$\,s$^{-1}$ for $w = 0.10$, 0.33 and 1.0, close to the rate of about $3\times10^{-6}$\,s$^{-1}$ predicted by Equation~\eqref{eq:gk} for dense ice at 2\,MPa and $-20\,^\circ$C.
+\end{itemize}
+The samples did not start from the same void ratio, and a looser sample creeps faster at the same ice content. The comparison at equal relative density is made in Chapter~\ref{ch:modelling} through the function $b(D,\phi_i)$.
 \subsection{Effect of axial stress}
 
 \section{Dry regolith}
 \label{sec:results_dry}
 % Reference test for the skeleton-only end-member; comparison with literature oedometric data.
+
+Test F208 was run on 32\,g of dry LHS-1 poured loose to a height of 47.55\,mm ($e_0 = 1.07$, dry density 1.33\,g/cm$^3$). Almost all the compaction took place during loading: the void ratio fell to 0.44 within about a minute, and more than half of this change occurred below 0.4\,MPa of oil pressure, where the response is dominated by seal friction and collapse of the loose packing. Between 0.5 and 2\,MPa the compression index is $C_c\approx0.27$--0.30. During the following 41\,h at 2\,MPa the void ratio decreased by only 0.005 ($C_\alpha\approx0.0016$), and the oil volume increased only by the amount of the leak. On unloading the piston did not move back: seal friction prevents any measurable rebound. The final height of 32.88\,mm gives $e = 0.43$ and a dry density of 1.92\,g/cm$^3$.
+% TODO: grading of the sample after the test to check for grain crushing.
 
 \section{Unloading and reloading}
 \label{sec:results_unloading}
@@ -36,6 +75,8 @@
 \section{Post-test observations}
 \label{sec:results_posttest}
 % Final height and mass, mass gained by the frits, visual appearance, microstructure if available.
+
+The clean, dry frits weigh about 3.75\,g each. After F209 each frit had gained about 0.25\,g, and after F210 only 0.025\,g. The final mass of F210 (28.6\,g) matched the mass placed in the vessel. Masses are now weighed to 0.01\,g immediately after extraction, to limit frost deposition on the cold sample and frits.
 
 \section{Summary of experimental findings}
 \label{sec:results_summary}

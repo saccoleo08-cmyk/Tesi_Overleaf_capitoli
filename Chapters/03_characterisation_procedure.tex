@@ -127,6 +127,17 @@ The total compaction of a loose sample (about 20\,mm in F203 and F204) exceeds t
 \end{enumerate}
 In both cases, the oil volume remains the reference for the step load, and the two measurements overlap during the creep stage, which allows the oil-volume corrections to be checked.
 
+\subsection{Scale of the LVDT reading}
+
+The tests on LHS-1 (F208--F210) showed a further problem. Comparing the total piston travel from the LVDT with the travel measured with a caliper (difference between the piston protrusion before and after the test):
+\begin{itemize}
+    \item in F208 the LVDT read 17.5\,mm against 20.8\,mm measured, a ratio of 1.19;
+    \item in F210 it read 15.95\,mm against 18.21\,mm, a ratio of 1.14; the oil volume during the free run of the piston gave the same ratio;
+    \item in F209 the reading stopped at $-21.55$\,mm after 75\,min, while the oil volume kept increasing at several times the leak rate, and it then drifted back by 0.28\,mm over 40\,h.
+\end{itemize}
+The ratio is not constant from test to test, so it is not a calibration factor; the most likely cause is slip or sticking of the LVDT core in its mounting. The LVDT is therefore used only for the shape of the curve during the creep stage, scaled so that the total travel matches the caliper measurement, as done with the factor $\lambda$ for the oil volume (Section~\ref{sec:data_reduction}). Where the LVDT stops, the oil volume is used. The piston protrusion is now measured before and after every test.
+% TODO: calibrate the LVDT over its whole stroke against gauge blocks and check the mounting of the core.
+
 % ---------------------------------------------------------------------------
 \section{Leakage and thermal drift}
 \label{sec:drift}

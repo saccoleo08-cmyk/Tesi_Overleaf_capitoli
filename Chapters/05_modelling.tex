@@ -4,9 +4,62 @@
 
 \section{Modelling framework}
 \label{sec:framework}
-% Assumptions: oedometric strain path, isothermal tests, state described by porosity and ice fraction.
-% General form of the densification law:
-% \dot{\varepsilon} = A \, \sigma^{n} \exp(-Q/RT) \, f(\phi, \text{ice fraction})
+
+\subsection{Choice of the law}
+
+The vessel imposes an oedometric strain path: the lateral strain is zero and the measured axial strain is a volumetric strain. As discussed in Section~\ref{subsec:compressible}, the flow laws of dense ice are isochoric and cannot produce this deformation on their own. The law adopted here therefore has three parts:
+\begin{enumerate}
+    \item an \textbf{instantaneous skeleton term} for the rearrangement and sliding of the regolith grains during loading;
+    \item a \textbf{compressible viscous term} of the porous type (Equation~\eqref{eq:porous}), which describes the closure of the pores;
+    \item a \textbf{matrix law} for the ice inside the viscous term, taken from Goldsby and Kohlstedt (Equation~\eqref{eq:gk}).
+\end{enumerate}
+The total strain is
+\begin{equation}
+    \varepsilon = \varepsilon_{sk}(\sigma) + \varepsilon_{cr}(t;\,\sigma, T, D, \phi_i),
+    \label{eq:decomposition}
+\end{equation}
+where the skeleton term is written in the usual oedometric form $e = e_0 - C_c\log_{10}(\sigma/\sigma_{ref})$, calibrated on the dry test, and the viscous term follows Equation~\eqref{eq:porous} with
+\begin{equation}
+    B(T) = B\bigl(\dot\varepsilon_{GK}(T, d)\bigr), \qquad b = b(D, \phi_i).
+\end{equation}
+The ice fraction $\phi_i$ enters through $b$: the regolith grains change the geometry of the contacts and carry part of the load, so they act on the volumetric response rather than on the creep of the ice itself.
+
+This choice has two advantages over a purely empirical law of the form $\dot\varepsilon = A\sigma^n\exp(-Q/RT)f(e)g(\phi_i)$. First, $n$ and $Q$ are not free parameters but those of the ice, which the stress-step and temperature tests only have to verify. Second, the law reduces to the known laws of ice and firn as $D\to1$ and $\phi_i\to1$, so that it can be compared with the firn data obtained on the same vessel~\cite{skarbek2025data}. The functions to be calibrated reduce essentially to $b(D,\phi_i)$, with $a(D)$ taken from the firn literature.
+
+\subsection{Implications of the matrix law}
+
+Two features of Equation~\eqref{eq:gk} affect the test programme and the use of the law.
+\begin{itemize}
+    \item \textbf{Activation energy.} Above about $-15\,^\circ$C the activation energies of all mechanisms rise sharply. The test at $-10\,^\circ$C lies above this threshold and the others below, so $Q$ is fitted between $-40$ and $-20\,^\circ$C and the $-10\,^\circ$C test is treated separately.
+    \item \textbf{Change of mechanism with stress.} At 2\,MPa and $-20\,^\circ$C, with grains of 250--500\,$\mu$m, dislocation creep ($n\approx4$) dominates. At the stresses of a lunar foundation (0.1--0.2\,MPa) grain boundary sliding ($n\approx1.8$) takes over. Extrapolating the laboratory data to 0.2\,MPa with $n = 4$ would underestimate the creep rate by a factor of about 4--8 for these grain sizes. The composite law predicts that the apparent stress exponent measured in the stress-step test increases with stress between 0.5 and 3.4\,MPa.
+\end{itemize}
+% TODO: verify the numerical coefficients of Equation (porous) and of the Goldsby-Kohlstedt parameters against the original papers; confirm the grain size of the seed ice used in F207-F210.
+
+\subsection{Concurrent deformation mechanisms}
+\label{subsec:mechanisms}
+
+The compaction measured in a test is the sum of several mechanisms with different time scales, and the law of Equation~\eqref{eq:decomposition} attributes them to different terms. Table~\ref{tab:mechanisms} lists them with the evidence available from the first tests.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}p{3.6cm}p{2.8cm}X@{}}
+\toprule
+Mechanism & Time scale & Evidence and treatment \\
+\midrule
+Rearrangement and sliding of regolith grains & Loading & Present in the dry test (F208), with more than half of the compaction below 0.4\,MPa. Skeleton term. \\
+Elastic deformation of grains, ice and vessel & Instantaneous, reversible & Recovery of about 0.04\,mm on unloading. Neglected in the creep stage. \\
+Grain crushing & Loading & To be checked by grading the dry sample after the test. Skeleton term. \\
+Expulsion of pore air & Loading and first seconds & In the first 10\,min the void ratio is linear in $\log t$ and not in $\sqrt t$ ($R^2$ = 0.998 against 0.947 in F209, 0.995 against 0.904 in F210), so drainage of the open pores ends during loading. \\
+Creep of the ice at the contacts & Hours to days & Viscous term. Main object of the calibration. \\
+Gas trapped in closed pores & End of tests with much ice & Possible in F209, which reached a porosity of about 15\%, close to pore close-off in firn (about 10\%). Back-pressure of the gas would slow the late compaction. \\
+\bottomrule
+\end{tabularx}
+\caption{Mechanisms contributing to the measured compaction.}
+\label{tab:mechanisms}
+\end{table}
+
+The effect of pore air can be isolated with a test in which the pores are evacuated through the lower frit before loading and kept under vacuum. If the compaction curve matches that of the same mixture in air, air plays no role after loading. A vacuum test is also closer to lunar conditions, where the pores of the regolith contain no gas.
 
 \section{Calibration}
 \label{sec:calibration}
@@ -32,7 +85,17 @@
 \label{sec:model_limits}
 % Radial stress not measured; no true steady state; extrapolation to lunar cryogenic temperatures;
 % one simulant and one ice morphology.
+% Also: tests run with air in the pores (lunar pores are evacuated); possible gas back-pressure after pore close-off;
+% the porous-law functions a(D) and K0 are taken from firn literature and not measured.
 
 \section{Implications for lunar applications}
 \label{sec:implications}
 % Order-of-magnitude consequences for compaction under foundations, excavation and long-term stability.
+
+The first tests already support some qualitative conclusions for construction on icy regolith; the numbers will follow from the calibrated law.
+\begin{itemize}
+    \item \textbf{Icy regolith is not rock.} With as little as about 10\% of ice by mass the mixture keeps compacting under constant load, with a settlement that grows with the logarithm of time or faster. Foundations should be designed for settlement that continues over the service life.
+    \item \textbf{Temperature is the main control.} In the polar cold traps (40--100\,K) the creep of ice is extremely slow. The risk comes from the structure itself: a heated habitat warms the ground beneath it towards the temperatures of these tests. Thermal isolation, elevated or ventilated foundations and passive heat extraction, as used on terrestrial permafrost, address this directly. The activation energy measured in the temperature series sets how much warming is acceptable.
+    \item \textbf{Ice content matters most at low values.} The change from dry to about 10\% ice by mass increases $C_\alpha$ by more than an order of magnitude, while further increases have a smaller effect. Mapping the ice content is therefore part of site selection.
+    \item \textbf{Extrapolation in stress must use the right mechanism.} Laboratory stresses (2\,MPa) are an order of magnitude above those of a foundation. Using the matrix law of Goldsby and Kohlstedt rather than a single power law avoids underestimating creep at service stresses (Section~\ref{sec:framework}).
+\end{itemize}
