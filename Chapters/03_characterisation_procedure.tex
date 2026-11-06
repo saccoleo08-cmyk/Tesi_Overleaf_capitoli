@@ -135,6 +135,8 @@ The tests on LHS-1 (F208--F210) showed a further problem. Comparing the total pi
     \item in F210 it read 15.95\,mm against 18.21\,mm, a ratio of 1.14; the oil volume during the free run of the piston gave the same ratio;
     \item in F209 the reading stopped at $-21.55$\,mm after 75\,min, while the oil volume kept increasing at several times the leak rate, and it then drifted back by 0.28\,mm over 40\,h.
 \end{itemize}
+The later tests confirmed the problem and showed that the error can have either sign: in F213 the LVDT read 16.15\,mm against 14.5\,mm measured (ratio 0.90), and in F214 20.0\,mm against 20.45\,mm (ratio 1.02). In F211 the reading started positive, outside the calibrated range, and became usable only during the hold. In F213 the scale obtained from the caliper also places the start of loading at a void ratio of 0.79, against 0.80 from the geometry, which supports the anchoring.
+
 The ratio is not constant from test to test, so it is not a calibration factor; the most likely cause is slip or sticking of the LVDT core in its mounting. The LVDT is therefore used only for the shape of the curve during the creep stage, scaled so that the total travel matches the caliper measurement, as done with the factor $\lambda$ for the oil volume (Section~\ref{sec:data_reduction}). Where the LVDT stops, the oil volume is used. The piston protrusion is now measured before and after every test.
 % TODO: calibrate the LVDT over its whole stroke against gauge blocks and check the mounting of the core.
 
@@ -158,7 +160,19 @@ During a long test, the oil volume can change for two reasons unrelated to the m
 
 Whether the leak is in the line or in the vessel can be established with a simple test: the line is pressurised to 2\,MPa against the closed valve for 2--3\,h. If the volume stays constant, the leak is in the vessel (seals); if oil is still delivered, it is in the line or the controller.
 % TODO: run the leak test, find and fix the leak; report the result here.
+
+In the tests on LHS-1 the leak estimated from the comparison of oil volume and LVDT was between 0.2 and $0.7\times10^{-3}$\,cm$^3$/min at $-20\,^\circ$C. At $-30\,^\circ$C (F214) it was much larger in the first hours, about $10^{-2}$\,cm$^3$/min over the first 100\,min, and decreased to $0.7\times10^{-3}$\,cm$^3$/min after a day, which suggests that the seals tighten slowly at low temperature. The daily oscillation described above was also visible in all tests as a dip of 0.1--0.3\,cm$^3$ in the oil volume at about 14:30 local time, without any movement of the LVDT.
 A leak test of this kind, and a hold of a rigid dummy sample (a steel cylinder) at constant pressure, should be carried out periodically, so that the drift correction is based on a direct measurement rather than on the late stages of a compaction test.
+
+% ---------------------------------------------------------------------------
+\section{Temperature control}
+\label{sec:temperature_events}
+% ---------------------------------------------------------------------------
+
+The temperature of the vessel is set by a circulating cooling unit, and the temperature is not recorded by the data logger. In two tests the unit lost control during the hold: in F213 the coolant ran out. The event was found in the data as a departure from the log-linear trend of the creep stage. In F213, up to 32.5\,h after loading the LVDT reading followed a straight line in $\log t$ to within 0.01\,mm; from that time the rate of compaction stopped decreasing and remained about twice the value expected from the trend for 26\,h, adding 0.13\,mm of compaction, before returning to the trend. With an activation energy of about 60\,kJ/mol this corresponds to a warming of 6--7\,K. F214 showed the same signature from about 12\,h after loading until the end of the test. Only the parts of these tests before the events are used.
+
+To avoid this in later tests, the coolant level is checked before each test and during long tests, and a thermocouple on the vessel is recorded on a free channel of the logger where possible.
+% TODO: add the temperature record once available.
 
 % ---------------------------------------------------------------------------
 \section{Sample--wall friction}
@@ -206,6 +220,8 @@ The procedure adopted is that of the firn compaction experiments on the same ves
     \item \textbf{Unloading.} The pressure is reduced to about 10\,kPa with a slow ramp (30--45\,min), which gives the compliance curve $S(p)$ (Section~\ref{sec:compliance}).
     \item \textbf{End of test.} The piston protrusion is measured, the bottom of the vessel is removed and the sample is extracted. Its height and mass, and the mass of the frits, are measured immediately.
 \end{enumerate}
+
+During the LHS-1 campaign the procedure was refined as follows: the data logging is started before the load is applied, so that the loading stage is recorded; the piston is advanced to within a few millimetres of the upper frit before the piston protrusion is measured, so that the measured protrusion corresponds to the actual start of the test and the LVDT stays within its range; the initial LVDT reading is checked to be negative; and the coolant level of the cooling unit is checked before starting.
 
 The step load with the closed valve reproduces the procedure used for firn and makes the tests comparable with those data. Its drawback, for loose samples, is that the piston runs at high speed through the gap and into the sample, so that the first part of the compaction occurs at an unknown and varying stress. An alternative is to bring the piston into contact with the sample at a small seating stress (about 50\,kPa) before the step load, by advancing it slowly in volume control. This eliminates the gap and defines the initial state of the sample under a known stress.
 
