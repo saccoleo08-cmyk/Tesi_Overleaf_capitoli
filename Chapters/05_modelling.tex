@@ -24,7 +24,7 @@ where the skeleton term is written in the usual oedometric form $e = e_0 - C_c\l
 \end{equation}
 The ice fraction $\phi_i$ enters through $b$: the regolith grains change the geometry of the contacts and carry part of the load, so they act on the volumetric response rather than on the creep of the ice itself.
 
-This choice has two advantages over a purely empirical law of the form $\dot\varepsilon = A\sigma^n\exp(-Q/RT)f(e)g(\phi_i)$. First, $n$ and $Q$ are not free parameters but those of the ice, which the stress-step and temperature tests only have to verify. Second, the law reduces to the known laws of ice and firn as $D\to1$ and $\phi_i\to1$, so that it can be compared with the firn data obtained on the same vessel~\cite{skarbek2025data}. The functions to be calibrated reduce essentially to $b(D,\phi_i)$, with $a(D)$ taken from the firn literature.
+This choice has two advantages over a purely empirical power law with separate functions of the void ratio and of the ice fraction. First, $n$ and $Q$ are not free parameters but those of the ice, which the stress-step and temperature tests only have to verify. Second, the law reduces to the known laws of ice and firn as $D\to1$ and $\phi_i\to1$, so that it can be compared with the firn data obtained on the same vessel~\cite{skarbek2025data}. The functions to be calibrated reduce essentially to $b(D,\phi_i)$, with $a(D)$ taken from the firn literature.
 
 \subsection{Implications of the matrix law}
 
@@ -65,6 +65,8 @@ The effect of pore air can be isolated with a test in which the pores are evacua
 \label{sec:calibration}
 \subsection{Stress dependence}
 \subsection{Temperature dependence}
+% Preliminary; to be completed with F215 (-40 C) and repeats.
+The first results of the temperature series (Section~\ref{subsec:temperature}) show two features that the calibration must reproduce. The compaction in the first minutes after loading does not depend on temperature, as expected for the skeleton term of Equation~\eqref{eq:decomposition}. The creep that follows is 3.5--6 times faster at $-10$ than at $-20\,^\circ$C, which corresponds to an apparent activation energy of roughly 60--130\,kJ/mol, but is not resolved between $-20$ and $-30\,^\circ$C. A single Arrhenius factor between $-10$ and $-40\,^\circ$C is therefore unlikely to describe the data; the matrix law of Goldsby and Kohlstedt, with its higher activation energies above about $-15\,^\circ$C, provides the natural form for this change.
 \subsection{Dependence on porosity}
 \subsection{Dependence on ice content}
 \subsection{Parameter uncertainty}
@@ -87,6 +89,8 @@ The effect of pore air can be isolated with a test in which the pores are evacua
 % one simulant and one ice morphology.
 % Also: tests run with air in the pores (lunar pores are evacuated); possible gas back-pressure after pore close-off;
 % the porous-law functions a(D) and K0 are taken from firn literature and not measured.
+
+The main limitations identified so far are the following. The radial stress is not measured, so $K_0$ and the deviatoric response come from the porous law and the literature. The temperature was not recorded during the tests and was lost in two of them. The scale of the displacement measurement varies from test to test by up to 20\%, which is controlled by anchoring each test to the measured initial and final heights but limits the precision of comparisons at equal void ratio. The tests last 2--3 days and are run with air in the pores, at temperatures well above those of the lunar polar regions and at stresses an order of magnitude above those of a foundation. Finally, only one simulant and one form of ice (sieved grains mixed with the regolith) are tested, while ice in the lunar regolith may coat or cement the grains.
 
 \section{Implications for lunar applications}
 \label{sec:implications}
