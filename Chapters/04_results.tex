@@ -7,7 +7,7 @@
 % Table of all tests: ID, ice content, temperature, target pressure, corrected stress,
 % initial height and density, duration, remarks. State which tests are excluded and why.
 
-Table~\ref{tab:tests_lhs1} lists the tests on LHS-1 completed so far. All were run at a target oil pressure of 2\,MPa; $w$ is the ratio of ice to dry regolith mass and $\phi_i$ the volume fraction of ice in the solids. Tests F207, F208, F209, F210 and F211 form the ice-content series at $-20\,^\circ$C; F212, F213 and F214 form the temperature series on the mixture with equal volumes of ice and regolith ($w = 0.33$). F213 repeats the reference condition of F207, whose data are less reliable.
+Table~\ref{tab:tests_lhs1} lists the tests on LHS-1 completed so far. All were run at a target oil pressure of 2\,MPa except F216, in which the pressure was raised in four steps; $w$ is the ratio of ice to dry regolith mass and $\phi_i$ the volume fraction of ice in the solids. Tests F207, F208, F209, F210 and F211 form the ice-content series at $-20\,^\circ$C; F212, F213 and F214 form the temperature series on the mixture with equal volumes of ice and regolith ($w = 0.33$). F213 repeats the reference condition of F207, whose data are less reliable. F215, at $-40\,^\circ$C, is excluded from the analysis (Section~\ref{subsec:temperature}). F216 is the stress-step test on the same mixture at $-20\,^\circ$C.
 
 \begin{table}[H]
 \centering
@@ -25,9 +25,11 @@ F211 & $-20$ & 0.20 & 0.38 & 21.8 / 4.4 & 45.0 & 0.79 & 42 & LVDT off range at s
 F212 & $-10$ & 0.33 & 0.50 & 17.5 / 5.8 & 44.0 & 0.76 & 43 & Protrusion uncertain \\
 F213 & $-20$ & 0.33 & 0.50 & 17.5 / 5.8 & 45.0 & 0.80 & 66 & $T$ control lost at 32.5\,h \\
 F214 & $-30$ & 0.33 & 0.50 & 17.5 / 5.8 & 45.0$^{b}$ & 0.80 & 42 & $T$ control lost at 12\,h (prob.) \\
+F215 & $-40$ & 0.33 & 0.50 & 16.1 / 5.4$^{c}$ & 45.0 & 0.95 & 68 & Excluded \\
+F216 & $-20$ & 0.33 & 0.50 & 17.4 / 5.8 & 45.0 & 0.80 & 4 $\times$ 10.8 & Steps 0.5, 1, 2, 3.4\,MPa \\
 \bottomrule
 \end{tabular}
-\caption{Tests on LHS-1 at 2\,MPa. $^{a}$Estimated from the final mass of 23.9\,g with the planned ratio, since part of the material was lost while filling the vessel. $^{b}$Planned height, consistent with the contact point and the measured final height.}
+\caption{Tests on LHS-1. $^{a}$Estimated from the final mass of 23.9\,g with the planned ratio, since part of the material was lost while filling the vessel. $^{b}$Planned height, consistent with the contact point and the measured final height. $^{c}$From the total mass of 21.4\,g with the planned ratio.}
 \label{tab:tests_lhs1}
 \end{table}
 
@@ -74,8 +76,9 @@ $\Delta e$ after 1\,min & $-10\,^\circ$C (F212) & $-20\,^\circ$C (F213) & $-30\,
 \label{tab:temperature_times}
 \end{table}
 
-The ratio between $-10$ and $-20\,^\circ$C corresponds to an apparent activation energy of roughly 60--130\,kJ/mol, depending on the scale adopted for F213 and on the stage of the test. Values in the upper part of this range are expected above about $-15\,^\circ$C, where the activation energy of ice increases (Section~\ref{sec:ice_rheology}). The test at $-40\,^\circ$C and repeats of the tests affected by the temperature events are needed before an activation energy is fitted (Chapter~\ref{ch:modelling}).
-% TODO: add F215 (-40 C) and the stress-step test F216.
+The ratio between $-10$ and $-20\,^\circ$C corresponds to an apparent activation energy of roughly 60--130\,kJ/mol, depending on the scale adopted for F213 and on the stage of the test. Values in the upper part of this range are expected above about $-15\,^\circ$C, where the activation energy of ice increases (Section~\ref{sec:ice_rheology}). Repeats of the tests affected by the temperature events, with the temperature recorded, are needed before an activation energy is fitted (Chapter~\ref{ch:modelling}).
+
+\paragraph{Test at $-40\,^\circ$C.} Test F215 is not used. The LVDT stopped following the piston, the cooling unit did not hold the set temperature, and the final piston position could not be measured with confidence. With the best estimate of the final position the sample would have reached $e\approx0.20$, far below the value of 0.39 reached at $-20\,^\circ$C by the same mixture (F213) and close to that of the sample with three times as much ice (F209). A sample that compacts more at $-40$ than at $-20\,^\circ$C is not credible, so either the final height or the temperature is wrong. The lowest temperature of the present programme is therefore $-30\,^\circ$C.
 
 \subsection{Effect of ice content}
 \label{subsec:ice_content}
@@ -113,6 +116,41 @@ F209 & 0.75 & $4\times10^{-4}$ & 2\,min \\
 \end{table}
 The comparison at equal relative density is made in Chapter~\ref{ch:modelling} through the function $b(D,\phi_i)$.
 \subsection{Effect of axial stress}
+\label{subsec:stress}
+
+In test F216 the mixture with $w = 0.33$ was loaded at $-20\,^\circ$C in four steps of oil pressure, 0.5, 1, 2 and 3.4\,MPa, each held for about 10.8\,h (Figure~\ref{fig:stress_steps}). The LVDT followed the piston during the whole test, with a scale of 0.97 against the caliper, and no temperature event was detected. During the free run of the piston the oil pressure was 150--185\,kPa, which gives a seal friction of about 170\,kPa in this test.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/fig_stress_steps.pdf}
+    \caption{Stress-step test F216 ($w = 0.33$, $-20\,^\circ$C). (a) Void ratio against time. (b) Change of void ratio in each step against the time from the start of the step. (c) Void ratio at the end of each step against oil pressure.}
+    \label{fig:stress_steps}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}cccc@{}}
+\toprule
+Oil pressure (MPa) & $e$ at start & $e$ at end & $C_\alpha$ after 30\,min \\
+\midrule
+0.5 & 0.78 & 0.595 & 0.034--0.043 \\
+1.0 & 0.595 & 0.497 & 0.043--0.044 \\
+2.0 & 0.497 & 0.407 & 0.043--0.047 \\
+3.4 & 0.407 & 0.333 & 0.035--0.052 \\
+\bottomrule
+\end{tabular}
+\caption{Void ratio and coefficient of secondary compression in the four steps of F216. The range of $C_\alpha$ is that between the windows 30--200\,min and 200--640\,min.}
+\label{tab:stress_steps}
+\end{table}
+
+\begin{itemize}
+    \item \textbf{$C_\alpha$ does not depend on stress.} After the first half hour every step is linear in $\log t$ with $C_\alpha\approx0.045$, the value found in the tests loaded directly to 2\,MPa (F211, F213).
+    \item \textbf{At equal time the compression is linear in $\log\sigma$.} The void ratios at the end of the four steps lie on a line with $C_c = 0.31$, close to the compression index of the dry regolith (0.27--0.30, Section~\ref{sec:results_dry}).
+    \item \textbf{The rate at equal void ratio depends strongly on stress.} Extrapolating the relation between rate and void ratio of each step to the void ratio of the next, doubling the oil pressure multiplies the rate by about 200--500 from 0.5 to 1\,MPa and by about 85--115 from 1 to 2\,MPa; the last step (a factor 1.7 in pressure) multiplies it by about 18--27. The apparent stress exponent is between about 5.5 and 9 in terms of oil pressure, and between about 5 and 7 after subtracting the seal friction. The first step, where the friction is a third of the oil pressure, is the least reliable.
+    \item \textbf{The loading path has little effect.} After 1900\,min from the start, of which the last 650 at 2\,MPa, the void ratio in F216 was 0.407; F213, loaded directly to 2\,MPa, was at 0.409 at the same time.
+\end{itemize}
+The initial height of the sample is less certain than in the other tests: the oil pressure started to rise after about half of the gap expected from a height of 45\,mm, so that $e_0$ lies between 0.80 and 0.90. This does not affect the results above, which are anchored to the final height.
 
 \section{Dry regolith}
 \label{sec:results_dry}
@@ -145,5 +183,6 @@ The clean, dry frits weigh about 3.75\,g each. After F209 each frit had gained a
     \item The compaction in the first minutes is independent of temperature and is attributed to the regolith skeleton; the creep that follows is thermally activated.
     \item Between $-20$ and $-10\,^\circ$C the creep becomes 3.5--6 times faster and starts to accelerate in $\log t$; between $-30$ and $-20\,^\circ$C the difference is within the experimental uncertainty.
     \item The measured strain rates are of the same order as those of dense ice from the law of Goldsby and Kohlstedt.
+    \item In the stress-step test $C_\alpha\approx0.045$ at all stresses and the void ratio at equal time is linear in $\log\sigma$ with $C_c\approx0.31$, close to the dry regolith. At equal void ratio the apparent stress exponent is about 5--7, higher than that of any creep mechanism of ice.
+    \item The test at $-40\,^\circ$C failed and is excluded; the temperature series is the weakest part of the present data set.
 \end{itemize}
-% TODO: update after F215 (-40 C) and the stress-step test.

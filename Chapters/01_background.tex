@@ -168,7 +168,7 @@ where $d$ is the grain size. The mechanisms are:
 \end{itemize}
 The activation energies are about 49\,kJ/mol for GBS and about 60\,kJ/mol for dislocation creep below about $-15\,^\circ$C, with much larger values above about $-15\,^\circ$C~\cite{goldsby2001}. In this view, the classical $n\approx3$ is the result of a transition between the $n = 1.8$ and $n = 4$ regimes in the stress range of most glaciological tests~\cite{goldsby2001,duval2002comment,goldsby2002reply}. Deformation-mechanism maps place the creep of ice with grains of about 1\,mm, at stresses of 0.1--1\,MPa and temperatures above $-40\,^\circ$C, in the dislocation-creep field with $n\approx3$; above about 1\,MPa or at strain rates above about $10^{-3}$\,s$^{-1}$, cracking and fracture take over~\cite{shoji1978,schulson2009}.
 
-For the tests of this thesis, with ice grains of 250--500\,$\mu$m and axial stresses of 0.5--3.4\,MPa, the creep of the bulk ice is expected to be dominated by dislocation creep, with possible contributions from GBS at the lower stresses. The local stresses at the grain contacts are much higher than the nominal stress, as discussed in Section~\ref{sec:firn}.
+For the tests of this thesis, with ice grains of nominal size 250\,$\mu$m and axial stresses of 0.5--3.4\,MPa, the creep of the bulk ice is expected to be dominated by dislocation creep, with possible contributions from GBS at the lower stresses. The local stresses at the grain contacts are much higher than the nominal stress, as discussed in Section~\ref{sec:firn}.
 
 A compilation of creep laws for ice at planetary conditions, including the high-pressure phases and ice with particles, is given by Durham et al.~\cite{durham1997}. Their data extend down to about 77\,K and show that ice keeps creeping by thermally activated mechanisms at temperatures similar to those of the lunar polar subsurface, at rates many orders of magnitude lower than in the laboratory range.
 
@@ -241,12 +241,21 @@ where $s_{ij}$ is the deviatoric stress and $\sigma_e$ the von Mises equivalent 
 
 In an oedometric test the lateral strain is zero, so the axial strain is equal to the volumetric strain. A sample of dense ice in a rigid cell would therefore show only an elastic strain under a constant axial stress. All the time-dependent compaction measured in this thesis is a loss of pore volume: the tests measure densification, not the isochoric creep described by Equations~\eqref{eq:glen}--\eqref{eq:glen3d}. A law for these tests must be compressible.
 
-The firn literature provides such laws. In the formulation of Gagliardini and Meyssonnier~\cite{gagliardini1997}, later used in full-Stokes models of firn and ice~\cite{zwinger2007}, the porous material is treated as an isotropic compressible continuum whose matrix is ice. The strain rate depends on both the deviatoric stress and the mean stress $p$, through two functions $a(D)$ and $b(D)$ of the relative density; schematically,
+The firn literature provides such laws. In the formulation of Gagliardini and Meyssonnier~\cite{gagliardini1997}, later used in full-Stokes models of firn and ice~\cite{zwinger2007}, the porous material is treated as an isotropic compressible continuum whose matrix is ice. The strain rate depends on both the deviatoric stress and the mean stress $p$, through two functions $a(D)$ and $b(D)$ of the relative density:
 \begin{equation}
-    \dot\varepsilon_{ij} = B(T)\,\tau_e^{\,n-1}\left[a(D)\,s_{ij} + \tfrac{1}{3}\,b(D)\,p\,\delta_{ij}\right], \qquad \tau_e^{2} = a(D)\,\tfrac{1}{2}s_{kl}s_{kl} + b(D)\,p^{2},
+    \dot\varepsilon_{ij} = B(T)\,\sigma_D^{\,n-1}\left[\tfrac{1}{2}\,a(D)\,s_{ij} + \tfrac{1}{3}\,b(D)\,p\,\delta_{ij}\right], \qquad \sigma_D^{2} = \tfrac{1}{2}\,a(D)\,s_{kl}s_{kl} + b(D)\,p^{2},
     \label{eq:porous}
 \end{equation}
-where the exact numerical coefficients are those of the original paper. As the pores close, $b(D)\to0$ and $a(D)\to1$, and Equation~\eqref{eq:porous} reduces to the isochoric law of the ice. The pressure-sintering models of Section~\ref{sec:firn} (Equation~\eqref{eq:hip}) are the isotropic special case of the same idea: the volumetric strain rate is driven by the mean stress and amplified at low relative density by the geometry of the contacts. Under oedometric conditions Equation~\eqref{eq:porous}, with the lateral strain set to zero, also determines the lateral stress, that is, the coefficient of earth pressure at rest $K_0$, which cannot be measured in the vessel used here.
+where $s_{ij}$ is the deviatoric stress, $p = \sigma_{kk}/3$ the mean stress and $B$ the fluidity of the ice. The trace of Equation~\eqref{eq:porous} gives the volumetric strain rate, $\dot\varepsilon_{v} = b\,B\,\sigma_D^{\,n-1}p$. As the pores close, $b(D)\to0$ and $a(D)\to1$, and Equation~\eqref{eq:porous} reduces to the isochoric law of the ice.
+
+The functions $a$ and $b$ come from the model of Duva and Crow for porous materials that creep by a power law, which is valid only at high relative density. Below $D = 0.785$ Gagliardini and Meyssonnier replaced them with exponential functions of $D$ fitted to data, in two versions: one on the density profile of a Greenland firn site and one on the creep tests of Landauer on snow, which included compression with lateral confinement at 0.03--0.27\,MPa. The second set is
+\begin{equation}
+    a = \exp(-19.67\,D + 15.94), \qquad b = \exp(-27.65\,D + 20.37) \qquad (D < 0.785),
+    \label{eq:ab_gm}
+\end{equation}
+with $n = 3$~\cite{gagliardini1997}. The samples of this thesis have relative densities between about 0.55 and 0.75, that is, in the range where $a$ and $b$ are empirical also for firn.
+
+The pressure-sintering models of Section~\ref{sec:firn} (Equation~\eqref{eq:hip}) are the isotropic special case of the same idea: the volumetric strain rate is driven by the mean stress and amplified at low relative density by the geometry of the contacts. Under oedometric conditions Equation~\eqref{eq:porous}, with the lateral strain set to zero, also determines the lateral stress, that is, the coefficient of earth pressure at rest $K_0$, which cannot be measured in the vessel used here.
 
 % ---------------------------------------------------------------------------
 \section{Creep of frozen soils}
