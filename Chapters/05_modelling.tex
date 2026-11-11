@@ -24,16 +24,16 @@ where the skeleton term is written in the usual oedometric form $e = e_0 - C_c\l
 \end{equation}
 The ice fraction $\phi_i$ enters through $b$: the regolith grains change the geometry of the contacts and carry part of the load, so they act on the volumetric response rather than on the creep of the ice itself.
 
-This choice has two advantages over a purely empirical power law with separate functions of the void ratio and of the ice fraction. First, $n$ and $Q$ are not free parameters but those of the ice, which the stress-step and temperature tests only have to verify. Second, the law reduces to the known laws of ice and firn as $D\to1$ and $\phi_i\to1$, so that it can be compared with the firn data obtained on the same vessel~\cite{skarbek2025data}. The functions to be calibrated reduce essentially to $b(D,\phi_i)$, with $a(D)$ taken from the firn literature.
+This choice has two advantages over a purely empirical power law with separate functions of the void ratio and of the ice fraction. First, $n$ and $Q$ are not free parameters but those of the ice, which the stress-step and temperature tests only have to verify; the stress-step test does not confirm the value of $n$, as discussed in Section~\ref{subsec:cal_stress}. Second, the law reduces to the known laws of ice and firn as $D\to1$ and $\phi_i\to1$, so that it can be compared with the firn data obtained on the same vessel~\cite{skarbek2025data}. The functions to be calibrated reduce essentially to $b(D,\phi_i)$, with $a(D)$ taken from the firn literature.
 
 \subsection{Implications of the matrix law}
 
 Two features of Equation~\eqref{eq:gk} affect the test programme and the use of the law.
 \begin{itemize}
-    \item \textbf{Activation energy.} Above about $-15\,^\circ$C the activation energies of all mechanisms rise sharply. The test at $-10\,^\circ$C lies above this threshold and the others below, so $Q$ is fitted between $-40$ and $-20\,^\circ$C and the $-10\,^\circ$C test is treated separately.
-    \item \textbf{Change of mechanism with stress.} At 2\,MPa and $-20\,^\circ$C, with grains of 250--500\,$\mu$m, dislocation creep ($n\approx4$) dominates. At the stresses of a lunar foundation (0.1--0.2\,MPa) grain boundary sliding ($n\approx1.8$) takes over. Extrapolating the laboratory data to 0.2\,MPa with $n = 4$ would underestimate the creep rate by a factor of about 4--8 for these grain sizes. The composite law predicts that the apparent stress exponent measured in the stress-step test increases with stress between 0.5 and 3.4\,MPa.
+    \item \textbf{Activation energy.} Above about $-15\,^\circ$C the activation energies of all mechanisms rise sharply. The test at $-10\,^\circ$C lies above this threshold and the others below, so $Q$ is fitted between $-30$ and $-20\,^\circ$C and the $-10\,^\circ$C test is treated separately.
+    \item \textbf{Change of mechanism with stress.} At 2\,MPa and $-20\,^\circ$C, with grains of about 250\,$\mu$m, dislocation creep ($n\approx4$) dominates. At the stresses of a lunar foundation (0.1--0.2\,MPa) grain boundary sliding ($n\approx1.8$) takes over. Extrapolating the laboratory data to 0.2\,MPa with $n = 4$ would underestimate the creep rate by a factor of about 4--8 for these grain sizes. The composite law predicts that the apparent stress exponent measured in the stress-step test increases with stress between 0.5 and 3.4\,MPa, from about 2 to 4. The exponent measured in F216 is higher than both (Section~\ref{subsec:cal_stress}).
 \end{itemize}
-% TODO: verify the numerical coefficients of Equation (porous) and of the Goldsby-Kohlstedt parameters against the original papers; confirm the grain size of the seed ice used in F207-F210.
+% TODO: verify the Goldsby-Kohlstedt parameters against the original paper; confirm the sieve range of the ice (nominal size 250 um).
 
 \subsection{Concurrent deformation mechanisms}
 \label{subsec:mechanisms}
@@ -64,10 +64,68 @@ The effect of pore air can be isolated with a test in which the pores are evacua
 \section{Calibration}
 \label{sec:calibration}
 \subsection{Stress dependence}
+\label{subsec:cal_stress}
+
+The stress-step test (Section~\ref{subsec:stress}) gives three results: $C_\alpha$ is the same at all stresses, the void ratio at equal time is linear in $\log\sigma$, and the loading path has little effect on the void ratio reached. These are the properties of the isotache models of soil mechanics~\cite{bjerrum1967,mesri1977}, in which the rate of compaction is a unique function of stress and void ratio. Under constant stress
+\begin{equation}
+    e = e_{ref} - C_c\log_{10}\frac{\sigma}{\sigma_{ref}} - C_\alpha\log_{10}\frac{t}{\tau_{ref}},
+    \label{eq:isotache_t}
+\end{equation}
+and, eliminating time,
+\begin{equation}
+    -\frac{\mathrm{d}e}{\mathrm{d}t} = \frac{C_\alpha}{\tau_{ref}\ln10}\left(\frac{\sigma}{\sigma_{ref}}\right)^{C_c/C_\alpha}\exp\!\left[\frac{\ln10}{C_\alpha}\,(e - e_{ref})\right].
+    \label{eq:isotache}
+\end{equation}
+Equation~\eqref{eq:isotache} has the form of a creep law: a power of the stress, with exponent $n = C_c/C_\alpha$, times an exponential function of the void ratio. With the values of F216 for the mixture with $\phi_i = 0.50$ at $-20\,^\circ$C, $C_c = 0.31$, $C_\alpha = 0.045$ and $e_{ref} = 0.497$ at $\sigma_{ref} = 1$\,MPa and $\tau_{ref} = 10.8$\,h, the exponent is $n\approx7$, consistent with the values of 5--7 obtained directly from the rates at equal void ratio. For direct loading to 2\,MPa Equation~\eqref{eq:isotache_t} gives $e = 0.404$ at 10.8\,h, against 0.429 measured in F213; the difference is of the order of the uncertainty on the initial state of the two samples.
+
+Two points follow for the law of Section~\ref{sec:framework}.
+\begin{itemize}
+    \item \textbf{The stress exponent is not that of the ice.} The mechanisms of Equation~\eqref{eq:gk} have $n$ between 1.8 and 4. An exponent of about 7 in terms of nominal stress, and a compression index equal to that of the dry regolith, indicate that the dependence on stress is controlled by the regolith skeleton, or that the ice at the contacts works at stresses far above the nominal one, where the power law no longer holds. The two readings cannot be separated with one test; stress-step tests at other ice contents, where the role of the skeleton changes, are the most direct check.
+    \item \textbf{The ratio $C_\alpha/C_c$ is high.} It is about 0.15, against 0.02--0.07 for mineral soils and peats~\cite{mesri1977}. In the dry regolith it is about 0.005. The ice leaves the compressibility of the skeleton almost unchanged and makes it strongly dependent on time.
+\end{itemize}
+The stress used here is the oil pressure. The seal friction (about 170\,kPa in F216) and the wall friction reduce the stress on the sample, mostly in the first step; correcting for the seal friction lowers the exponent by about 1.
+
 \subsection{Temperature dependence}
-% Preliminary; to be completed with F215 (-40 C) and repeats.
-The first results of the temperature series (Section~\ref{subsec:temperature}) show two features that the calibration must reproduce. The compaction in the first minutes after loading does not depend on temperature, as expected for the skeleton term of Equation~\eqref{eq:decomposition}. The creep that follows is 3.5--6 times faster at $-10$ than at $-20\,^\circ$C, which corresponds to an apparent activation energy of roughly 60--130\,kJ/mol, but is not resolved between $-20$ and $-30\,^\circ$C. A single Arrhenius factor between $-10$ and $-40\,^\circ$C is therefore unlikely to describe the data; the matrix law of Goldsby and Kohlstedt, with its higher activation energies above about $-15\,^\circ$C, provides the natural form for this change.
+% Preliminary; to be completed with repeats at -30 and -10 C with recorded temperature. F215 (-40 C) is excluded.
+The first results of the temperature series (Section~\ref{subsec:temperature}) show two features that the calibration must reproduce. The compaction in the first minutes after loading does not depend on temperature, as expected for the skeleton term of Equation~\eqref{eq:decomposition}. The creep that follows is 3.5--6 times faster at $-10$ than at $-20\,^\circ$C, which corresponds to an apparent activation energy of roughly 60--130\,kJ/mol, but is not resolved between $-20$ and $-30\,^\circ$C. A single Arrhenius factor between $-10$ and $-30\,^\circ$C is therefore unlikely to describe the data; the matrix law of Goldsby and Kohlstedt, with its higher activation energies above about $-15\,^\circ$C, provides the natural form for this change.
 \subsection{Dependence on porosity}
+\label{subsec:cal_porosity}
+
+\paragraph{The porous law in the oedometer.} Setting the lateral strain rate to zero in Equation~\eqref{eq:porous} gives the deviatoric stress $q = \sigma_z - \sigma_r = 2\,b\,p/a$, and therefore
+\begin{equation}
+    K_0 = \frac{\sigma_r}{\sigma_z} = \frac{1 - \tfrac{2}{3}\,b/a}{1 + \tfrac{4}{3}\,b/a}, \qquad
+    \dot\varepsilon_z = B\,\sigma_z^{\,n}\,\frac{b^{(n+1)/2}}{\left(1 + \tfrac{4}{3}\,b/a\right)^{(n+1)/2}}.
+    \label{eq:porous_oed}
+\end{equation}
+The axial strain rate depends on the density through $b^{(n+1)/2}$, that is, through $b^2$ for $n = 3$. With the exponential form of Equation~\eqref{eq:ab_gm} the rate is then close to an exponential function of the void ratio, as in Equation~\eqref{eq:isotache}. A law of this kind has no steady state in the oedometer: the rate decreases as the pores close, and an exponential dependence on $e$ integrates to a straight line in $\log t$ with
+\begin{equation}
+    C_\alpha \approx \frac{\ln10}{\kappa}, \qquad \kappa = \frac{\partial\ln\dot\varepsilon_z}{\partial e}.
+    \label{eq:calpha_kappa}
+\end{equation}
+The log-linear creep observed in the tests is therefore what a porous law predicts, and $C_\alpha$ measures how strongly the rate depends on the void ratio.
+
+\paragraph{Comparison with firn.} Table~\ref{tab:firn_comparison} compares the tests at $-20\,^\circ$C and 2\,MPa with Equation~\eqref{eq:porous_oed} for pure firn at the same void ratio, using Equation~\eqref{eq:ab_gm}. The fluidity is that of Glen's law with $n = 3$, multiplied by the ratio of about 14 between the laws of Goldsby and Kohlstedt and of Glen at 2\,MPa.
+% TODO: verify the value of Glen's A at -20 C (1.2e-25 Pa^-3 s^-1 used here) and the factor 14.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & $\phi_i$ & $\dot\varepsilon_z$ at $e = 0.45$ (s$^{-1}$) & $C_\alpha$ \\
+\midrule
+Firn, Equation~\eqref{eq:porous_oed} & 1 & $\approx2\times10^{-4}$ & 0.10 \\
+F209 & 0.75 & $4\times10^{-4}$ & $\approx0.10$ \\
+F213 & 0.50 & $1.3\times10^{-6}$ & 0.04 \\
+F211 & 0.38 & $7\times10^{-7}$ & 0.044--0.059 \\
+\bottomrule
+\end{tabular}
+\caption{Rate of compaction and $C_\alpha$ at $-20\,^\circ$C and 2\,MPa compared with the porous law for pure firn. For firn the law also gives $K_0\approx0.53$ at this void ratio.}
+\label{tab:firn_comparison}
+\end{table}
+
+The sample with three quarters of ice behaves almost as firn, within a factor of 2--3 in rate and with the same $C_\alpha$. The mixtures with half or less of ice are slower by a factor of 100--250 at equal void ratio, and their $C_\alpha$ is about half: the rate falls faster as the pores close. These two differences are what the function $b(D,\phi_i)$ has to describe. The void ratio of the mixtures is computed on all the solids, while in firn it refers to the ice alone, so that part of the difference is a matter of definition; a comparison in terms of the porosity available to the ice is left to the calibration.
+
 \subsection{Dependence on ice content}
 \subsection{Parameter uncertainty}
 % Propagate the uncertainty on seal friction into the stress exponent and the pre-factor.
@@ -75,6 +133,8 @@ The first results of the temperature series (Section~\ref{subsec:temperature}) s
 \section{Comparison with existing laws}
 \label{sec:comparison}
 % Glen-type flow law for ice, firn densification laws, frozen-soil creep models.
+% Firn: see Table (firn_comparison). Frozen soils: time-hardening laws (Section sec:frozen_soils) are written in terms of time
+% and cannot follow changes of stress or temperature; the isotache form of Equation (isotache) can. To be developed.
 
 \section{Formulation for numerical implementation}
 \label{sec:implementation}
@@ -90,7 +150,7 @@ The first results of the temperature series (Section~\ref{subsec:temperature}) s
 % Also: tests run with air in the pores (lunar pores are evacuated); possible gas back-pressure after pore close-off;
 % the porous-law functions a(D) and K0 are taken from firn literature and not measured.
 
-The main limitations identified so far are the following. The radial stress is not measured, so $K_0$ and the deviatoric response come from the porous law and the literature. The temperature was not recorded during the tests and was lost in two of them. The scale of the displacement measurement varies from test to test by up to 20\%, which is controlled by anchoring each test to the measured initial and final heights but limits the precision of comparisons at equal void ratio. The tests last 2--3 days and are run with air in the pores, at temperatures well above those of the lunar polar regions and at stresses an order of magnitude above those of a foundation. Finally, only one simulant and one form of ice (sieved grains mixed with the regolith) are tested, while ice in the lunar regolith may coat or cement the grains.
+The main limitations identified so far are the following. The radial stress is not measured, so $K_0$ and the deviatoric response come from the porous law and the literature. The temperature was not recorded during the tests and was lost in two of them. The scale of the displacement measurement varies from test to test by up to 20\%, which is controlled by anchoring each test to the measured initial and final heights but limits the precision of comparisons at equal void ratio. The tests last 2--3 days and are run with air in the pores, at temperatures well above those of the lunar polar regions and at stresses an order of magnitude above those of a foundation. The dependence on stress rests on a single stress-step test, and the stresses are oil pressures not corrected for seal and wall friction. Finally, only one simulant and one form of ice (sieved grains mixed with the regolith) are tested, while ice in the lunar regolith may coat or cement the grains.
 
 \section{Implications for lunar applications}
 \label{sec:implications}
@@ -101,5 +161,5 @@ The first tests already support some qualitative conclusions for construction on
     \item \textbf{Icy regolith is not rock.} With as little as about 10\% of ice by mass the mixture keeps compacting under constant load, with a settlement that grows with the logarithm of time or faster. Foundations should be designed for settlement that continues over the service life.
     \item \textbf{Temperature is the main control.} In the polar cold traps (40--100\,K) the creep of ice is extremely slow. The risk comes from the structure itself: a heated habitat warms the ground beneath it towards the temperatures of these tests. Thermal isolation, elevated or ventilated foundations and passive heat extraction, as used on terrestrial permafrost, address this directly. The activation energy measured in the temperature series sets how much warming is acceptable.
     \item \textbf{Ice content matters most at low values.} The change from dry to about 10\% ice by mass increases $C_\alpha$ by more than an order of magnitude, while further increases have a smaller effect. Mapping the ice content is therefore part of site selection.
-    \item \textbf{Extrapolation in stress must use the right mechanism.} Laboratory stresses (2\,MPa) are an order of magnitude above those of a foundation. Using the matrix law of Goldsby and Kohlstedt rather than a single power law avoids underestimating creep at service stresses (Section~\ref{sec:framework}).
+    \item \textbf{Extrapolation in stress is the main open question.} Laboratory stresses (2\,MPa) are an order of magnitude above those of a foundation. The stress-step test gives an apparent exponent of about 5--7 between 0.5 and 3.4\,MPa, which would make creep at 0.1--0.2\,MPa much slower than in the tests; the flow law of ice predicts instead a lower exponent at low stress, where grain boundary sliding dominates, and therefore faster creep (Section~\ref{sec:framework}). Until tests at lower stress separate the two, the more conservative extrapolation should be used.
 \end{itemize}
