@@ -7,7 +7,7 @@
 % Table of all tests: ID, ice content, temperature, target pressure, corrected stress,
 % initial height and density, duration, remarks. State which tests are excluded and why.
 
-Table~\ref{tab:tests_lhs1} lists the tests on LHS-1 completed so far. All were run at a target oil pressure of 2\,MPa except F216, in which the pressure was raised in four steps; $w$ is the ratio of ice to dry regolith mass and $\phi_i$ the volume fraction of ice in the solids. Tests F207, F208, F209, F210 and F211 form the ice-content series at $-20\,^\circ$C; F212, F213 and F214 form the temperature series on the mixture with equal volumes of ice and regolith ($w = 0.33$). F213 repeats the reference condition of F207, whose data are less reliable. F215, at $-40\,^\circ$C, is excluded from the analysis (Section~\ref{subsec:temperature}). F216 is the stress-step test on the same mixture at $-20\,^\circ$C.
+Table~\ref{tab:tests_lhs1} lists the tests on LHS-1 completed so far. All were run at a target oil pressure of 2\,MPa except F216, in which the pressure was raised in four steps; $w$ is the ratio of ice to dry regolith mass and $\phi_i$ the volume fraction of ice in the solids. Tests F207, F208, F209, F210 and F211 form the ice-content series at $-20\,^\circ$C; F212 ($-10\,^\circ$C), F213 and F214 ($-20\,^\circ$C) and F218 ($-30\,^\circ$C) form the temperature series on the mixture with equal volumes of ice and regolith ($w = 0.33$). F213 repeats the reference condition of F207, whose data are less reliable, and F214 repeats F213. F215, at $-40\,^\circ$C, is excluded from the analysis (Section~\ref{subsec:temperature}). F216 is the stress-step test on the same mixture at $-20\,^\circ$C.
 
 \begin{table}[H]
 \centering
@@ -24,9 +24,10 @@ F210 & $-20$ & 0.10 & 0.23 & 26 / 2.6 & 47.0 & 0.94 & 65 & Valve closed in loadi
 F211 & $-20$ & 0.20 & 0.38 & 21.8 / 4.4 & 45.0 & 0.79 & 42 & LVDT off range at start \\
 F212 & $-10$ & 0.33 & 0.50 & 17.5 / 5.8 & 44.0 & 0.76 & 43 & Protrusion uncertain \\
 F213 & $-20$ & 0.33 & 0.50 & 17.5 / 5.8 & 45.0 & 0.80 & 66 & $T$ control lost at 32.5\,h \\
-F214 & $-30$ & 0.33 & 0.50 & 17.5 / 5.8 & 45.0$^{b}$ & 0.80 & 42 & $T$ control lost at 12\,h (prob.) \\
+F214 & $-20$ & 0.33 & 0.50 & 17.5 / 5.8 & 45.0$^{b}$ & 0.80 & 42 & Repeat of F213; $T$ lost at 12\,h (prob.) \\
 F215 & $-40$ & 0.33 & 0.50 & 16.1 / 5.4$^{c}$ & 45.0 & 0.95 & 68 & Excluded \\
 F216 & $-20$ & 0.33 & 0.50 & 17.4 / 5.8 & 45.0 & 0.80 & 4 $\times$ 10.8 & Steps 0.5, 1, 2, 3.4\,MPa \\
+F218 & $-30$ & 0.33 & 0.50 & 17.4 / 5.8 & 45.0 & 0.80 & 42.5 & \\
 \bottomrule
 \end{tabular}
 \caption{Tests on LHS-1. $^{a}$Estimated from the final mass of 23.9\,g with the planned ratio, since part of the material was lost while filling the vessel. $^{b}$Planned height, consistent with the contact point and the measured final height. $^{c}$From the total mass of 21.4\,g with the planned ratio.}
@@ -45,19 +46,19 @@ F216 & $-20$ & 0.33 & 0.50 & 17.4 / 5.8 & 45.0 & 0.80 & 4 $\times$ 10.8 & Steps 
 \subsection{Effect of temperature}
 \label{subsec:temperature}
 
-Figure~\ref{fig:temperature} compares the three tests of the temperature series on the mixture with $w = 0.33$. In two of them the cooling unit lost control of the temperature during the test (Section~\ref{sec:temperature_events}); only the parts before these events are used.
+Figure~\ref{fig:temperature} compares the tests of the temperature series on the mixture with $w = 0.33$: F212 at $-10\,^\circ$C, F213 and F214 at $-20\,^\circ$C and F218 at $-30\,^\circ$C. In F213 and F214 the cooling unit lost control of the temperature during the test (Section~\ref{sec:temperature_events}); only the parts before these events are used. F218 ran for 42.5\,h without any temperature event, with an LVDT scale of 0.98 against the caliper.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{Images/fig_temperature_series.pdf}
-    \caption{Void ratio against time under 2\,MPa for the mixture with $w = 0.33$ at three temperatures. Solid: valid part of each test; dotted: after the loss of temperature control.}
+    \caption{Void ratio against time under 2\,MPa for the mixture with $w = 0.33$ at different temperatures. Solid: valid part of each test; dotted: after the loss of temperature control. \tbd{Figure to be regenerated: F214 was run at $-20\,^\circ$C, not $-30\,^\circ$C as in the legend, and F218 ($-30\,^\circ$C) is to be added.}}
     \label{fig:temperature}
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{The first minutes do not depend on temperature.} At $-10$, $-20$ and $-30\,^\circ$C the void ratio is 0.53--0.54 one minute after the load is applied, and the three curves overlap for the first 10\,min. This part of the compaction is attributed to rearrangement of the regolith skeleton (Section~\ref{subsec:mechanisms}).
-    \item \textbf{From $-20$ to $-10\,^\circ$C the creep is much faster.} The time needed to accumulate a given decrease in void ratio after the first minute is 3.5--6 times shorter at $-10\,^\circ$C (Table~\ref{tab:temperature_times}), and the curve at $-10\,^\circ$C bends downwards in $\log t$, with $C_\alpha$ increasing from 0.05 to 0.12, while at $-20\,^\circ$C it stays linear with $C_\alpha\approx0.04$.
-    \item \textbf{From $-20$ to $-30\,^\circ$C no difference is resolved.} The times at $-30\,^\circ$C fall within the range of those at $-20\,^\circ$C, whose width reflects the uncertainty in the scale of the displacement measurement in F213 (Section~\ref{sec:lvdt}).
+    \item \textbf{The two tests at $-20\,^\circ$C agree.} F213 and F214 differ by about 0.01 in void ratio over the valid part of both tests (Table~\ref{tab:temperature_e}), which gives the repeatability of the procedure. An error of 0.5\,mm in the sample height corresponds to about 0.02 in void ratio.
+    \item \textbf{From $-20$ to $-10\,^\circ$C the creep is much faster.} The time needed to accumulate a given decrease in void ratio after the first minute is 3.5--6 times shorter at $-10\,^\circ$C (Table~\ref{tab:temperature_times}), and the curve at $-10\,^\circ$C bends downwards in $\log t$, with $C_\alpha$ increasing from 0.05 to 0.12, while at $-20\,^\circ$C it stays linear with $C_\alpha\approx0.04$. The curves at $-10$ and $-20\,^\circ$C overlap for the first 10\,min, as expected if this part of the compaction is due to rearrangement of the regolith skeleton (Section~\ref{subsec:mechanisms}).
+    \item \textbf{From $-20$ to $-30\,^\circ$C the creep is slower, with the same $C_\alpha$.} F218 is linear in $\log t$ with $C_\alpha = 0.042$, the same slope as at $-20\,^\circ$C, and lies 0.02--0.035 above the two tests at $-20\,^\circ$C (Table~\ref{tab:temperature_e}). With the same slope, this offset is a shift of the curve along the time axis: the same void ratio is reached about 3--5 times later at $-30\,^\circ$C.
 \end{itemize}
 
 \begin{table}[H]
@@ -65,7 +66,7 @@ Figure~\ref{fig:temperature} compares the three tests of the temperature series 
 \small
 \begin{tabular}{@{}cccc@{}}
 \toprule
-$\Delta e$ after 1\,min & $-10\,^\circ$C (F212) & $-20\,^\circ$C (F213) & $-30\,^\circ$C (F214) \\
+$\Delta e$ after 1\,min & $-10\,^\circ$C (F212) & $-20\,^\circ$C (F213) & $-20\,^\circ$C (F214) \\
 \midrule
 0.06 & 14\,min & 24--36\,min & 31\,min \\
 0.08 & 28\,min & 73--118\,min & 104\,min \\
@@ -76,7 +77,23 @@ $\Delta e$ after 1\,min & $-10\,^\circ$C (F212) & $-20\,^\circ$C (F213) & $-30\,
 \label{tab:temperature_times}
 \end{table}
 
-The ratio between $-10$ and $-20\,^\circ$C corresponds to an apparent activation energy of roughly 60--130\,kJ/mol, depending on the scale adopted for F213 and on the stage of the test. Values in the upper part of this range are expected above about $-15\,^\circ$C, where the activation energy of ice increases (Section~\ref{sec:ice_rheology}). Repeats of the tests affected by the temperature events, with the temperature recorded, are needed before an activation energy is fitted (Chapter~\ref{ch:modelling}).
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}cccc@{}}
+\toprule
+Time under 2\,MPa & $-30\,^\circ$C (F218) & $-20\,^\circ$C (F213) & $-20\,^\circ$C (F214) \\
+\midrule
+10\,min & 0.526 & 0.502 & 0.488 \\
+100\,min & 0.485 & 0.464 & 0.450 \\
+700\,min & 0.449 & 0.428 & 0.419 \\
+\bottomrule
+\end{tabular}
+\caption{Void ratio at equal times under 2\,MPa for the mixture with $w = 0.33$ at $-30$ and $-20\,^\circ$C.}
+\label{tab:temperature_e}
+\end{table}
+
+The ratio between $-10$ and $-20\,^\circ$C corresponds to an apparent activation energy of roughly 60--130\,kJ/mol, depending on the scale adopted for F213 and on the stage of the test. Values in the upper part of this range are expected above about $-15\,^\circ$C, where the activation energy of ice increases (Section~\ref{sec:ice_rheology}). The factor of 3--5 between $-20$ and $-30\,^\circ$C corresponds to about 55--85\,kJ/mol, in the range of the creep mechanisms of ice below $-15\,^\circ$C. This value rests on a single test at $-30\,^\circ$C, and the offset is already present at 10\,min, so part of it could come from a difference in the initial state of the samples. The temperature-step test F219, in which the same sample is held at $-30$, $-20$ and $-10\,^\circ$C in sequence under 2\,MPa, removes the sample-to-sample scatter from this comparison.
 
 \paragraph{Test at $-40\,^\circ$C.} Test F215 is not used. The LVDT stopped following the piston, the cooling unit did not hold the set temperature, and the final piston position could not be measured with confidence. With the best estimate of the final position the sample would have reached $e\approx0.20$, far below the value of 0.39 reached at $-20\,^\circ$C by the same mixture (F213) and close to that of the sample with three times as much ice (F209). A sample that compacts more at $-40$ than at $-20\,^\circ$C is not credible, so either the final height or the temperature is wrong. The lowest temperature of the present programme is therefore $-30\,^\circ$C.
 
@@ -180,9 +197,9 @@ The clean, dry frits weigh about 3.75\,g each. After F209 each frit had gained a
 \begin{itemize}
     \item Dry LHS-1 compacts during loading and then stops: the time-dependent compaction of the mixtures is due to the ice.
     \item A small amount of ice ($w = 0.10$) is enough to produce creep with $C_\alpha\approx0.04$; at equal void ratio the rate increases strongly with the ice fraction.
-    \item The compaction in the first minutes is independent of temperature and is attributed to the regolith skeleton; the creep that follows is thermally activated.
-    \item Between $-20$ and $-10\,^\circ$C the creep becomes 3.5--6 times faster and starts to accelerate in $\log t$; between $-30$ and $-20\,^\circ$C the difference is within the experimental uncertainty.
+    \item The creep is thermally activated, with the same $C_\alpha\approx0.04$ at $-30$ and $-20\,^\circ$C. Between $-30$ and $-20\,^\circ$C it becomes about 3--5 times faster (apparent activation energy 55--85\,kJ/mol, one test at $-30\,^\circ$C); between $-20$ and $-10\,^\circ$C it becomes 3.5--6 times faster and starts to accelerate in $\log t$.
+    \item Two tests under the same conditions (F213 and F214, $-20\,^\circ$C) agree to about 0.01 in void ratio.
     \item The measured strain rates are of the same order as those of dense ice from the law of Goldsby and Kohlstedt.
     \item In the stress-step test $C_\alpha\approx0.045$ at all stresses and the void ratio at equal time is linear in $\log\sigma$ with $C_c\approx0.31$, close to the dry regolith. At equal void ratio the apparent stress exponent is about 5--7, higher than that of any creep mechanism of ice.
-    \item The test at $-40\,^\circ$C failed and is excluded; the temperature series is the weakest part of the present data set.
+    \item The test at $-40\,^\circ$C failed and is excluded; the temperature series rests on one test per temperature below and above $-20\,^\circ$C and is completed by the temperature-step test F219.
 \end{itemize}
