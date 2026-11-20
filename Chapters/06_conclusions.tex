@@ -1,20 +1,59 @@
 \chapter{Conclusions and future developments}
 \label{ch:conclusions}%
-% Aim: 4-6 pages.
+
+This thesis set out to measure and model the time-dependent compaction of granular mixtures of ice and the lunar highlands simulant LHS-1 under oedometric conditions. The main findings are summarised below for each of the three objectives stated in the Introduction, followed by the implications for lunar construction, the limitations of the work and the developments it suggests.
 
 \section{Main findings}
-% Answer the objectives stated in the Introduction, one by one, with numbers.
-% Draft, to be revised when the test campaign is complete.
+
+\subsection{Apparatus and procedure}
 \begin{itemize}
-    \item Under constant oedometric stress, dry LHS-1 compacts only during loading, while mixtures of LHS-1 and ice keep compacting for days: the creep is controlled by the ice.
-    \item About 10\% of ice by mass is enough to produce creep ($C_\alpha\approx0.04$ at $-20\,^\circ$C and 2\,MPa); at equal void ratio the rate increases by orders of magnitude as the ice fraction rises towards pore filling.
-    \item The creep is thermally activated, and between $-30$ and $-10\,^\circ$C temperature only shifts the creep curve along the time axis, with the same $C_\alpha$. On a single sample each warming of 10\,K multiplies the rate at equal void ratio by 10--14 (apparent activation energy 120--145\,kJ/mol, increasing towards the melting point and higher than that of pure ice), which for the creep rate is equivalent to 40--60\% more load, without the immediate compression of the skeleton. The scatter between samples of the same mixture is large compared with this effect.
-    \item Under stress steps between 0.5 and 3.4\,MPa the mixture with equal volumes of ice and regolith follows an isotache law, with $C_\alpha\approx0.045$ independent of stress and $C_c\approx0.31$ close to that of the dry regolith; the apparent stress exponent, about 5.5--7.5 from two independent methods, is higher than that of the creep of ice.
-    \item Because the oedometric strain is entirely volumetric, the isochoric flow laws of ice cannot describe the tests on their own; a compressible porous law with an ice matrix following Goldsby and Kohlstedt is adopted. It reproduces the log-linear creep and, for the sample richest in ice, the measured rates; it does not reproduce the dependence on stress.
+    \item The low-temperature compaction vessel previously used for firn was brought into operation for ice--regolith mixtures between $-30$ and $-10\,^\circ$C and up to 3.4\,MPa. The test at $-40\,^\circ$C failed, so $-30\,^\circ$C is the lowest temperature reached with the present cooling unit.
+    \item The main losses and errors were quantified (Chapter~\ref{ch:characterisation}). The seal friction is about 170--220\,kPa during the loading of a test and 420\,kPa on average in a slow run without sample, with a breakaway peak of 1.3\,MPa; it makes the stress uncertain by about 5\% at 2\,MPa but by 25\% at 0.5\,MPa. The compliance of the oil circuit stores about 1\,cm$^3$ of oil at 2\,MPa, and the leak of the circuit is of the order of $10^{-3}$\,cm$^3$/min. Wall friction may reduce the mean stress in the sample by 7--37\%, depending on the friction coefficient.
+    \item A procedure was defined in which the load is applied with a ramp of 1\,min, each test is anchored to the measured initial and final heights of the sample, and the LVDT and the oil volume provide two independent measurements of the displacement. With it, two tests under the same conditions agree to 0.01 in void ratio.
+\end{itemize}
+
+\subsection{Compaction of ice--regolith mixtures}
+\begin{itemize}
+    \item Under constant oedometric stress, dry LHS-1 compacts only during loading ($C_\alpha\approx0.0016$), while mixtures of LHS-1 and ice keep compacting for days, without reaching a steady state: the creep is due to the ice.
+    \item About 10\% of ice by mass is enough to produce full creep ($C_\alpha\approx0.04$--0.05 at $-20\,^\circ$C and 2\,MPa). At equal void ratio the rate increases by more than two orders of magnitude between $\phi_i = 0.38$ and $\phi_i = 0.75$; the mixture with three quarters of ice behaves almost as firn, and those with half of ice or less are 100--250 times slower than firn.
+    \item In the stress-step test the mixture with equal volumes of ice and regolith follows an isotache law: $C_\alpha\approx0.045$ at all stresses, $C_c\approx0.31$ as for the dry regolith, and little effect of the loading path. The apparent stress exponent at equal void ratio is 5.5--7.5, from two independent methods, well above that of any creep mechanism of ice.
+    \item Temperature acts as a shift of the creep curve along the time axis, without changing its slope. On a single sample each warming of 10\,K between $-30$ and $-10\,^\circ$C multiplies the rate at equal void ratio by 10--14, which corresponds to an apparent activation energy of 120--145\,kJ/mol, increasing towards the melting point and higher than that of pure ice. For the creep rate, 10\,K of warming is equivalent to 40--60\% more load, without the immediate compression of the skeleton.
+    \item The scatter between samples of the same mixture can be larger than the effect of 10\,K, so temperature effects are best measured on a single sample, by steps of temperature.
+\end{itemize}
+
+\subsection{Constitutive law}
+\begin{itemize}
+    \item Because the oedometric strain is entirely volumetric, the isochoric flow laws of ice cannot describe the tests on their own. A compressible porous law of the Gagliardini--Meyssonnier type with an ice matrix following Goldsby and Kohlstedt reproduces the log-linear creep without steady state, and for the richest mixture also the measured rates.
+    \item For mixtures with half of ice or less the regolith is not an inert filler: the ice and regolith grains form a common skeleton that carries the load, the rate falls about twice as fast with density as in firn, and the stress exponent is higher than that of ice. These effects are described by the function $b(D,\phi_i)$ of the porous law, of which a first calibration is given.
+    \item In engineering form, the tests are described by the isotache law $e = e_{ref} - C_c\log\sigma - C_\alpha\log(t/\tau_{ref}(T))$, with the parameters of Table~\ref{tab:isotache_params} and a reference time that changes by a factor of 10--14 for every 10\,K. After a change of temperature the rate follows the isotache law and not a time-hardening law of the type used for frozen soils, so the void ratio, not the time, must be the state variable of the law.
+\end{itemize}
+
+\section{Implications for lunar construction}
+\begin{itemize}
+    \item Icy regolith with as little as 10\% of ice by mass keeps compacting under constant load; foundations on it must be designed for settlement that continues over the service life. As an order of magnitude, a loose layer 1\,m thick under 0.2\,MPa at $-20\,^\circ$C would settle by about 2.5\,cm for every tenfold increase of time, an estimate that extrapolates the tests to lower stresses and longer times.
+    \item Temperature is the main control. At the 40--100\,K of the polar cold traps the creep is negligible, and the risk comes from structures that warm the ground. Keeping the ground cold, with thermal isolation and elevated or ventilated foundations, is the passive approach of terrestrial permafrost engineering and is favoured by the lunar environment.
+    \item Removing the ice by heating does not compact the ground: in vacuum the ice sublimates, leaving a loose regolith and redepositing vapour in the colder layers below. If a site must be treated, the ice is better extracted as a resource and the dry regolith compacted mechanically.
 \end{itemize}
 
 \section{Limitations}
 
+The limitations of the results are discussed in Sections~\ref{sec:model_limits} and~\ref{sec:uncertainty}; the most important are the following.
+\begin{itemize}
+    \item \textbf{One-dimensional conditions.} The radial stress is not measured, so $K_0$ and the deviatoric response are taken from the porous law and the firn literature, and the wall friction is treated as a systematic error.
+    \item \textbf{Range of stress.} The tests cover 0.5--3.4\,MPa, an order of magnitude above the stress of a lunar foundation, and the stress dependence rests on a single stress-step test. Below about 0.5\,MPa the seal friction of the vessel makes the stress too uncertain.
+    \item \textbf{Range of temperature and time.} The tests cover $-30$ to $-10\,^\circ$C and last up to a week; the extrapolation to lunar temperatures and to the lifetime of a structure is physically motivated but not verified.
+    \item \textbf{Number of tests and scatter.} Each condition was tested once or twice, and samples of the same mixture can differ more than the effect of some of the variables studied.
+    \item \textbf{Material and environment.} One simulant and one granular form of ice were tested, with air in the pores and without recording the temperature of the sample.
+\end{itemize}
+
 \section{Future developments}
-% Triaxial tests with controlled radial stress; forced-oscillation (PinQ) measurements of elastic moduli;
-% lower temperatures; other simulants (LMS-1) and ice morphologies; implementation in a finite-element code.
+\begin{itemize}
+    \item \textbf{Lower stresses.} Tests at 0.1--0.5\,MPa, with a vessel of lower seal friction or a dead-weight loading frame, to measure the stress exponent in the range of foundations and to check whether grain boundary sliding takes over.
+    \item \textbf{Stress steps at other ice contents.} The same stress-step test on mixtures with little ice ($w = 0.10$) and much ice ($\phi_i = 0.75$), to establish whether the high stress exponent is due to the regolith skeleton.
+    \item \textbf{Three-dimensional tests.} Triaxial or $K_0$ tests with controlled or measured radial stress, to calibrate the deviatoric part of the porous law and measure $K_0$ during creep.
+    \item \textbf{Lunar conditions.} Tests with evacuated pores, at lower temperatures with a cryogenic cooling system, and with other simulants (for example LMS-1) and other forms of ice (vapour-deposited, cementing the grains).
+    \item \textbf{Longer tests and repetitions.} Tests of several weeks, to verify the extrapolation in time, and repeated tests on the reference mixture, to quantify the scatter between samples.
+    \item \textbf{Measurements.} A thermocouple on the vessel recorded with the other channels; calibration of the LVDT over its whole stroke; grading of the samples after the test, to check for grain crushing; slicing of compacted samples, to measure the distribution of density and ice along the height.
+    \item \textbf{Elastic properties.} Forced-oscillation measurements (PinQ) of the elastic moduli and attenuation of the mixtures, to complete the elastic part of the law.
+    \item \textbf{Numerical implementation.} Implementation of the calibrated law in a finite element code with temperature as an input field, and its verification against the oedometric tests before application to foundations and excavations on icy regolith.
+\end{itemize}
