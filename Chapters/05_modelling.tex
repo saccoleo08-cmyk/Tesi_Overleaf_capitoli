@@ -129,14 +129,122 @@ F211 & 0.38 & $7\times10^{-7}$ & 0.044--0.059 \\
 The sample with three quarters of ice behaves almost as firn, within a factor of 2--3 in rate and with the same $C_\alpha$. The mixtures with half or less of ice are slower by a factor of 100--250 at equal void ratio, and their $C_\alpha$ is about half: the rate falls faster as the pores close. These two differences are what the function $b(D,\phi_i)$ has to describe. The void ratio of the mixtures is computed on all the solids, while in firn it refers to the ice alone, so that part of the difference is a matter of definition; a comparison in terms of the porosity available to the ice is left to the calibration.
 
 \subsection{Dependence on ice content}
+\label{subsec:cal_ice}
+
+\paragraph{Structure of the mixtures.} The void ratio of the soil skeleton alone, $e_s$ in Equation~\eqref{eq:Si}, counts both the ice and the gas as pore space: $e_s = (e+\phi_i)/(1-\phi_i)$, with $e$ referred to all the solids. Table~\ref{tab:es} gives its value at $e = 0.45$ and at the end of the tests. The loosest state reached by the dry LHS-1 in this vessel is $e_s = 1.07$ (F208, poured). For $\phi_i\ge0.38$ the skeleton void ratio is above this value throughout the tests: the regolith grains alone cannot form a continuous load-bearing skeleton, and the load is carried by an assembly of regolith and ice grains. This is possible because the ice grains (about 250\,$\mu$m) are four times coarser than the median regolith grain (60\,$\mu$m, Section~\ref{subsec:mixtures}): they are not a pore filler but part of the granular structure, with the fines between them. At $\phi_i = 0.75$ the regolith is dispersed in the ice ($e_s\approx4$--5), the material is ice with particles, and F209 indeed behaves as firn.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Test & $\phi_i$ & $e$ at end & $e_s$ at $e = 0.45$ & $e_s$ at end \\
+\midrule
+F210 & 0.23 & 0.60 & -- & 1.08 \\
+F211 & 0.38 & 0.42 & 1.34 & 1.29 \\
+F213 & 0.50 & 0.39 & 1.90 & 1.78 \\
+F219 & 0.50 & 0.08 & 1.90 & 1.16 \\
+F209 & 0.75 & 0.17 & 4.80 & 3.68 \\
+\bottomrule
+\end{tabular}
+\caption{Void ratio of the regolith skeleton alone, $e_s = (e+\phi_i)/(1-\phi_i)$, counting ice and gas as pore space. Loosest state of the dry LHS-1 in the vessel: $e_s = 1.07$.}
+\label{tab:es}
+\end{table}
+
+\paragraph{Two limiting views.} The data at equal void ratio (Table~\ref{tab:equal_e}) can be compared with the porous law for firn in two ways. In the first, the mixture is treated as a porous ice whose void ratio is that of all the solids; this is the comparison of Table~\ref{tab:firn_comparison}, which gives the mixtures with $\phi_i\le0.50$ 100--250 times slower than firn. In the second, the regolith is an inert filler and the ice carries all the load; the relevant void ratio is then that of the ice alone, $e/\phi_i$, which at $e = 0.45$ is 0.60, 0.90 and 1.18 for $\phi_i = 0.75$, 0.50 and 0.38. Equation~\eqref{eq:porous_oed} at these void ratios predicts rates higher than those measured by a factor of about 12 for $\phi_i = 0.75$, and by factors of $10^5$--$10^7$ for $\phi_i\le0.50$; the last values extrapolate the firn law beyond its range of calibration, but the conclusion does not depend on their precision. The mixtures with half of ice or less are therefore far from the inert-filler view and much closer to the first one: the regolith grains carry part of the load and slow down the creep of the ice. This is the same conclusion reached from the stress exponent (Section~\ref{subsec:cal_stress}).
+
+\paragraph{A first calibration of $b(D,\phi_i)$.} Keeping the form of Equation~\eqref{eq:ab_gm}, the function $b$ is written as
+\begin{equation}
+    b(D,\phi_i) = \exp\bigl[-\beta(\phi_i)\,D + c(\phi_i)\bigr],
+    \label{eq:b_phi}
+\end{equation}
+with $a(D)$ unchanged. For $n = 3$ the axial rate in Equation~\eqref{eq:porous_oed} varies approximately as $b^2$, the denominator changing slowly with density, so that Equation~\eqref{eq:calpha_kappa} gives
+\begin{equation}
+    \beta \approx \frac{\ln10\,(1+e)^2}{2\,C_\alpha}.
+\end{equation}
+The exponent $\beta$ is fixed by $C_\alpha$, and $c$ by the rate at a reference void ratio (Table~\ref{tab:b_calibration}). For $\phi_i = 0.75$ the value obtained, $\beta\approx24$, is close to the 27.65 of firn; for $\phi_i\le0.50$ it is about twice as large, which expresses the faster decrease of the rate as the pores close. The factor $g$ in the table is the ratio of the measured rate to that of firn at the same void ratio.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+$\phi_i$ & Tests & $C_\alpha$ & $\beta$ at $e = 0.45$ & $g = \dot e/\dot e_{firn}$ at $e = 0.45$ \\
+\midrule
+0.38 & F211 & 0.044--0.059 & 41--55 & $3.5\times10^{-3}$ \\
+0.50 & F213, F216 & 0.040--0.045 & 54--60 & $6.5\times10^{-3}$ \\
+0.50 & F219 & 0.11 & 22 & -- \\
+0.75 & F209 & 0.10 & 24 & 2 \\
+1 (firn) & -- & 0.09--0.10 & 27.65 & 1 \\
+\bottomrule
+\end{tabular}
+\caption{First calibration of $b(D,\phi_i)$ at $-20\,^\circ$C and 2\,MPa (oil pressure). F219 is given separately: it reached $e = 0.45$ at $-30\,^\circ$C and its $C_\alpha$ is that of the later steps.}
+\label{tab:b_calibration}
+\end{table}
+
+This calibration is indicative. It rests on one test per ice content, the rates are compared at a single void ratio reached at very different times, and two samples of the same mixture (F213 and F219) differ in $C_\alpha$ by a factor of more than two. For engineering use, the isotache parameters of Table~\ref{tab:isotache_params} are more direct and carry the same information.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+$w$ & $\phi_i$ & $C_c$ & $C_\alpha$ & $C_\alpha/C_c$ \\
+\midrule
+0 & 0 & 0.27--0.30 & 0.0016 & 0.005 \\
+0.10 & 0.23 & -- & 0.04--0.05 & -- \\
+0.20 & 0.38 & -- & 0.044--0.059 & -- \\
+0.33 & 0.50 & 0.31 & 0.04--0.11 & 0.13--0.35 \\
+1.0 & 0.75 & -- & $\approx0.10$ & -- \\
+\bottomrule
+\end{tabular}
+\caption{Isotache parameters at $-20\,^\circ$C (oil pressure 0.5--3.4\,MPa). $C_c$ is known only for the dry regolith and the mixture with $\phi_i = 0.50$; the range of $C_\alpha$ for this mixture covers F213, F216 and F219. The temperature enters through $\tau_{ref}$: a factor of 10--14 per 10\,K between $-30$ and $-10\,^\circ$C (Section~\ref{subsec:temperature}).}
+\label{tab:isotache_params}
+\end{table}
+
 \subsection{Parameter uncertainty}
-% Propagate the uncertainty on seal friction into the stress exponent and the pre-factor.
+\label{subsec:uncertainty}
+
+The main sources of uncertainty on the parameters, and their effect, are the following.
+\begin{itemize}
+    \item \textbf{Seal and wall friction.} The stresses are oil pressures. Subtracting the seal friction of about 170\,kPa lowers the stress exponent from 6--7.5 to 5.3--5.7, mostly through the first step at 0.5\,MPa; the wall friction, not measured, acts in the same direction. $C_\alpha$ and the temperature factors are not affected, since they are obtained at constant stress.
+    \item \textbf{Scale of the displacement measurement.} The LVDT scale varies between tests (0.86--1.19). Anchoring each test to the measured initial and final heights fixes the void ratios at the two ends; the error on $C_\alpha$ is proportional to that on the scale, about 10--15\% where the scale is uncertain (F219). Ratios of rates at equal void ratio, and therefore the temperature factors and $Q$, do not depend on the scale.
+    \item \textbf{Initial height.} An error of 0.5\,mm on the height changes the void ratio by about 0.02 over the whole test, but not $C_\alpha$ or the rate factors.
+    \item \textbf{Scatter between samples.} Two tests under the same conditions agree to 0.01 in void ratio (F213 and F214), but F219 crept much faster than F218 and F213. Comparisons between samples are therefore uncertain by more than the effect of 10\,K, which is why the single-sample value of $Q$ (120--145\,kJ/mol) is preferred to the value from separate samples (55--85\,kJ/mol).
+    \item \textbf{Temperature.} The temperature of the sample is not recorded and is assumed equal to the set point of the bath once it is stable; the first 2\,h after each change are excluded.
+\end{itemize}
 
 \section{Comparison with existing laws}
 \label{sec:comparison}
-% Glen-type flow law for ice, firn densification laws, frozen-soil creep models.
-% Firn: see Table (firn_comparison). Frozen soils: time-hardening laws (Section sec:frozen_soils) are written in terms of time
-% and cannot follow changes of stress or temperature; the isotache form of Equation (isotache) can. To be developed.
+
+Table~\ref{tab:laws} compares the main features of the laws of Chapter~\ref{ch:background} with those measured on the mixtures.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}p{3.6cm}cc>{\raggedright\arraybackslash}X@{}}
+\toprule
+Law & $n$ & $Q$ (kJ/mol) & Behaviour in the oedometer \\
+\midrule
+Glen (ice) & 3 & $\approx60$; $>100$ near melting & Isochoric: no volumetric creep \\
+Goldsby--Kohlstedt (ice) & 1.8--4 & 49--60 below $-15\,^\circ$C, higher above & Isochoric; mechanism changes with stress and grain size \\
+Porous law, firn & 3 & that of ice & Volumetric; no steady state; $C_\alpha\approx0.10$ at $e = 0.45$ \\
+Frozen soils (power law in stress and time) & 2--4 typical & that of ice or higher & Written in time; no density state variable \\
+Isotache, mineral soils & $C_c/C_\alpha\approx10$--40 & -- & $C_\alpha/C_c = 0.025$--0.10 \\
+\textbf{This work} ($\phi_i = 0.50$) & \textbf{5.5--7.5} & \textbf{120--145} (one sample) & \textbf{Isotache, $C_\alpha/C_c\approx0.15$, no steady state} \\
+\bottomrule
+\end{tabularx}
+\caption{Features of existing laws and of the measured behaviour.}
+\label{tab:laws}
+\end{table}
+
+\paragraph{Flow laws of ice.} At 100\,min the strain rates of the mixtures are of the order of $10^{-6}$\,s$^{-1}$, as predicted for dense ice at 2\,MPa and $-20\,^\circ$C, but the dependence on stress and temperature is stronger than that of any mechanism of Glen's or of Goldsby and Kohlstedt's law. The laws of ice describe the matrix; they do not describe the mixture on their own, both because they are isochoric and because the regolith takes part in the load transfer (Section~\ref{subsec:cal_ice}).
+
+\paragraph{Firn densification.} The porous law reproduces the form of the response (log-linear creep without steady state) and, for $\phi_i = 0.75$, also its magnitude. For smaller ice contents it must be modified through $b(D,\phi_i)$ (Equation~\eqref{eq:b_phi}).
+
+\paragraph{Creep laws of frozen soils.} The engineering laws of Ladanyi type write the creep strain as a power function of stress and time, that is, they are time-hardening. F219 allows a direct comparison with the isotache form, which is density-hardening. After a change of temperature at time $t_1$, a time-hardening law gives a rate decreasing as $1/t = 1/(t_1+\Delta t)$, while the isotache law gives $1/(t_{eq}+\Delta t)$ with $t_{eq} = t_1/F$. Between 2 and 49\,h after the change from $-30$ to $-20\,^\circ$C ($t_1 = 3943$\,min) the time-hardening law predicts a decrease of the rate by a factor of $(3943+2950)/(3943+120)\approx1.7$; the isotache law predicts $(380+2950)/(380+120)\approx6.7$; the measured decrease is about 6. The same holds after the change to $-10\,^\circ$C. The isotache form, with the void ratio as state variable, is therefore required to follow changes of temperature, and, as the stress-step test shows, changes of stress. Models of the EVPFROZEN family~\cite{cudmani2022} have the right structure for temperature and stress, but would need the void ratio as a state variable to describe the densification of icy regolith.
+
+\paragraph{Isotache models of soils.} The mixtures follow the isotache framework of soil mechanics, with an unusually high ratio $C_\alpha/C_c$ and with a reference time that depends strongly on temperature. A one-dimensional elastic--viscoplastic model of the Yin--Graham type~\cite{yin1989}, with an Arrhenius reference time, therefore describes the oedometric tests directly, and its three-dimensional generalisations offer a route to numerical implementation alternative to the porous law of ice.
 
 \section{Formulation for numerical implementation}
 \label{sec:implementation}
@@ -147,12 +255,36 @@ The sample with three quarters of ice behaves almost as firn, within a factor of
 
 \section{Limitations and range of validity}
 \label{sec:model_limits}
-% Radial stress not measured; no true steady state; extrapolation to lunar cryogenic temperatures;
-% one simulant and one ice morphology.
-% Also: tests run with air in the pores (lunar pores are evacuated); possible gas back-pressure after pore close-off;
-% the porous-law functions a(D) and K0 are taken from firn literature and not measured.
 
-The main limitations identified so far are the following. The radial stress is not measured, so $K_0$ and the deviatoric response come from the porous law and the literature. The temperature was not recorded during the tests and was lost in two of them. The scale of the displacement measurement varies from test to test by up to 20\%, which is controlled by anchoring each test to the measured initial and final heights but limits the precision of comparisons at equal void ratio. The tests last 2--3 days and are run with air in the pores, at temperatures well above those of the lunar polar regions and at stresses an order of magnitude above those of a foundation. The dependence on stress rests on a single stress-step test, and the stresses are oil pressures not corrected for seal and wall friction. Finally, only one simulant and one form of ice (sieved grains mixed with the regolith) are tested, while ice in the lunar regolith may coat or cement the grains.
+The parameters of this chapter are valid within the ranges covered by the tests (Table~\ref{tab:validity}). Outside them the law is an extrapolation, and three extrapolations matter most for lunar applications: to lower stresses, to lower temperatures and to longer times.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Variable & Range tested \\
+\midrule
+Ice content & $w = 0$--1.0 ($\phi_i = 0$--0.75); stress dependence only at $w = 0.33$ \\
+Temperature & $-30$ to $-10\,^\circ$C \\
+Axial stress (oil pressure) & 0.5--3.4\,MPa \\
+Void ratio & 1.07 to 0.08 \\
+Duration & up to 161\,h (one test); 40--65\,h typical \\
+Pore fluid & air at atmospheric pressure \\
+\bottomrule
+\end{tabular}
+\caption{Range covered by the tests.}
+\label{tab:validity}
+\end{table}
+
+\begin{itemize}
+    \item \textbf{Stress.} A lunar foundation applies 0.1--0.2\,MPa, below the range tested and close to the seal friction of the vessel (about 0.17\,MPa), which therefore cannot measure in this range. With the measured exponent of 5.5--7.5 the creep at 0.2\,MPa would be very slow; if grain boundary sliding ($n\approx1.8$) takes over at low stress, it would be much faster. The more conservative extrapolation should be used.
+    \item \textbf{Temperature.} The lunar polar regolith is at 40--100\,K. The activation energy measured between $-30$ and $-10\,^\circ$C, and its increase towards the melting point, cannot be extrapolated with confidence over more than 150\,K; at these temperatures the creep is in any case negligible, and the law is needed only where a structure warms the ground.
+    \item \textbf{Time.} The tests last at most a week, while a structure is designed for years. Extrapolating the log-linear creep over three or four decades of time assumes that no new mechanism (pore close-off, gas back-pressure, change of $C_\alpha$) appears.
+    \item \textbf{State of stress.} The radial stress is not measured: $K_0$ and the deviatoric response come from the porous law and the firn literature.
+    \item \textbf{Sample and material.} The scatter between samples of the same mixture is large; one simulant and one form of ice (sieved grains mixed with the regolith) are tested, while ice in the lunar regolith may coat or cement the grains; the pores contain air instead of vacuum.
+    \item \textbf{Measurement.} The temperature of the sample is not recorded; the scale of the displacement measurement varies from test to test and is controlled by the measured heights.
+\end{itemize}
 
 \section{Implications for lunar applications}
 \label{sec:implications}
