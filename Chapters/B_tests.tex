@@ -1,11 +1,35 @@
-\chapter{Test log and calibration data}
+\chapter{Test log}
 \label{app:tests}%
 
-\section{Test log}
-% One row per test, including shakedown and excluded tests, with the reason for exclusion.
+Table~\ref{tab:test_log} lists all the tests run in the vessel during the campaign, including the commissioning and the failed tests. The reduced data of the tests on LHS-1 (one reading per second for the first 15\,min, then one per minute: time, LVDT reading, oil pressure, oil volume, height and void ratio) are provided as a spreadsheet with the thesis.
 
-\section{Seal friction calibration data}
-% Pressure versus piston displacement for each empty-vessel run.
-
-\section{Data sheets}
-% One page per valid test: height, corrected stress and temperature versus time.
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
+\toprule
+Test & Date & Sample and conditions & Use \\
+\midrule
+F199 & Oct 2026 & No sample; volume control & Seal friction; LVDT against oil volume (Ch.~\ref{ch:characterisation}) \\
+F202 & Oct 2026 & First loading trials & Failed; behaviour of the controller \\
+F203 & 5 Oct 2026 & 18\,g granular ice, $-10\,^\circ$C, 3\,MPa, 1.5\,h; load by valve opening & Compliance; oil volume against heights. Not comparable with the later tests \\
+F204 & Oct 2026 & 12.25\,g ice + 12.25\,g quartz sand, $-20\,^\circ$C, 2\,MPa, 41\,h, unload--reload & Seal friction, LVDT range, compliance, leak, drift \\
+F206 & Oct 2026 & First test with the 1\,min loading ramp & Procedure \\
+F207 & 16 Oct 2026 & LHS-1, $w = 0.33$, $-20\,^\circ$C, 2\,MPa, 65\,h & Loading not recorded; reference only \\
+F208 & 19 Oct 2026 & Dry LHS-1, $-20\,^\circ$C, 2\,MPa, 41\,h & Dry reference \\
+F209 & 21 Oct 2026 & LHS-1, $w = 1.0$, $-20\,^\circ$C, 2\,MPa & Ice-content series; LVDT stopped at 75\,min, oil volume used \\
+F210 & 23 Oct 2026 & LHS-1, $w = 0.10$, $-20\,^\circ$C, 2\,MPa, 65\,h & Ice-content series \\
+F211 & 26 Oct 2026 & LHS-1, $w = 0.20$, $-20\,^\circ$C, 2\,MPa & Ice-content series; oil volume used at start \\
+F212 & 28 Oct 2026 & LHS-1, $w = 0.33$, $-10\,^\circ$C, 2\,MPa & Temperature series; protrusion uncertain \\
+F213 & 30 Oct 2026 & LHS-1, $w = 0.33$, $-20\,^\circ$C, 2\,MPa, 66\,h & Reference; valid to 32.5\,h \\
+F214 & 2 Nov 2026 & LHS-1, $w = 0.33$, $-20\,^\circ$C, 2\,MPa & Repeat of F213; valid to 12\,h \\
+F215 & 6 Nov 2026 & LHS-1, $w = 0.33$, $-40\,^\circ$C, 2\,MPa & Excluded: LVDT stuck, temperature lost \\
+F216 & 9 Nov 2026 & LHS-1, $w = 0.33$, $-20\,^\circ$C, 0.5--3.4\,MPa in four steps & Stress-step test \\
+F218 & 11 Nov 2026 & LHS-1, $w = 0.33$, $-30\,^\circ$C, 2\,MPa, 42.5\,h & Temperature series \\
+F219 & 13--20 Nov 2026 & LHS-1, $w = 0.33$, 2\,MPa, $-30/-20/-10\,^\circ$C & Temperature-step test \\
+\bottomrule
+\end{tabularx}
+\caption{Log of the tests.}
+\label{tab:test_log}
+\end{table}
