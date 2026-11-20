@@ -1,21 +1,82 @@
 \chapter{Test protocol}
 \label{app:protocol}%
-% Step-by-step procedure as used in the laboratory, so that the tests can be repeated.
+
+This appendix gives the procedure used for the tests from F206 onwards, so that they can be repeated. The reasons for each choice are discussed in Chapter~\ref{ch:characterisation}.
 
 \section{Preparation of the vessel}
-% Cleaning, grease film, piston reset, frits (cleaning, drying, weighing).
+\begin{enumerate}
+    \item Clean the chamber, the piston and the threads with isopropanol and apply a thin film of grease to the wall.
+    \item Open the valve at the wall to the oil reservoir and push the piston back into its housing.
+    \item Clean and dry the two porous frits (1.65\,mm thick each); weigh them (about 3.75\,g each when clean and dry) and cool them with the vessel.
+    \item Set the methanol bath to the test temperature by hand. Below $-30\,^\circ$C the cooling unit does not hold the temperature reliably. Check the coolant level.
+\end{enumerate}
 
 \section{Sample preparation and loading}
-% Weighing, mixing, filling, height measurement, thermal equilibration.
+\begin{enumerate}
+    \item In the cold room, weigh the dry LHS-1 and the sieved ice (nominal size 250\,$\mu$m) for the target composition and initial void ratio. Reference mixture: 17.4\,g of LHS-1 and 5.8\,g of ice ($w = 0.33$, $\phi_i = 0.50$), for a height of about 45\,mm and $e_0\approx0.80$.
+    \item Mix the two components in a closed container until the colour is uniform (Section~\ref{subsec:mixtures}).
+    \item Place the lower frit, pour the mixture into the cooled chamber in a few layers, lightly tamping each one, and place the upper frit.
+    \item Measure the height of the sample, screw on the top cap and record the protrusion of the piston (about 45\,mm with a sample of 45\,mm, that is a gap of about 2.7\,mm to the upper frit).
+    \item Leave the closed vessel at the test temperature for at least one hour.
+\end{enumerate}
 
 \section{Valve configuration}
-% Table: state of each valve during piston reset and during a test.
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Stage & Valve to the reservoir (wall) & Valve to the vessel (freezer) \\
+\midrule
+Pushing the piston back & open & open \\
+Preparation of the controller & closed & open \\
+Loading, creep, unloading & closed & open \\
+\bottomrule
+\end{tabular}
+\caption{Valve positions. In the commissioning tests (up to F205) the valve to the vessel was kept closed while the line was pressurised, and opened to load the sample.}
+\end{table}
 
 \section{Controller and data-acquisition settings}
-% Pressure limits, step table, logging settings.
+\paragraph{Step table (Automatic $\to$ Setup).} Each step holds for at most 999\,min, so a long test is divided into equal steps. The standard table for a test at 2\,MPa is given in Table~\ref{tab:step_table}. The hold of the last loading step is reduced so that unloading starts at the desired time (one minute less for each minute of delay at the start).
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+Step & Method & Target (kPa) & Ramp (min) & Hold (min) & CVol & Vol.\ zero & Log \\
+\midrule
+01 & Pressure & 2000 & 1.0 & 999 & on/on & on & lin 0.50 \\
+02 -- $N$ & Pressure & 2000 & 1.0 & 999 & on/on & off & lin 0.50 \\
+last loading & Pressure & 2000 & 1.0 & reduced & on/on & off & lin 0.50 \\
+unloading & Pressure & 10 & 30.0 & 600 & on/on & off & lin 0.10 \\
+remaining & close & & & & & & \\
+\bottomrule
+\end{tabular}
+\caption{Step table of the controller for a test at 2\,MPa. For stress-step tests each block of steps has its own target.}
+\label{tab:step_table}
+\end{table}
+
+\paragraph{Limits (Options $\to$ Limits).} Upper limit 2500\,kPa (3500\,kPa for steps up to 3.4\,MPa), lower limit $-100$\,kPa, action stop, limit control on.
+
+\paragraph{Data logger.} Geodatalog 8 with the DATACOMM\,2 software, one reading per second of the LVDT (mm), oil pressure (kPa) and oil volume (cm$^3$).
 
 \section{Running a test}
-% Manual approach, contact, start of the automatic sequence, checks before leaving.
+\begin{enumerate}
+    \item Check that the valve to the reservoir is closed and the valve to the vessel open.
+    \item Set the LVDT at a reading of about $-5$ to $-6$\,mm.
+    \item Start the logging in DATACOMM\,2.
+    \item Zero the volume of the controller at zero pressure.
+    \item Switch the automatic mode on and start the test. The pressure reaches the target in 1\,min.
+    \item Check, before leaving, that the pressure holds at the target and that the LVDT follows the piston.
+    \item In temperature-step tests, change the set point of the bath by hand and record the time of the change and the bath temperature before the change, after it and when it becomes stable.
+\end{enumerate}
 
 \section{End of test}
-% Unloading, sample extraction, final measurements, piston reset.
+\begin{enumerate}
+    \item After the automatic unloading to 10\,kPa, stop the logging and save the data file.
+    \item Measure the final protrusion of the piston.
+    \item Remove the bottom of the vessel and extract the sample with the frits; weigh the sample and the frits immediately, to limit frost deposition.
+    \item If possible, keep a dry sample for grading, to check for grain crushing.
+    \item Push the piston back with the valve to the reservoir open.
+\end{enumerate}

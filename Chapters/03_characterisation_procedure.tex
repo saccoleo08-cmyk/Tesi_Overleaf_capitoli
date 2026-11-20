@@ -207,23 +207,22 @@ Three measures limit this source of error. First, the wall is greased before eve
 \label{sec:procedure}
 % ---------------------------------------------------------------------------
 
-The procedure adopted is that of the firn compaction experiments on the same vessel, modified where the characterisation above showed it necessary. The step-by-step protocol is given in Appendix~\ref{app:protocol}; its main stages are the following.
+The procedure derives from that of the firn compaction experiments on the same vessel, modified where the characterisation above showed it necessary; the main change, from test F206 onwards, is that the load is applied with a ramp of 1\,min instead of a step. The step-by-step protocol is given in Appendix~\ref{app:protocol}; the main stages of the present procedure are the following.
 
 \begin{enumerate}
     \item \textbf{Preparation of the vessel.} The chamber, piston and threads are cleaned with isopropanol; the wall is greased; the piston is pushed back into its housing with the reservoir valve open; the frits are cleaned, weighed and cooled (Section~\ref{subsec:geometry}).
     \item \textbf{Sample placement.} The sample is prepared in the cold room (Section~\ref{subsec:mixtures}) and placed in the chamber between the frits. The depth of the upper frit is measured to obtain $H_0$ (Equation~\eqref{eq:H0}), and the top cap is screwed on.
     \item \textbf{Thermal equilibration.} The sample is left in the closed vessel at the test temperature for at least one hour.
-    \item \textbf{Setting the instruments.} The LVDT is set at a negative reading and its initial value recorded. The controller is programmed with the step table and with an upper pressure limit at least 400\,kPa above the target, so that the overshoot at the end of the step does not stop the test. The reservoir valve is closed, and data logging is started at 1\,Hz.
-    \item \textbf{Pressurisation against the closed valve.} With the valve to the vessel closed, the controller brings the line to the target pressure. The LVDT must not move: this checks that the valve is closed and the line holds pressure.
-    \item \textbf{Step load.} The valve to the vessel is opened. The piston runs into the sample, the pressure drops to the seal-friction level and then recovers to the target as the sample takes the load (Figure~\ref{fig:start}). The time of opening is recorded.
-    \item \textbf{Creep stage.} The pressure is held constant for the planned duration. If the LVDT has gone out of range, it is reset to about $-6$\,mm a few minutes after loading, and the offset is recorded (Section~\ref{sec:lvdt}).
-    \item \textbf{Unloading.} The pressure is reduced to about 10\,kPa with a slow ramp (30--45\,min), which gives the compliance curve $S(p)$ (Section~\ref{sec:compliance}).
+    \item \textbf{Setting the instruments.} The LVDT is set at a reading of about $-5$ to $-6$\,mm and its initial value recorded. The controller is programmed with the step table (Appendix~\ref{app:protocol}), an upper pressure limit of 2500\,kPa for tests at 2\,MPa (3500\,kPa for steps up to 3.4\,MPa) and a lower limit of $-100$\,kPa, with the action set to stop the test. The reservoir valve is closed and the valve to the vessel open. Data logging is started at 1\,Hz before the load is applied, and the volume reading of the controller is zeroed at zero pressure.
+    \item \textbf{Loading.} The automatic sequence is started: the pressure is raised to the target with a ramp of 1\,min. The piston runs through the gap at the seal-friction level, and the pressure follows the ramp once the sample carries the load.
+    \item \textbf{Creep stage.} The pressure is held constant for the planned duration, divided into steps of at most 999\,min. The last step is shortened so that unloading starts at a set time; in temperature-step tests the set point of the bath is changed by hand and the times are recorded. If the LVDT has gone out of range, it is reset to about $-6$\,mm and the offset is recorded (Section~\ref{sec:lvdt}).
+    \item \textbf{Unloading.} The pressure is reduced to 10\,kPa with a ramp of 30\,min and held, which gives the compliance curve $S(p)$ (Section~\ref{sec:compliance}).
     \item \textbf{End of test.} The piston protrusion is measured, the bottom of the vessel is removed and the sample is extracted. Its height and mass, and the mass of the frits, are measured immediately.
 \end{enumerate}
 
 During the LHS-1 campaign the procedure was refined as follows: the data logging is started before the load is applied, so that the loading stage is recorded; the piston is advanced to within a few millimetres of the upper frit before the piston protrusion is measured, so that the measured protrusion corresponds to the actual start of the test and the LVDT stays within its range; the initial LVDT reading is checked to be negative; and the coolant level of the cooling unit is checked before starting.
 
-The step load with the closed valve reproduces the procedure used for firn and makes the tests comparable with those data. Its drawback, for loose samples, is that the piston runs at high speed through the gap and into the sample, so that the first part of the compaction occurs at an unknown and varying stress. An alternative is to bring the piston into contact with the sample at a small seating stress (about 50\,kPa) before the step load, by advancing it slowly in volume control. This eliminates the gap and defines the initial state of the sample under a known stress.
+In the commissioning tests (up to F205) the load was applied as in the firn experiments: the line was first pressurised to the target against the closed valve to the vessel, and the valve was then opened. This step load has a drawback for loose samples: the piston runs at high speed through the gap and into the sample, so that the first part of the compaction occurs at an unknown and varying stress (Figure~\ref{fig:start}). The ramp of 1\,min with the valve open limits the speed of the piston and makes the loading stage repeatable from test to test, at the cost of a small difference from the firn procedure in the first minute. A further improvement would be to bring the piston into contact with the sample at a small seating stress (about 50\,kPa) before the ramp, by advancing it slowly in volume control; this would eliminate the gap and define the initial state of the sample under a known stress.
 
 \subsection{Detection of contact}
 
@@ -272,7 +271,7 @@ The mass $M$ is taken from the weighed components and checked against the mass o
 \end{equation}
 Differentiating data recorded at 1\,Hz amplifies the noise. Following the firn experiments, $H(t)$ is fitted with a straight line in $\log_{10} t$ over a moving window of constant width in log-time, $[\log_{10}t - 0.1,\ \log_{10}t + 0.1]$. The derivative of the fit at the centre of the window gives $\mathrm{d}H/\mathrm{d}t$. The window therefore covers a few seconds at the start of the creep stage and several hours at its end.
 
-\paragraph{Coefficient of secondary compression.} Where the void ratio decreases linearly with the logarithm of time, the slope gives the coefficient of secondary compression (Equation~\eqref{eq:isotache}):
+\paragraph{Coefficient of secondary compression.} Where the void ratio decreases linearly with the logarithm of time, the slope gives the coefficient of secondary compression (Equation~\eqref{eq:isotache_bjerrum}):
 \begin{equation}
     C_\alpha = -\frac{\Delta e}{\Delta\log_{10}t},
     \label{eq:calpha}
