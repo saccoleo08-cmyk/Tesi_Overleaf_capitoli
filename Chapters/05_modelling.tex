@@ -248,10 +248,101 @@ Isotache, mineral soils & $C_c/C_\alpha\approx10$--40 & -- & $C_\alpha/C_c = 0.0
 
 \section{Formulation for numerical implementation}
 \label{sec:implementation}
-% From the uniaxial law to a three-dimensional formulation: additional assumptions required,
-% temperature as an input field, elastic part, integration scheme.
+
+The law of Section~\ref{sec:calibration} was implemented in the finite element code Abaqus/Standard~\cite{abaqus2026}. The aim of this step is twofold: to check that the rate law derived from the oedometric tests can be reproduced by a standard elasto-viscoplastic framework for geomaterials, and to obtain a material model that can be used in boundary value problems, such as the settlement of a foundation or of a lander pad on icy regolith, with temperature as an input field. This section describes the modelling choices; the verification against the tests is given in Section~\ref{subsec:verification}.
+
+\subsection{Choice of the constitutive framework}
+\label{subsec:abaqus_framework}
+
+The starting point is the Drucker--Prager criterion, in which the shear strength of a frictional material increases linearly with the mean stress. In the meridional plane, with $p$ the mean stress and $q$ the Mises equivalent stress, the failure surface is
+\begin{equation}
+    F_s = t - p\tan\beta - d = 0,
+    \label{eq:dp_shear}
+\end{equation}
+where $\beta$ is the friction angle in the $p$--$t$ plane, $d$ the cohesion and $t$ a deviatoric stress measure, equal to $q$ when the dependence on the third invariant is neglected. For triaxial compression, $\beta$ is related to the Mohr--Coulomb friction angle $\varphi$ by
+\begin{equation}
+    \tan\beta = \frac{6\sin\varphi}{3-\sin\varphi}.
+    \label{eq:dp_beta}
+\end{equation}
+
+A linear Drucker--Prager model is not suited to the tests of this work. In the vessel the strain path is oedometric and the stress path stays close to the hydrostatic axis, with $q/p\approx0.5$, far below the failure line; the response is dominated by volumetric compaction, with the void ratio falling from about 0.80 to 0.33--0.43 in a few days. The creep formulation associated with the linear Drucker--Prager model in Abaqus is active only above a cone parallel to the failure surface and has a dilatant flow potential, so it cannot produce time-dependent compaction, for the same reason as the isochoric flow laws of ice (Section~\ref{subsec:compressible}).
+
+The \emph{modified Drucker--Prager/cap} model was therefore adopted~\cite{abaqus2026}. It adds to the failure surface of Equation~\eqref{eq:dp_shear} an elliptical cap that bounds the elastic domain in compression:
+\begin{equation}
+    F_c = \sqrt{(p-p_a)^2 + \left(\frac{R\,t}{1+\alpha-\alpha/\cos\beta}\right)^2} - R\,(d + p_a\tan\beta) = 0,
+    \label{eq:dp_cap}
+\end{equation}
+where $R$ controls the shape of the cap, $\alpha$ defines a transition surface between the cap and the failure surface, and $p_a$ is an evolution parameter. The cap meets the hydrostatic axis at the yield pressure
+\begin{equation}
+    p_b = p_a + R\,(d + p_a\tan\beta),
+    \label{eq:dp_pb}
+\end{equation}
+which hardens with the volumetric inelastic strain, $p_b = p_b(\varepsilon^{in}_{vol})$, given in tabular form as the normal compression line of the material.
+
+Time-dependent behaviour is introduced through the \emph{consolidation creep} mechanism of the cap model, which produces volumetric creep strains in the compressive region of the stress space ($p > p_a$), with a flow direction given by the cap potential. Under oedometric conditions steady creep requires the creep strain to be purely axial; this fixes the stress ratio $\eta = q/(p-p_a)$ and therefore the coefficient of earth pressure at rest during creep:
+\begin{equation}
+    \eta = \frac{2}{3R^2}, \qquad K_0 = \frac{3-\eta}{3+2\eta}.
+    \label{eq:dp_K0}
+\end{equation}
+The cap parameter $R$ thus controls the lateral stress that develops during creep, the quantity that the vessel does not measure. Equation~\eqref{eq:dp_K0} plays the same role as Equation~\eqref{eq:porous_oed} for the porous law.
+
+\subsection{Rate law}
+\label{subsec:abaqus_rate}
+
+The consolidation creep mechanism accepts the creep laws built into Abaqus (time hardening, strain hardening, Singh--Mitchell) or a law defined by the user in the subroutine \texttt{CREEP}. The isotache law of Equation~\eqref{eq:isotache} was implemented in the subroutine. Written in terms of the volumetric creep strain $\varepsilon_v^{cr}$ it becomes
+\begin{equation}
+    \dot\varepsilon_v^{cr} = A\left(\frac{p^{cr}}{p_{ref}}\right)^{n}\exp\!\left(-\frac{\varepsilon_v^{cr}}{\kappa}\right)\exp\!\left[-\frac{Q}{R_g}\left(\frac{1}{T}-\frac{1}{T_{ref}}\right)\right],
+    \label{eq:abq_isotache}
+\end{equation}
+where $p^{cr}$ is the effective creep pressure, $n$ corresponds to $C_c/C_\alpha$, $\kappa$ to $C_\alpha/[(1+e)\ln10]$, $Q$ is the apparent activation energy, $R_g$ the gas constant and $T_{ref} = 253.15$\,K. Equation~\eqref{eq:abq_isotache} is the strain form of the isotache law~\cite{bjerrum1967} and of the Soft Soil Creep model~\cite{vermeer1999}. Within each time increment, at constant stress and temperature, it can be integrated exactly:
+\begin{equation}
+    \Delta\varepsilon_v^{cr} = \kappa\,\ln\!\left[1 + \frac{\dot\varepsilon_{v,0}\,\Delta t}{\kappa}\right],
+    \label{eq:abq_increment}
+\end{equation}
+where $\dot\varepsilon_{v,0}$ is the rate at the start of the increment. The integration is therefore unconditionally stable with respect to the length of the time increment, which allows analyses spanning years with few increments. Temperature enters as a field variable, so that a thermal analysis of the ground can be coupled sequentially to the mechanical one.
+
+% TODO: extension with a second, non-decaying term for the flow of the ice matrix, under evaluation.
+
+\subsection{Finite element model of the oedometric test}
+\label{subsec:abaqus_fem}
+
+The vessel was modelled as an axisymmetric problem (Figure~\ref{fig:abaqus_mesh}). The specimen has a radius of 12.7\,mm and an initial height of 45\,mm and is discretised with a column of four-node axisymmetric elements (CAX4). In an ideal oedometer stress and strain are homogeneous and a single element would be sufficient; five elements were used so that wall friction can be introduced later. The boundary conditions are:
+\begin{itemize}
+    \item zero vertical displacement at the base (lower frit);
+    \item zero radial displacement on the lateral boundary (rigid vessel wall);
+    \item a uniform pressure on the top surface, equal to the oil pressure of the Hydromatic controller.
+\end{itemize}
+The pressure follows the history of the tests: a one-minute ramp to the target value, then a constant hold or a sequence of stress steps (F216). The temperature is prescribed with the history of the bath set point, so that temperature steps (F219) can be simulated; no thermal strains are introduced. The analysis uses the \texttt{*VISCO} procedure with large-deformation kinematics, since the axial strains reach 20--30\%. The void ratio is obtained from the displacement of the top surface $u_z$ as $e = (1+e_0)(H_0+u_z)/H_0 - 1$.
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.45\textwidth]{Images/fig_abaqus_mesh.pdf}
+    \fbox{\parbox[c][4cm][c]{0.45\textwidth}{\centering Figure to be added:\\ axisymmetric model of the vessel}}
+    \caption{Axisymmetric finite element model of the oedometric test: mesh and boundary conditions.}
+    \label{fig:abaqus_mesh}
+\end{figure}
+
+\subsection{Material parameters}
+\label{subsec:abaqus_param}
+
+No shear tests were performed on the mixtures, so the failure surface was defined from the literature: $\varphi = 38.6^\circ$ for compacted LHS-1~\cite{agarwal2023} gives $\beta = 57.6^\circ$ from Equation~\eqref{eq:dp_beta}. Along the oedometric stress path the failure surface is never reached, so these parameters do not affect the simulation of the present tests; they matter only in boundary value problems with significant shear. The cap parameter $R$ was derived from Equation~\eqref{eq:dp_K0} with an assumed $K_0 = 0.6$, within the range of the porous law and of firn (Section~\ref{subsec:cal_porosity}). Elasticity was taken as linear ($E = 300$\,MPa, $\nu = 0.3$), consistent with the small recompression indices reported for lunar soil.
+
+The rate parameters are those of the isotache law (Table~\ref{tab:isotache_params}), refined by least squares on the complete void ratio curves of the tests. The fit uses an independent integration of the rate law in Python and MATLAB; the subroutine was verified against it and reproduces its response within $10^{-3}$ in void ratio. Tests not used in the calibration are kept for validation.
+
+\subsection{Software constraints}
+\label{subsec:abaqus_license}
+
+User subroutines are not available in the Abaqus Learning Edition, nor with the teaching licence of the virtual desktop of Politecnico di Milano: both reject the subroutine \texttt{CREEP}. A second version of the model was therefore prepared with the built-in laws only. In this version the immediate compression is assigned to the hardening law of the cap, and the time-dependent part to the time-hardening law
+\begin{equation}
+    \dot\varepsilon_v^{cr} = A(T)\,(p^{cr})^{n}\,t^{m},
+    \label{eq:abq_timehard}
+\end{equation}
+with $A$ tabulated as a function of temperature. Its parameters were calibrated directly with Abaqus, through a MATLAB procedure that modifies the input file, runs the analysis and compares the computed void ratio with the measurements. Because Equation~\eqref{eq:abq_timehard} is written in the total time, it cannot restart the creep after a change of stress or temperature; as shown in Section~\ref{sec:comparison} for the time-hardening laws of frozen soils, this form does not follow multi-stage tests. It is used only as a licence-independent check of the implementation; the subroutine is the reference model.
+
 \subsection{Verification}
-% Single-element simulation of an oedometric test compared with the experiments.
+\label{subsec:verification}
+% Single-element simulations of F213, F216, F218 and F219 compared with the experiments: to be added.
+In a single-element simulation under constant load, the coefficient of earth pressure at rest converged to the value of 0.60 imposed through $R$, which confirms Equation~\eqref{eq:dp_K0}. The comparison of the simulated and measured compaction curves will be presented here.
 
 \section{Limitations and range of validity}
 \label{sec:model_limits}
