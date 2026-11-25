@@ -148,7 +148,7 @@ Mixtures of granular water ice (nominal grain size 250~$\mu$m) and the lunar hig
 
 Dry regolith compacts only during loading, while 10\% of ice by mass is enough to produce creep that continues for days, linear in the logarithm of time and without a steady state ($C_\alpha\approx0.04$--0.05). Mixtures with three quarters of ice by volume behave as compacting firn; those with half of ice or less creep 100--250 times more slowly, because the regolith grains share the load with the ice. In stress- and temperature-step tests the mixtures follow an isotache law: the compression index equals that of the dry regolith ($C_c\approx0.31$), the apparent stress exponent at equal void ratio is 5.5--7.5, and temperature only shifts the creep curves in time, each warming of 10\,K multiplying the rate by 10--14 (apparent activation energy 120--145~kJ/mol). For the creep rate, 10\,K of warming is thus equivalent to 40--60\% more load.
 
-The results were used to calibrate a compressible porous law with an ice matrix following Goldsby and Kohlstedt, in which the effect of the regolith enters through the density function, together with an engineering isotache law with a temperature-dependent reference time. The void ratio, not the time, must be the state variable: after a change of temperature the rate follows the isotache law and not the time-hardening laws used for frozen soils. Foundations on icy regolith must be designed for settlement that continues over their service life, and keeping the ground cold is the main design measure. The limitations of the oedometric configuration and of the extrapolation to lower stresses and lunar temperatures are discussed.
+The results were used to calibrate a compressible porous law with an ice matrix following Goldsby and Kohlstedt, in which the effect of the regolith enters through the density function, together with an engineering isotache law with a temperature-dependent reference time. The isotache law was implemented in Abaqus as the consolidation-creep law of a Drucker--Prager/cap model, written in a user subroutine, so that it can be used in boundary value problems with temperature as an input field. The void ratio, not the time, must be the state variable: after a change of temperature the rate follows the isotache law and not the time-hardening laws used for frozen soils. Foundations on icy regolith must be designed for settlement that continues over their service life, and keeping the ground cold is the main design measure. The limitations of the oedometric configuration and of the extrapolation to lower stresses and lunar temperatures are discussed.
 \\
 \\
 \textbf{Keywords:} lunar regolith, water ice, creep, oedometric compaction, constitutive modelling, in-situ resource utilisation % Keywords
@@ -161,7 +161,7 @@ Miscele di ghiaccio granulare (dimensione nominale dei grani 250~$\mu$m) e del s
 
 La regolite secca si compatta solo durante il carico, mentre il 10\% di ghiaccio in massa basta per un creep che prosegue per giorni, lineare nel logaritmo del tempo e senza stato stazionario ($C_\alpha\approx0.04$--0.05). Le miscele con tre quarti di ghiaccio in volume si comportano come il firn; quelle con metà ghiaccio o meno sono 100--250 volte più lente, perché i grani di regolite condividono il carico con il ghiaccio. Nelle prove a gradini di sforzo e di temperatura le miscele seguono una legge a isotache: l'indice di compressione coincide con quello della regolite secca ($C_c\approx0.31$), l'esponente apparente dello sforzo a pari indice dei vuoti vale 5.5--7.5, e la temperatura sposta soltanto le curve nel tempo: ogni riscaldamento di 10\,K moltiplica la velocità per 10--14 (energia di attivazione apparente 120--145~kJ/mol). Per la velocità di creep, 10\,K in più equivalgono quindi a un carico maggiore del 40--60\%.
 
-I risultati sono serviti a calibrare una legge porosa comprimibile, con matrice di ghiaccio secondo Goldsby e Kohlstedt, in cui l'effetto della regolite entra attraverso la funzione della densità, e una legge a isotache per l'uso ingegneristico con un tempo di riferimento dipendente dalla temperatura. La variabile di stato deve essere l'indice dei vuoti e non il tempo: dopo un cambio di temperatura la velocità segue la legge a isotache e non le leggi a incrudimento nel tempo usate per i terreni gelati. Le fondazioni su regolite ghiacciata vanno progettate per cedimenti che proseguono per tutta la vita dell'opera, e mantenere il terreno freddo è la principale misura di progetto. Si discutono i limiti della configurazione edometrica e dell'estrapolazione a sforzi più bassi e alle temperature lunari.
+I risultati sono serviti a calibrare una legge porosa comprimibile, con matrice di ghiaccio secondo Goldsby e Kohlstedt, in cui l'effetto della regolite entra attraverso la funzione della densità, e una legge a isotache per l'uso ingegneristico con un tempo di riferimento dipendente dalla temperatura. La legge a isotache è stata implementata in Abaqus come legge di creep di consolidazione di un modello Drucker--Prager con cap, scritta in una subroutine utente, così da poterla usare in problemi al contorno con la temperatura come campo in ingresso. La variabile di stato deve essere l'indice dei vuoti e non il tempo: dopo un cambio di temperatura la velocità segue la legge a isotache e non le leggi a incrudimento nel tempo usate per i terreni gelati. Le fondazioni su regolite ghiacciata vanno progettate per cedimenti che proseguono per tutta la vita dell'opera, e mantenere il terreno freddo è la principale misura di progetto. Si discutono i limiti della configurazione edometrica e dell'estrapolazione a sforzi più bassi e alle temperature lunari.
 \\
 \\
 \textbf{Parole chiave:} regolite lunare, ghiaccio d'acqua, creep, compattazione edometrica, modellazione costitutiva, utilizzo delle risorse in situ % Keywords (italian)
@@ -246,7 +246,8 @@ I risultati sono serviti a calibrare una legge porosa comprimibile, con matrice 
     \begin{tabular}{lll}
         \textbf{Variable} & \textbf{Description} & \textbf{SI unit} \\\hline\\[-9px]
         $\sigma$, $\sigma_a$ & axial stress; stress at the top of the sample & Pa \\[2px]
-        $p$ & oil pressure & Pa \\[2px]
+        $p$ & oil pressure; mean stress (Section~\ref{sec:implementation}) & Pa \\[2px]
+        $q$ & Mises equivalent stress & Pa \\[2px]
         $\sigma_{seal}$ & piston seal friction, expressed as a pressure & Pa \\[2px]
         $K_0$ & ratio of radial to axial stress under zero lateral strain & -- \\[2px]
         $H$, $H_0$, $H_f$ & sample height: current, initial, final & m \\[2px]
@@ -271,10 +272,13 @@ I risultati sono serviti a calibrare una legge porosa comprimibile, con matrice 
         $B$, $A$ & pre-factors of the creep laws & Pa$^{-n}$\,s$^{-1}$ \\[2px]
         $n$ & stress exponent & -- \\[2px]
         $Q$ & apparent activation energy & J\,mol$^{-1}$ \\[2px]
-        $R$ & universal gas constant & J\,mol$^{-1}$\,K$^{-1}$ \\[2px]
+        $R$, $R_g$ & universal gas constant & J\,mol$^{-1}$\,K$^{-1}$ \\[2px]
         $a$, $b$ & density functions of the porous law & -- \\[2px]
-        $\beta$, $c$ & parameters of $b(D,\phi_i)$ & -- \\[2px]
-        $d$ & grain size of ice & m \\[2px]
+        $\zeta$, $c$ & parameters of $b(D,\phi_i)$ & -- \\[2px]
+        $d$ & grain size of ice; cohesion of the Drucker--Prager surface & m; Pa \\[2px]
+        $\beta$, $\varphi$ & friction angle: Drucker--Prager, Mohr--Coulomb & -- \\[2px]
+        $R$, $p_b$ & cap shape parameter; cap yield pressure & --; Pa \\[2px]
+        $\kappa$ & decay constant of the creep strain rate & -- \\[2px]
     \end{tabular}
 \end{table}
 
