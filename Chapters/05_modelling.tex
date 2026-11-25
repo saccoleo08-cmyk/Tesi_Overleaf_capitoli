@@ -87,7 +87,7 @@ The stress used here is the oil pressure. The seal friction (about 170\,kPa in F
 
 \subsection{Temperature dependence}
 % F215 (-40 C) is excluded.
-The first results of the temperature series (Section~\ref{subsec:temperature}) show three features that the calibration must reproduce. $C_\alpha$ is the same at $-30$ and $-20\,^\circ$C, so temperature enters the isotache law of Equation~\eqref{eq:isotache} only through the reference time $\tau_{ref}$, as a shift of the curves along the time axis. The temperature-step test F219 confirms this on a single sample: after warming from $-30$ to $-20\,^\circ$C the curve is again linear in log time with the same slope, once the time is counted from an equivalent age ten times shorter. The same holds from $-20$ to $-10\,^\circ$C. The shift is a factor of about 10 from $-30$ to $-20\,^\circ$C and 13--14 from $-20$ to $-10\,^\circ$C in F219 (apparent activation energy about 120 and 140--145\,kJ/mol), against 3--5 between F218 and F213 (55--85\,kJ/mol); the single-sample values are the more reliable, and are higher than the activation energies of ice below $-15\,^\circ$C, as expected if the unfrozen water at the ice--mineral contacts contributes. In F212 at $-10\,^\circ$C the curve bent downwards in $\log t$, but F219 does not reproduce this, so it is attributed to that test. The increase of the activation energy towards the melting point means that a single Arrhenius factor between $-30$ and $-10\,^\circ$C is not exact; the matrix law of Goldsby and Kohlstedt, with its higher activation energies above about $-15\,^\circ$C, provides the natural form for this change.
+The first results of the temperature series (Section~\ref{subsec:temperature}) show three features that the calibration must reproduce. $C_\alpha$ is the same at $-30$ and $-20\,^\circ$C, so temperature enters the isotache law of Equation~\eqref{eq:isotache} only through the reference time $\tau_{ref}$, as a shift of the curves along the time axis. The temperature-step test F219 confirms this on a single sample: after warming from $-30$ to $-20\,^\circ$C the curve is again linear in log time, once the time is counted from an equivalent age ten times shorter. Its slope increases somewhat at each warming; the calibration of Section~\ref{subsec:evp1d} quantifies this increase at about 20\% per 10\,K. The same holds from $-20$ to $-10\,^\circ$C. The shift is a factor of about 10 from $-30$ to $-20\,^\circ$C and 13--14 from $-20$ to $-10\,^\circ$C in F219 (apparent activation energy about 120 and 140--145\,kJ/mol), against 3--5 between F218 and F213 (55--85\,kJ/mol); the single-sample values are the more reliable, and are higher than the activation energies of ice below $-15\,^\circ$C, as expected if the unfrozen water at the ice--mineral contacts contributes. In F212 at $-10\,^\circ$C the curve bent downwards in $\log t$, but F219 does not reproduce this, so it is attributed to that test. The increase of the activation energy towards the melting point means that a single Arrhenius factor between $-30$ and $-10\,^\circ$C is not exact; the matrix law of Goldsby and Kohlstedt, with its higher activation energies above about $-15\,^\circ$C, provides the natural form for this change.
 
 Since the rate at equal void ratio depends on stress and temperature through $\sigma^{n}\exp(-Q/RT)$, a change of temperature that multiplies the rate by a factor $F$ has the same effect on creep as multiplying the stress by $F^{1/n}$. With $F\approx10$--14 and $n\approx5.5$--7, a warming of 10\,K is equivalent, for the creep rate, to raising the stress by 40--60\%. The equivalence does not extend to the immediate response: an increase of stress also compresses the regolith skeleton at once, by $C_c\log(\sigma_2/\sigma_1)$, while an increase of temperature acts only on the ice, through the reference time $\tau_{ref}$ of Equation~\eqref{eq:isotache}, and produces no immediate compression. It holds only where temperature does not change the shape of the creep curve, which F219 confirms between $-30$ and $-10\,^\circ$C.
 \subsection{Dependence on porosity}
@@ -246,103 +246,211 @@ Isotache, mineral soils & $C_c/C_\alpha\approx10$--40 & -- & $C_\alpha/C_c = 0.0
 
 \paragraph{Isotache models of soils.} The mixtures follow the isotache framework of soil mechanics, with an unusually high ratio $C_\alpha/C_c$ and with a reference time that depends strongly on temperature. A one-dimensional elastic--viscoplastic model of the Yin--Graham type~\cite{yin1989}, with an Arrhenius reference time, therefore describes the oedometric tests directly, and its three-dimensional generalisations offer a route to numerical implementation alternative to the porous law of ice.
 
-\section{Formulation for numerical implementation}
+\section{Elastic--viscoplastic model}
 \label{sec:implementation}
 
-The law of Section~\ref{sec:calibration} was implemented in the finite element code Abaqus/Standard~\cite{abaqus2026}. The aim of this step is twofold: to check that the rate law derived from the oedometric tests can be reproduced by a standard elasto-viscoplastic framework for geomaterials, and to obtain a material model that can be used in boundary value problems, such as the settlement of a foundation or of a lander pad on icy regolith, with temperature as an input field. This section describes the modelling choices; the verification against the tests is given in Section~\ref{subsec:verification}.
+The isotache law of Section~\ref{sec:calibration} was turned into an elastic--viscoplastic model in three steps of increasing generality: a one-dimensional model, integrated along the measured load and temperature histories and calibrated on all the tests (Section~\ref{subsec:evp1d}); its extension to a general stress state as a Drucker--Prager/cap model with Perzyna-type viscoplasticity (Section~\ref{subsec:evp3d}); and a finite element model of the sample in the vessel (Section~\ref{subsec:fe_sample}). The three were written in MATLAB. The commercial code Abaqus was also used, with its built-in cap creep model, to check what a standard tool can and cannot reproduce (Section~\ref{subsec:abaqus}). The MATLAB scripts and the Abaqus input files are kept with the data of the tests.
 
-\subsection{Choice of the constitutive framework}
-\label{subsec:abaqus_framework}
+\subsection{Viscoplastic framework}
+\label{subsec:evp_framework}
 
-The starting point is the Drucker--Prager criterion, in which the shear strength of a frictional material increases linearly with the mean stress. In the meridional plane, with $p$ the mean stress and $q$ the Mises equivalent stress, the failure surface is
+Two families of models describe time-dependent soils~\cite{perzyna1966,yin1989,vermeer1999}. In \emph{overstress} models, of the Perzyna type, the viscoplastic strain rate is a function of the distance between the current stress and a static yield surface; inside the surface the response is elastic. In \emph{creep} models the viscoplastic strain rate is a function of stress and of a hardening variable, without a separate static surface. The isotache law of Equation~\eqref{eq:isotache} belongs to both: it can be read as a creep law in which the void ratio is the hardening variable, or as a Perzyna law with an exponential overstress function, in which the reference surface is the isochrone of age $\tau_{ref}$ and the overstress is measured by the distance of the void ratio from it~\cite{yin1989}. Simo et al.\ formulated the cap model of soil plasticity with a Perzyna-type rate dependence~\cite{simo1988}; the model of this section follows the same idea, with the exponential function of the isotache law in place of the power function of the original Perzyna law. The choice of the exponential is dictated by the tests: only an exponential function of the void ratio gives a creep that is linear in $\log t$ and continues without a steady state, as observed.
+
+\subsection{One-dimensional model and calibration}
+\label{subsec:evp1d}
+
+In one dimension the model reads
 \begin{equation}
-    F_s = t - p\tan\beta - d = 0,
-    \label{eq:dp_shear}
+    \dot e = -\frac{C_s}{\ln10}\,\frac{\dot\sigma}{\sigma}
+    \;-\; \frac{C_\alpha}{\ln10\;\tau_0}\;a_T(T)\;10^{\,[e - e_{NC}(\sigma)]/C_\alpha},
+    \qquad e_{NC}(\sigma) = e_{ref} - C_c\log_{10}\sigma,
+    \label{eq:evp1d}
 \end{equation}
-where $\beta$ is the friction angle in the $p$--$t$ plane, $d$ the cohesion and $t$ a deviatoric stress measure, equal to $q$ when the dependence on the third invariant is neglected. For triaxial compression, $\beta$ is related to the Mohr--Coulomb friction angle $\varphi$ by
+where the first term is the elastic response of the skeleton, $e_{NC}$ is the reference isochrone of age $\tau_0 = 1$\,min, and the temperature acts only through the time-shift factor
 \begin{equation}
-    \tan\beta = \frac{6\sin\varphi}{3-\sin\varphi}.
-    \label{eq:dp_beta}
+    a_T(T) = \exp\!\left[-\frac{Q}{R_g}\left(\frac{1}{T}-\frac{1}{T_{ref}}\right)\right], \qquad T_{ref} = 253.15\,\text{K}.
+    \label{eq:aT}
 \end{equation}
+At constant stress and temperature Equation~\eqref{eq:evp1d} integrates to Equation~\eqref{eq:isotache_t}. After a change of stress or temperature no restart is needed: the memory of the previous history is carried entirely by the void ratio, and the rate resumes from the equivalent age of the sample (Section~\ref{sec:comparison}). Equation~\eqref{eq:evp1d} was integrated with an implicit solver (\texttt{ode15s}) along the measured oil pressure of each test (median-filtered over nine readings) and along the history of the bath set point, starting from the measured void ratio when the load reached 1.9\,MPa and ending at the start of unloading.
 
-A linear Drucker--Prager model is not suited to the tests of this work. In the vessel the strain path is oedometric and the stress path stays close to the hydrostatic axis, with $q/p\approx0.5$, far below the failure line; the response is dominated by volumetric compaction, with the void ratio falling from about 0.80 to 0.33--0.43 in a few days. The creep formulation associated with the linear Drucker--Prager model in Abaqus is active only above a cone parallel to the failure surface and has a dilatant flow potential, so it cannot produce time-dependent compaction, for the same reason as the isochoric flow laws of ice (Section~\ref{subsec:compressible}).
+\paragraph{Calibration.} The parameters were fitted by least squares on 120 points per test, evenly spaced in $\log t$. $C_c$ and $C_s$ are common to all the tests; $C_\alpha$ and $e_{ref}$ are fitted for each test, so that $e_{ref}$ absorbs the differences in initial state between samples. The activation energy is not fitted but fixed at $Q = 130$\,kJ/mol, within the range of 120--145\,kJ/mol obtained from the temperature steps of F219 (Section~\ref{subsec:temperature}). Table~\ref{tab:evp1d} gives the parameters and Figure~\ref{fig:evp1d} the comparison with the tests.
 
-The \emph{modified Drucker--Prager/cap} model was therefore adopted~\cite{abaqus2026}. It adds to the failure surface of Equation~\eqref{eq:dp_shear} an elliptical cap that bounds the elastic domain in compression:
-\begin{equation}
-    F_c = \sqrt{(p-p_a)^2 + \left(\frac{R\,t}{1+\alpha-\alpha/\cos\beta}\right)^2} - R\,(d + p_a\tan\beta) = 0,
-    \label{eq:dp_cap}
-\end{equation}
-where $R$ controls the shape of the cap, $\alpha$ defines a transition surface between the cap and the failure surface, and $p_a$ is an evolution parameter. The cap meets the hydrostatic axis at the yield pressure
-\begin{equation}
-    p_b = p_a + R\,(d + p_a\tan\beta),
-    \label{eq:dp_pb}
-\end{equation}
-which hardens with the volumetric inelastic strain, $p_b = p_b(\varepsilon^{in}_{vol})$, given in tabular form as the normal compression line of the material.
-
-Time-dependent behaviour is introduced through the \emph{consolidation creep} mechanism of the cap model, which produces volumetric creep strains in the compressive region of the stress space ($p > p_a$), with a flow direction given by the cap potential. Under oedometric conditions steady creep requires the creep strain to be purely axial; this fixes the stress ratio $\eta = q/(p-p_a)$ and therefore the coefficient of earth pressure at rest during creep:
-\begin{equation}
-    \eta = \frac{2}{3R^2}, \qquad K_0 = \frac{3-\eta}{3+2\eta}.
-    \label{eq:dp_K0}
-\end{equation}
-The cap parameter $R$ thus controls the lateral stress that develops during creep, the quantity that the vessel does not measure. Equation~\eqref{eq:dp_K0} plays the same role as Equation~\eqref{eq:porous_oed} for the porous law.
-
-\subsection{Rate law}
-\label{subsec:abaqus_rate}
-
-The consolidation creep mechanism accepts the creep laws built into Abaqus (time hardening, strain hardening, Singh--Mitchell) or a law defined by the user in the subroutine \texttt{CREEP}. The isotache law of Equation~\eqref{eq:isotache} was implemented in the subroutine. Written in terms of the volumetric creep strain $\varepsilon_v^{cr}$ it becomes
-\begin{equation}
-    \dot\varepsilon_v^{cr} = A\left(\frac{p^{cr}}{p_{ref}}\right)^{n}\exp\!\left(-\frac{\varepsilon_v^{cr}}{\kappa}\right)\exp\!\left[-\frac{Q}{R_g}\left(\frac{1}{T}-\frac{1}{T_{ref}}\right)\right],
-    \label{eq:abq_isotache}
-\end{equation}
-where $p^{cr}$ is the effective creep pressure, $n$ corresponds to $C_c/C_\alpha$, $\kappa$ to $C_\alpha/[(1+e)\ln10]$, $Q$ is the apparent activation energy, $R_g$ the gas constant and $T_{ref} = 253.15$\,K. Equation~\eqref{eq:abq_isotache} is the strain form of the isotache law~\cite{bjerrum1967} and of the Soft Soil Creep model~\cite{vermeer1999}. Within each time increment, at constant stress and temperature, it can be integrated exactly:
-\begin{equation}
-    \Delta\varepsilon_v^{cr} = \kappa\,\ln\!\left[1 + \frac{\dot\varepsilon_{v,0}\,\Delta t}{\kappa}\right],
-    \label{eq:abq_increment}
-\end{equation}
-where $\dot\varepsilon_{v,0}$ is the rate at the start of the increment. The integration is therefore unconditionally stable with respect to the length of the time increment, which allows analyses spanning years with few increments. Temperature enters as a field variable, so that a thermal analysis of the ground can be coupled sequentially to the mechanical one.
-
-% TODO: extension with a second, non-decaying term for the flow of the ice matrix, under evaluation.
-
-\subsection{Finite element model of the oedometric test}
-\label{subsec:abaqus_fem}
-
-The vessel was modelled as an axisymmetric problem (Figure~\ref{fig:abaqus_mesh}). The specimen has a radius of 12.7\,mm and an initial height of 45\,mm and is discretised with a column of four-node axisymmetric elements (CAX4). In an ideal oedometer stress and strain are homogeneous and a single element would be sufficient; five elements were used so that wall friction can be introduced later. The boundary conditions are:
-\begin{itemize}
-    \item zero vertical displacement at the base (lower frit);
-    \item zero radial displacement on the lateral boundary (rigid vessel wall);
-    \item a uniform pressure on the top surface, equal to the oil pressure of the Hydromatic controller.
-\end{itemize}
-The pressure follows the history of the tests: a one-minute ramp to the target value, then a constant hold or a sequence of stress steps (F216). The temperature is prescribed with the history of the bath set point, so that temperature steps (F219) can be simulated; no thermal strains are introduced. The analysis uses the \texttt{*VISCO} procedure with large-deformation kinematics, since the axial strains reach 20--30\%. The void ratio is obtained from the displacement of the top surface $u_z$ as $e = (1+e_0)(H_0+u_z)/H_0 - 1$.
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Test & $T$ ($^\circ$C) & $\sigma$ (MPa) & $C_\alpha$ & $e_{ref}$ & rms error in $e$ & max error in $e$ \\
+\midrule
+F213 & $-20$ & 2 & 0.041 & 0.638 & 0.0025 & 0.006 \\
+F214 & $-20$ & 2 & 0.041 & 0.627 & 0.0031 & 0.009 \\
+F216 & $-20$ & 2, 3.4 & 0.047 & 0.635 & 0.0010 & 0.005 \\
+F218 & $-30$ & 2 & 0.041 & 0.615 & 0.0008 & 0.004 \\
+F219 & $-30$, $-20$, $-10$ & 2 & 0.064\,/\,0.076\,/\,0.088 & 0.573 & 0.0040 & 0.009 \\
+\midrule
+\multicolumn{7}{@{}l}{Common: $C_c = 0.313$, $C_s = 0.004$, $Q = 130$\,kJ/mol (fixed), $\tau_0 = 1$\,min, $T_{ref} = -20\,^\circ$C} \\
+\bottomrule
+\end{tabular}
+\caption{Parameters of the one-dimensional model (Equation~\eqref{eq:evp1d}) for the mixture with $\phi_i = 0.50$. For F219, $C_\alpha$ is given at the three temperatures (linear increase of 19\% per 10\,K).}
+\label{tab:evp1d}
+\end{table}
 
 \begin{figure}[H]
     \centering
-    % \includegraphics[width=0.45\textwidth]{Images/fig_abaqus_mesh.pdf}
-    \fbox{\parbox[c][4cm][c]{0.45\textwidth}{\centering Figure to be added:\\ axisymmetric model of the vessel}}
-    \caption{Axisymmetric finite element model of the oedometric test: mesh and boundary conditions.}
-    \label{fig:abaqus_mesh}
+    \includegraphics[width=\textwidth]{Images/fig_evp1d_tests.png}
+    \caption{One-dimensional elastic--viscoplastic model (Equation~\eqref{eq:evp1d}) against the five tests on the mixture with $\phi_i = 0.50$, driven by the measured oil pressure and bath temperature. Parameters in Table~\ref{tab:evp1d}; rms is the root-mean-square difference in void ratio over the whole record. The dotted lines in (e) mark the changes of temperature.}
+    \label{fig:evp1d}
 \end{figure}
 
-\subsection{Material parameters}
-\label{subsec:abaqus_param}
+Four results follow.
+\begin{itemize}
+    \item \textbf{The compression index fitted on the creep data is that of the stress-step test.} $C_c = 0.313$, obtained from the whole set of curves, coincides with the value of 0.31 obtained in Section~\ref{subsec:cal_stress} from the void ratios at equal time. The model reproduces the immediate compression and the renewed creep after the stress step of F216 without any parameter specific to the step.
+    \item \textbf{The model follows the temperature steps without restart.} In F219 the rate after each warming is reproduced with the time-shift factor of Equation~\eqref{eq:aT} alone, which confirms the density-hardening form of the law.
+    \item \textbf{$C_\alpha$ increases with temperature in F219.} With $Q = 130$\,kJ/mol and a constant $C_\alpha$ the model misses the last two stages of F219 by up to 0.07 in void ratio. Leaving $Q$ free, the fit requires $Q\approx220$\,kJ/mol, well above the value measured directly at the steps, and still leaves a maximum error of 0.018. With $Q$ fixed and $C_\alpha$ increasing by about 20\% per 10\,K the maximum error falls to 0.009. Warming the mixture therefore not only accelerates the creep but also increases its magnitude per decade of time. F213 and F218, at $-20$ and $-30\,^\circ$C, have the same $C_\alpha$, so this effect is seen only on the single sample of F219 and should be confirmed.
+    \item \textbf{The scatter between samples is carried by $e_{ref}$.} With a single $e_{ref}$ for all the tests the rms error rises to about 0.011. The differences between samples of the same mixture are of the same order as the effect of 10\,K (Section~\ref{subsec:uncertainty}), so the temperature dependence is constrained by F219 and not by the comparison between F213 and F218.
+\end{itemize}
 
-No shear tests were performed on the mixtures, so the failure surface was defined from the literature: $\varphi = 38.6^\circ$ for compacted LHS-1~\cite{agarwal2023} gives $\beta = 57.6^\circ$ from Equation~\eqref{eq:dp_beta}. Along the oedometric stress path the failure surface is never reached, so these parameters do not affect the simulation of the present tests; they matter only in boundary value problems with significant shear. The cap parameter $R$ was derived from Equation~\eqref{eq:dp_K0} with an assumed $K_0 = 0.6$, within the range of the porous law and of firn (Section~\ref{subsec:cal_porosity}). Elasticity was taken as linear ($E = 300$\,MPa, $\nu = 0.3$), consistent with the small recompression indices reported for lunar soil.
+\subsection{Three-dimensional formulation}
+\label{subsec:evp3d}
 
-The rate parameters are those of the isotache law (Table~\ref{tab:isotache_params}), refined by least squares on the complete void ratio curves of the tests. The fit uses an independent integration of the rate law in Python and MATLAB; the subroutine was verified against it and reproduces its response within $10^{-3}$ in void ratio. Tests not used in the calibration are kept for validation.
-
-\subsection{Software constraints}
-\label{subsec:abaqus_license}
-
-User subroutines are not available in the Abaqus Learning Edition, nor with the teaching licence of the virtual desktop of Politecnico di Milano: both reject the subroutine \texttt{CREEP}. A second version of the model was therefore prepared with the built-in laws only. In this version the immediate compression is assigned to the hardening law of the cap, and the time-dependent part to the time-hardening law
+\paragraph{Yield surfaces.} The extension to a general stress state uses the two surfaces of the Drucker--Prager/cap model (Figure~\ref{fig:evp3d}). The failure surface is the Drucker--Prager cone of Equation~\eqref{eq:dp_shear}, written as
 \begin{equation}
-    \dot\varepsilon_v^{cr} = A(T)\,(p^{cr})^{n}\,t^{m},
+    F_s = q - M\,(p + p_t) = 0, \qquad M = \frac{6\sin\varphi}{3-\sin\varphi}, \qquad p_t = c\,\cot\varphi,
+    \label{eq:dp_shear}
+\end{equation}
+with $p$ the mean stress, $q$ the Mises equivalent stress, $\varphi$ and $c$ the Mohr--Coulomb friction angle and cohesion, $M$ the slope of the cone in triaxial compression and $p_t$ the isotropic tensile strength. In compression, the state is described by an elliptical cap through the current stress point,
+\begin{equation}
+    p_{eq} = p' + \frac{q^2}{M_c^2\,p'}, \qquad p' = p + p_t,
+    \label{eq:peq}
+\end{equation}
+where $p_{eq}$ is the equivalent pressure, the intercept of the ellipse with the hydrostatic axis, and $M_c$ its shape parameter.
+
+\paragraph{Viscoplastic strain rate on the cap.} The volumetric viscoplastic strain rate is the one-dimensional law written in terms of $p_{eq}$:
+\begin{equation}
+    \dot\varepsilon_v^{vp} = \frac{C_\alpha}{(1+e)\ln10\;\tau_0}\;a_T(T)\;10^{\,[e - e_{ref} + C_c\log_{10}(p_{eq}/k_{NC})]/C_\alpha},
+    \label{eq:evp3d}
+\end{equation}
+and the strain rate tensor follows the normal to the cap,
+\begin{equation}
+    \dot{\boldsymbol\varepsilon}^{vp} = \frac{\dot\varepsilon_v^{vp}}{(\partial p_{eq}/\partial p)_{K_0}}\;\frac{\partial p_{eq}}{\partial\boldsymbol\sigma}.
+    \label{eq:evp3d_flow}
+\end{equation}
+The constant $k_{NC} = p_{eq}/\sigma_z$ on the normally consolidated oedometric path makes Equation~\eqref{eq:evp3d} coincide with Equation~\eqref{eq:evp1d} in the oedometer, so that the parameters of Table~\ref{tab:evp1d} are used unchanged. The normalisation by the value of $\partial p_{eq}/\partial p$ on the same path follows the Soft Soil Creep model~\cite{vermeer1999}; it keeps the rate finite when the stress ratio exceeds the top of the cap ($q/p' > M_c$). For zero lateral strain the viscoplastic strain must be purely axial, which fixes the shape of the cap from the coefficient of earth pressure at rest:
+\begin{equation}
+    M_c^2 = \eta_0^2 + 3\,\eta_0, \qquad \eta_0 = \frac{3\,(1-K_0)}{1+2K_0}.
+    \label{eq:Mc_K0}
+\end{equation}
+This is the counterpart of Equation~\eqref{eq:porous_oed} for the porous law: $K_0$ is an input of the model, not a result.
+
+\paragraph{Viscoplastic strain rate on the cone.} Above the failure surface a deviatoric, isochoric strain rate is added with a Perzyna power law,
+\begin{equation}
+    \dot{\boldsymbol\varepsilon}^{vp}_s = \frac{a_T(T)}{\tau_s}\left\langle\frac{F_s}{M\,(p+p_t)}\right\rangle^{N}\frac{\partial q}{\partial\boldsymbol\sigma},
+    \label{eq:perzyna_cone}
+\end{equation}
+where $\langle\cdot\rangle$ are Macaulay brackets. No test reached the failure surface, so $\tau_s = 1$\,min and $N = 3$ are assumptions; they control how fast the material fails once the cone is reached, not the creep below it.
+
+\paragraph{Elasticity.} The elastic response is hypoelastic, with the constrained modulus of the one-dimensional law, $E_{oed} = (1+e)\ln10\,\sigma_z/C_s$ with $\sigma_z = p/[(1+2K_0)/3]$, and a Poisson ratio $\nu = 0.3$.
+
+\paragraph{Strength parameters.} The oedometric tests do not involve the failure surface, so $\varphi$ and $c$ were taken from the literature. Dense dry LHS-1 ($\rho_d = 1.85$\,g/cm$^3$, relative density 86\%) gave $\varphi = 45.1^\circ$ at peak and $40.3^\circ$ at large strain in direct shear, with a cohesion below 2\,kPa~\cite{yin2023shear}. In sand saturated with ice the friction angle is not higher than in the unfrozen sand (31.4$^\circ$ against 37$^\circ$ at $-12\,^\circ$C~\cite{alkire1973}), and the ice acts mainly on the cohesion, which reaches several MPa in ice-cemented sand at $-10\,^\circ$C~\cite{parameswaran1981}. The mixtures of this work are not cemented: the ice is in grains of the same size as the coarse regolith grains and is compacted, not frozen in place. The unconfined strengths of 50--231\,kPa measured at $-20\,^\circ$C on a highland simulant with 3--12\% of water~\cite{pitcher2016} correspond, with $\varphi = 40^\circ$, to cohesions of 12--54\,kPa. The reference values adopted are $\varphi = 40^\circ$ and $c = 30$\,kPa, with sensitivity analyses over $\varphi = 35$--45$^\circ$ and $c = 10$--60\,kPa.
+
+\paragraph{Coefficient of earth pressure at rest.} $K_0$ was not measured. Jaky's relation, $K_0 = 1-\sin\varphi$, gives $K_0 = 0.35$ for $\varphi = 40^\circ$; the porous law and firn give about 0.5--0.6 (Section~\ref{subsec:cal_porosity}), and a creeping ice matrix tends towards isotropic stress. $K_0 = 0.35$ is used as reference. A higher value is not compatible with $\varphi = 40^\circ$ in this model: with $K_0 = 0.6$, Equation~\eqref{eq:Mc_K0} gives $M_c = 1.38$, lower than the slope of the cone ($M = 1.64$), so the cap rather than the cone limits the strength, and a triaxial load at 80\% of the Drucker--Prager strength fails by accelerating creep within minutes. $K_0$ and $\varphi$ must therefore be chosen together; $K_0 = 0.6$ would correspond to an effective friction angle of about $34^\circ$.
+
+\paragraph{Single-point checks.} The model was integrated for a material point under two kinds of control (Figure~\ref{fig:evp3d}): oedometric (axial stress prescribed, lateral strain zero) and drained triaxial (axial and radial stresses prescribed).
+\begin{itemize}
+    \item \textbf{Oedometer.} Along the measured history of F213 the three-dimensional model reproduces the one-dimensional one within 0.003--0.008 in void ratio for all the combinations of $c = 10$--60\,kPa, $\varphi = 35$--45$^\circ$ and $K_0 = 0.35$ or 0.6, and the ratio $\sigma_r/\sigma_z$ stays at the $K_0$ imposed through $M_c$. The small differences come from the shift $p_t$ of the mean stress, which Equation~\eqref{eq:evp3d} does not compensate. The oedometric tests therefore cannot determine $c$, $\varphi$ or $K_0$.
+    \item \textbf{Triaxial creep.} After one day of oedometric creep at 2\,MPa and $-20\,^\circ$C, the axial stress was raised in 1\,min at constant radial stress to 80\% of the Drucker--Prager failure value and held for one day. The axial strain after one day is 3.0\%, 6.6\% and 14.1\% for $\varphi = 35$, 40 and 45$^\circ$ (with $c = 30$\,kPa), and 6.1\%, 6.6\% and 7.4\% for $c = 10$, 30 and 60\,kPa (with $\varphi = 40^\circ$). A higher friction angle allows a higher deviator stress at the same fraction of the strength, which raises the equivalent pressure of Equation~\eqref{eq:peq} and with it the creep on the cap: most of this strain is volumetric compaction driven by shear, not flow on the cone.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/fig_evp3d_checks.png}
+    \caption{Single-point checks of the three-dimensional model. (a) Oedometric history of F213: the three-dimensional model ($K_0 = 0.35$, $c = 30$\,kPa, $\varphi = 40^\circ$) coincides with the one-dimensional model. (b, c) Drained triaxial creep after one day of oedometric creep at 2\,MPa and $-20\,^\circ$C, with the deviator stress raised to 80\% of the failure value: effect of $\varphi$ at $c = 30$\,kPa (b) and of $c$ at $\varphi = 40^\circ$ (c).}
+    \label{fig:evp3d}
+\end{figure}
+
+The strength parameters, irrelevant for the tests of this work, control the response as soon as the load has a significant deviatoric part, as under the edge of a foundation: within the range of the literature, $\varphi$ changes the predicted creep by a factor of about five and $c$ by about 20\%. Triaxial tests on the mixtures, or at least a measurement of the radial stress in the vessel, are needed before the model is used in such problems.
+
+\subsection{Finite element model of the sample}
+\label{subsec:fe_sample}
+
+In an ideal oedometer the stress is uniform and a material point is enough. In the vessel the sample is tall (height-to-diameter ratio of 1.6--1.8) and slides along the steel wall as it compacts, so that friction on the wall can carry part of the load. To estimate this effect, the model of Section~\ref{subsec:evp3d} was implemented in an axisymmetric finite element code written in MATLAB (Figure~\ref{fig:fe_friction}c).
+
+\paragraph{Model.} The sample of F213 is discretised with $6\times18$ four-node axisymmetric elements with $2\times2$ Gauss points, with a radius of 12.7\,mm and a height of 39.8\,mm at the start of the creep stage. The boundary conditions are:
+\begin{itemize}
+    \item a rigid piston on top: one common vertical displacement for all the top nodes, loaded by the measured oil pressure times the piston area;
+    \item rough frits at the top and bottom: zero radial displacement, and zero vertical displacement at the bottom;
+    \item a rigid side wall with Coulomb friction, $\tau = \mu\,\sigma_r$, opposing the downward sliding of the sample.
+\end{itemize}
+At each time step the viscoplastic strain increment is computed explicitly from the stress at the start of the step, and the displacements from an elastic solution with the viscoplastic increment as an initial strain, with an equilibrium correction (initial-strain method). The time step is adapted so that the viscoplastic strain increment does not exceed $2\times10^{-4}$; a simulation of F213 (66\,h) takes about 700 steps and 12\,s. The model starts at the beginning of the creep stage from a uniform state at the measured void ratio, so that the wall friction develops only during creep, and small strains are assumed.
+
+\paragraph{Verification.} Without wall friction the finite element model gives a final void ratio of 0.3919, against 0.3921 for the material point and 0.3907 measured, with uniform stress and void ratio in the sample.
+
+\paragraph{Effect of wall friction.} Table~\ref{tab:fe_friction} and Figure~\ref{fig:fe_friction} give the results for friction coefficients of 0.1--0.3, the range of soil on polished steel.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+$\mu$ & Final mean $e$ & $\sigma_z$ at the bottom / applied & Range of $e$ in the sample \\
+\midrule
+0 & 0.392 & 1.00 & uniform \\
+0.1 & 0.406 & 0.77 & 0.383--0.429 \\
+0.2 & 0.420 & 0.73 & 0.375--0.464 \\
+0.3 & 0.434 & 0.42 & 0.368--0.497 \\
+\midrule
+Test F213 & 0.391 & -- & -- \\
+\bottomrule
+\end{tabular}
+\caption{Finite element simulation of F213 with wall friction (parameters of Table~\ref{tab:evp1d}, $K_0 = 0.35$). The stresses are those at the end of the record.}
+\label{tab:fe_friction}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/fig_fe_wall_friction.png}
+    \caption{Finite element model of the sample of F213. (a) Mean void ratio from the piston displacement for wall friction coefficients $\mu = 0$--0.3, against the test. (b) Vertical stress, averaged over the radius, divided by the applied stress, along the height of the sample at the end of the record. (c) Void ratio at the Gauss points at the end of the record, $\mu = 0.2$.}
+    \label{fig:fe_friction}
+\end{figure}
+
+With $\mu = 0.2$ the wall carries about a quarter of the load at the bottom of the sample, the mean compaction is smaller by 0.03 in void ratio, and the sample becomes denser at the top near the wall and looser at the bottom. Two consequences follow. First, the parameters of Table~\ref{tab:evp1d}, obtained assuming a uniform stress, are apparent parameters: if the wall friction is significant the material creeps more than they indicate, and a recalibration with the finite element model would need the value of $\mu$. Second, the wall friction reduces the stress most at the lowest loads, in the same direction as the seal friction (Section~\ref{subsec:uncertainty}). It can be reduced with shorter samples (height-to-diameter ratio of about 0.5, as in standard oedometers) or a lubricated wall, and estimated from the profile of density measured by slicing a sample after the test.
+
+\subsection{Implementation in a commercial code}
+\label{subsec:abaqus}
+
+The modified Drucker--Prager/cap model of Abaqus/Standard~\cite{abaqus2026} has the same structure as the model of Section~\ref{subsec:evp3d}: a Drucker--Prager surface, an elliptical cap that hardens with the volumetric inelastic strain, and a \emph{consolidation creep} mechanism that produces volumetric creep under the cap. It was used to check whether the behaviour measured in the tests can be reproduced without writing a user material. The tests were simulated with one axisymmetric element (CAX4, radius 12.7\,mm, height 45\,mm) with the boundary conditions of an ideal oedometer, the measured load history and the bath temperature as a field. The cap was given $\beta = 57.6^\circ$ ($\varphi = 38.6^\circ$~\cite{agarwal2023}), $d = 0.01$\,MPa, $R = 1.11$ (from $K_0 = 0.6$), $E = 300$\,MPa and $\nu = 0.3$, and the hardening law of the cap was tabulated from the normal compression line with $C_c = 0.31$.
+
+\paragraph{Constraints of the Learning Edition.} User subroutines are not available in the Learning Edition, nor with the teaching licence of Politecnico di Milano, and no Fortran compiler was available, so the isotache law could not be introduced through the subroutine \texttt{CREEP}. Of the built-in laws, the strain-hardening and power laws, which would approximate the density hardening of the isotache law, could not be used: their rate is infinite at zero creep strain, and the analysis stopped as soon as the cap was reached, with time increments of $5\times10^{-8}$\,s. Only the time-hardening law,
+\begin{equation}
+    \dot\varepsilon^{cr} = A(T)\,(p^{cr})^{n}\,t^{m},
     \label{eq:abq_timehard}
 \end{equation}
-with $A$ tabulated as a function of temperature. Its parameters were calibrated directly with Abaqus, through a MATLAB procedure that modifies the input file, runs the analysis and compares the computed void ratio with the measurements. Because Equation~\eqref{eq:abq_timehard} is written in the total time, it cannot restart the creep after a change of stress or temperature; as shown in Section~\ref{sec:comparison} for the time-hardening laws of frozen soils, this form does not follow multi-stage tests. It is used only as a licence-independent check of the implementation; the subroutine is the reference model.
+could be used. With $n = 0.35$ and $m = -0.95$, close to a logarithmic creep, and $A$ calibrated on F213, the model reproduces the tests at constant load and temperature (F213, and F218 with the same $A$) within 0.03 in void ratio in the first minutes and 0.006 after one day (Figure~\ref{fig:abaqus}a).
 
-\subsection{Verification}
-\label{subsec:verification}
-% Single-element simulations of F213, F216, F218 and F219 compared with the experiments: to be added.
-In a single-element simulation under constant load, the coefficient of earth pressure at rest converged to the value of 0.60 imposed through $R$, which confirms Equation~\eqref{eq:dp_K0}. The comparison of the simulated and measured compaction curves will be presented here.
+\paragraph{Limit of the consolidation creep.} The tests with steps of stress or temperature are not reproduced (Figure~\ref{fig:abaqus}b, c). After the stress step of F216 the model compacts by 0.02 in void ratio, against 0.07 measured, and in F219 the creep stops before the first change of temperature, so that warming has no effect. The reason is structural. In the consolidation creep mechanism the creep strain also hardens the cap, and the driving stress is $p^{cr} = p - p_a$: as the material compacts, $p_a$ approaches $p$ and the creep stops, whatever the creep law. The maximum creep strain at constant stress follows from the hardening law and the shape of the cap,
+\begin{equation}
+    \varepsilon^{cr}_{max} \approx \frac{C_c}{1+e_0}\,\log_{10}(1 + R\tan\beta) \approx 0.075,
+    \label{eq:abq_ceiling}
+\end{equation}
+in agreement with the 0.064 reached in F213 after 2.7 days and the 0.085 of F219. In the tests the creep continues well beyond this value: after the first hour F219 compacted by a further 0.36 in void ratio, about 0.18 in axial strain. The consolidation creep of Abaqus is therefore a bounded, delayed compression, not an isotache creep.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/fig_abaqus_builtin.png}
+    \caption{Abaqus Learning Edition, modified Drucker--Prager/cap with consolidation creep (time-hardening law), one element. (a) Constant load: F213 at $-20\,^\circ$C and F218 at $-30\,^\circ$C with the same parameters. (b) Stress step of F216. (c) Temperature steps of F219, change of void ratio since 1\,min, with $A$ scaled with temperature as $F^{0.05}$ or as $F$: in both cases the creep is exhausted before the first change.}
+    \label{fig:abaqus}
+\end{figure}
+
+\paragraph{Stage-wise analysis with equivalent age.} The tests with steps can be followed by treating each stage as a separate analysis (Figure~\ref{fig:abaqus_stages}). Each analysis starts from a normally consolidated state at the measured void ratio at the beginning of the stage; the creep, with the time-hardening law written in total time, starts at the equivalent age $\tau$ given by the isotache law, reached through a static step in which creep is inactive. The equivalent ages are 394\,min after the change from $-30$ to $-20\,^\circ$C (3944\,min divided by the factor of 10), 246\,min after the change to $-10\,^\circ$C, and 21\,min after the stress step of F216 ($648\,\text{min}\times(2/3.4)^{6.5}$). These values are not fitted: free fits of each stage of F219 with a logarithmic law give 333 and 241\,min. With a single rescaling of $A$ per stage (by 2.4 and 2.7 in F219, 1.23 in F216) the analyses reproduce the shape of the curves after each step within 0.01 in void ratio. The first stage of F219 exceeds the limit of Equation~\eqref{eq:abq_ceiling} and was split into three analyses (1\,min--1\,h, 1--10\,h, 10--66\,h) with the same $A$, which end within 0.003--0.016 of the measured void ratio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/fig_abaqus_stages.png}
+    \caption{Stage-wise Abaqus analyses with the equivalent age $\tau$ of the isotache law. (a) F219: dashed, $A$ of the first stage and the $-30\,^\circ$C stage in one analysis; solid, $A$ rescaled once per stage and the $-30\,^\circ$C stage restarted at 1 and 10\,h (circles). (b) F216, with the stage at 3.4\,MPa started as a new test at the equivalent age of 21\,min.}
+    \label{fig:abaqus_stages}
+\end{figure}
+
+The stage-wise procedure shows that the equivalent age of the isotache law is the right way to carry the history across a change of stress or temperature. It remains a workaround: the need to rescale $A$ reflects the increase of $C_\alpha$ in F219 seen in Section~\ref{subsec:evp1d}, and the splitting of a stage restores the capacity of the cap to creep by an artifice, not by physics. For boundary value problems the model of Section~\ref{subsec:evp3d} should be implemented as a user material (\texttt{UMAT}) in a full licence of Abaqus, or in another finite element code, rather than approximated with the built-in creep laws.
 
 \section{Limitations and range of validity}
 \label{sec:model_limits}
@@ -372,7 +480,8 @@ Pore fluid & air at atmospheric pressure \\
     \item \textbf{Stress.} A lunar foundation applies 0.1--0.2\,MPa, below the range tested and close to the seal friction of the vessel (about 0.17\,MPa), which therefore cannot measure in this range. With the measured exponent of 5.5--7.5 the creep at 0.2\,MPa would be very slow; if grain boundary sliding ($n\approx1.8$) takes over at low stress, it would be much faster. The more conservative extrapolation should be used.
     \item \textbf{Temperature.} The lunar polar regolith is at 40--100\,K. The activation energy measured between $-30$ and $-10\,^\circ$C, and its increase towards the melting point, cannot be extrapolated with confidence over more than 150\,K; at these temperatures the creep is in any case negligible, and the law is needed only where a structure warms the ground.
     \item \textbf{Time.} The tests last at most a week, while a structure is designed for years. Extrapolating the log-linear creep over three or four decades of time assumes that no new mechanism (pore close-off, gas back-pressure, change of $C_\alpha$) appears.
-    \item \textbf{State of stress.} The radial stress is not measured: $K_0$ and the deviatoric response come from the porous law and the firn literature.
+    \item \textbf{State of stress.} The radial stress is not measured: $K_0$, the friction angle and the cohesion come from the literature, and they control the response of the three-dimensional model as soon as the load has a deviatoric part (Section~\ref{subsec:evp3d}).
+    \item \textbf{Wall friction.} The parameters assume a uniform stress in the sample. The finite element model shows that a wall friction coefficient of 0.2 would reduce the stress at the bottom of the sample by about a quarter and the mean compaction by 0.03 in void ratio (Section~\ref{subsec:fe_sample}); the parameters are therefore apparent values until the wall friction is measured.
     \item \textbf{Sample and material.} The scatter between samples of the same mixture is large; one simulant and one form of ice (sieved grains mixed with the regolith) are tested, while ice in the lunar regolith may coat or cement the grains; the pores contain air instead of vacuum.
     \item \textbf{Measurement.} The temperature of the sample is not recorded; the scale of the displacement measurement varies from test to test and is controlled by the measured heights.
 \end{itemize}
